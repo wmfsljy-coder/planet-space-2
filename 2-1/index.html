@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>태양과 별의 관측 — 관측 스테이션</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+
+<div class="app">
+  <nav class="rail" id="rail">
+    <div class="brand">
+      <a class="home" href="../">← 행성우주과학2</a>
+      <div class="eyebrow" style="margin-top:8px">Ⅱ-1 · 태양과 별의 관측</div>
+      <h1 class="display">별의 거리와<br>운동, 밝기</h1>
+    </div>
+    <button class="tab-btn active" data-tab="0"><span class="num">01</span> 연주 시차와 거리</button>
+    <button class="tab-btn" data-tab="1"><span class="num">02</span> 별의 공간 운동</button>
+    <button class="tab-btn" data-tab="2"><span class="num">03</span> 별의 질량과 변광성</button>
+  </nav>
+
+  <main>
+    <section class="tab-panel" data-panel="0">
+      <div class="stage-head">
+        <div class="eyebrow">01 · 지구의 공전을 이용한 거리 측정</div>
+        <h2 class="display">연주 시차로 별까지의 거리 재기</h2>
+        <p>연주 시차각 슬라이더를 조절해, 시차가 클수록(가까운 별) 거리가 어떻게 짧아지는지 확인해 보세요.</p>
+      </div>
+      <div class="stage-card">
+        <div class="canvas-wrap"><canvas id="c0" width="900" height="400"></canvas></div>
+        <div class="controls">
+          <div class="ctrl-group">
+            <div class="ctrl-label">연주 시차각(″, 각초)<span class="val" id="c0-p-val">0.5</span></div>
+            <input type="range" id="c0-p" min="0.05" max="1" step="0.01" value="0.5">
+          </div>
+        </div>
+        <div class="info-card" id="c0-info"></div>
+      </div>
+    </section>
+
+    <section class="tab-panel" data-panel="1" hidden>
+      <div class="stage-head">
+        <div class="eyebrow">02 · 별은 가만히 있지 않는다</div>
+        <h2 class="display">별의 공간 운동</h2>
+        <p>별의 실제 이동(공간 속도)은 시선 방향 속도(시선 속도)와 하늘 면에 대한 속도(고유 운동)로 나눌 수 있습니다.</p>
+      </div>
+      <div class="stage-card">
+        <div class="canvas-wrap"><canvas id="c1" width="900" height="380"></canvas></div>
+        <div class="controls">
+          <div class="ctrl-group">
+            <div class="ctrl-label">시선 속도(관측자 기준, km/s)<span class="val" id="c1-rv-val">10</span></div>
+            <input type="range" id="c1-rv" min="-30" max="30" step="1" value="10">
+          </div>
+          <div class="ctrl-group">
+            <div class="ctrl-label">고유 운동(하늘 면, km/s)<span class="val" id="c1-pm-val">20</span></div>
+            <input type="range" id="c1-pm" min="0" max="30" step="1" value="20">
+          </div>
+        </div>
+        <div class="info-card" id="c1-info"></div>
+      </div>
+    </section>
+
+    <section class="tab-panel" data-panel="2" hidden>
+      <div class="stage-head">
+        <div class="eyebrow">03 · 쌍성과 맥동변광성</div>
+        <h2 class="display">별의 질량과 변광성</h2>
+        <p>쌍성의 공통 질량 중심 위치로 질량비를, 맥동변광성의 광도 곡선으로 변광 주기를 확인해 보세요.</p>
+      </div>
+      <div class="stage-card">
+        <div class="canvas-wrap"><canvas id="c2" width="900" height="420"></canvas></div>
+        <div class="controls">
+          <div class="ctrl-group">
+            <div class="ctrl-label">쌍성 질량비 (A:B)<span class="val" id="c2-r-val">1 : 2</span></div>
+            <input type="range" id="c2-r" min="0.3" max="3" step="0.1" value="2">
+          </div>
+        </div>
+        <div class="info-card" id="c2-info"></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<button class="theme-toggle" id="themeToggle">라이트 모드</button>
+<script src="../assets/theme.js"></script>
+<script>
+(function () {
+"use strict";
+
+/* TAB0 연주시차 */
+(function () {
+  var canvas = document.getElementById("c0");
+  var ctx = setupCanvas(canvas);
+  var W = canvas._w, H = canvas._h;
+  var p = 0.5;
+  var info = document.getElementById("c0-info");
+  document.getElementById("c0-p").addEventListener("input", function (e) { p = +e.target.value; document.getElementById("c0-p-val").textContent = p.toFixed(2); render(); });
+
+  function render() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
+    var earthX = 150, earthY = H / 2;
+    var dist = Math.min(650, 60 / p);
+    var starX = 150 + dist, starY = H / 2;
+
+    ctx.strokeStyle = cssVar("--line"); ctx.beginPath(); ctx.ellipse(earthX, earthY, 6, 24, 0, 0, 7); ctx.stroke();
+    ctx.fillStyle = cssVar("--teal"); ctx.beginPath(); ctx.arc(earthX, earthY - 24, 6, 0, 7); ctx.fill();
+    ctx.beginPath(); ctx.arc(earthX, earthY + 24, 6, 0, 7); ctx.fill();
+    ctx.font = "10px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center";
+    ctx.fillText("지구(6개월 간격 위치)", earthX, earthY - 40);
+
+    ctx.fillStyle = cssVar("--coral"); ctx.beginPath(); ctx.arc(Math.min(starX, W - 60), starY, 8, 0, 7); ctx.fill();
+    ctx.fillText("별", Math.min(starX, W - 60), starY - 18);
+
+    ctx.save(); ctx.strokeStyle = cssVar("--violet"); ctx.setLineDash([3, 3]);
+    ctx.beginPath(); ctx.moveTo(earthX, earthY - 24); ctx.lineTo(Math.min(starX, W - 60), starY); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(earthX, earthY + 24); ctx.lineTo(Math.min(starX, W - 60), starY); ctx.stroke();
+    ctx.setLineDash([]); ctx.restore();
+
+    var distPc = 1 / p;
+    info.innerHTML = "연주 시차각이 <b>" + p.toFixed(2) + "″</b>일 때, 거리 = 1 / 시차각(″) 공식에 따라 별까지의 거리는 <b>" + distPc.toFixed(2) + " pc(파섹)</b> ≈ " + (distPc * 3.26).toFixed(1) + " 광년입니다. 시차각이 <b>클수록 가까운 별</b>입니다.";
+  }
+  render();
+})();
+
+/* TAB1 공간운동 */
+(function () {
+  var canvas = document.getElementById("c1");
+  var ctx = setupCanvas(canvas);
+  var W = canvas._w, H = canvas._h;
+  var rv = 10, pm = 20;
+  var info = document.getElementById("c1-info");
+  document.getElementById("c1-rv").addEventListener("input", function (e) { rv = +e.target.value; document.getElementById("c1-rv-val").textContent = rv; render(); });
+  document.getElementById("c1-pm").addEventListener("input", function (e) { pm = +e.target.value; document.getElementById("c1-pm-val").textContent = pm; render(); });
+
+  function render() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
+    var ox = W / 2, oy = H / 2;
+    ctx.fillStyle = cssVar("--teal"); ctx.beginPath(); ctx.arc(ox, oy, 8, 0, 7); ctx.fill();
+    ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center"; ctx.fillText("관측자(지구)", ox, oy + 24);
+
+    var scale = 6;
+    ctx.save(); ctx.strokeStyle = cssVar("--coral"); ctx.fillStyle = cssVar("--coral"); ctx.lineWidth = 3;
+    drawArrow(ctx, ox, oy, ox + rv * scale, oy, 9);
+    ctx.font = "700 11px Segoe UI"; ctx.textAlign = "left"; ctx.fillText("시선 속도(RV)", ox + rv * scale + 10, oy + 4);
+    ctx.restore();
+
+    ctx.save(); ctx.strokeStyle = cssVar("--cold"); ctx.fillStyle = cssVar("--cold"); ctx.lineWidth = 3;
+    drawArrow(ctx, ox + rv * scale, oy, ox + rv * scale, oy - pm * scale, 9);
+    ctx.font = "700 11px Segoe UI"; ctx.fillText("고유 운동", ox + rv * scale + 10, oy - pm * scale);
+    ctx.restore();
+
+    ctx.save(); ctx.strokeStyle = cssVar("--teal"); ctx.fillStyle = cssVar("--teal"); ctx.lineWidth = 4;
+    drawArrow(ctx, ox, oy, ox + rv * scale, oy - pm * scale, 11);
+    ctx.restore();
+
+    var totalV = Math.hypot(rv, pm);
+    info.innerHTML = "별의 실제 이동(<b>공간 속도</b>)은 관측자에게서 멀어지거나 가까워지는 <b>시선 속도(도플러 효과로 측정, " + rv + " km/s)</b>와, 하늘 면을 가로지르는 <b>고유 운동(" + pm + " km/s)</b>을 합성한 것입니다. 공간 속도 크기 ≈ " + totalV.toFixed(1) + " km/s.";
+  }
+  render();
+})();
+
+/* TAB2 쌍성과 변광성 */
+(function () {
+  var canvas = document.getElementById("c2");
+  var ctx = setupCanvas(canvas);
+  var W = canvas._w, H = canvas._h;
+  var ratio = 2;
+  var info = document.getElementById("c2-info");
+  document.getElementById("c2-r").addEventListener("input", function (e) {
+    ratio = +e.target.value;
+    document.getElementById("c2-r-val").textContent = "1 : " + ratio.toFixed(1);
+    render();
+  });
+
+  function render() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
+    // binary system
+    var cx = W / 2, cy = 150, sep = 220;
+    var fracB = ratio / (1 + ratio);
+    var comX = cx - sep / 2 + sep * fracB;
+    ctx.strokeStyle = cssVar("--line"); ctx.setLineDash([3, 3]);
+    ctx.beginPath(); ctx.moveTo(cx - sep / 2 - 30, cy); ctx.lineTo(cx + sep / 2 + 30, cy); ctx.stroke(); ctx.setLineDash([]);
+
+    var rA = 18, rB = 18 * Math.sqrt(ratio);
+    ctx.fillStyle = cssVar("--teal"); ctx.beginPath(); ctx.arc(cx - sep / 2, cy, rA, 0, 7); ctx.fill();
+    ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center"; ctx.fillText("A (질량 1)", cx - sep / 2, cy - rA - 10);
+    ctx.fillStyle = cssVar("--coral"); ctx.beginPath(); ctx.arc(cx + sep / 2, cy, rB, 0, 7); ctx.fill();
+    ctx.fillText("B (질량 " + ratio.toFixed(1) + ")", cx + sep / 2, cy - rB - 10);
+
+    ctx.fillStyle = cssVar("--foam"); ctx.beginPath(); ctx.arc(comX, cy, 4, 0, 7); ctx.fill();
+    ctx.font = "10px Segoe UI"; ctx.fillText("공통 질량 중심", comX, cy + 20);
+
+    // pulsating variable light curve
+    var lcY0 = 260, lcY1 = 400, x0 = 80, x1 = W - 80;
+    ctx.strokeStyle = cssVar("--line"); ctx.beginPath(); ctx.moveTo(x0, lcY0); ctx.lineTo(x0, lcY1); ctx.lineTo(x1, lcY1); ctx.stroke();
+    ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center";
+    ctx.fillText("시간 →", (x0 + x1) / 2, lcY1 + 20);
+    ctx.save(); ctx.translate(20, (lcY0 + lcY1) / 2); ctx.rotate(-Math.PI / 2); ctx.fillText("밝기", 0, 0); ctx.restore();
+
+    ctx.beginPath();
+    for (var px = 0; px <= 300; px++) {
+      var xx = x0 + px / 300 * (x1 - x0);
+      var yy = (lcY0 + lcY1) / 2 - Math.sin(px / 300 * Math.PI * 2 * 3) * (lcY1 - lcY0) * 0.35;
+      if (px === 0) ctx.moveTo(xx, yy); else ctx.lineTo(xx, yy);
+    }
+    ctx.strokeStyle = cssVar("--violet"); ctx.lineWidth = 2.5; ctx.stroke();
+    ctx.font = "700 12px Segoe UI"; ctx.fillStyle = cssVar("--violet"); ctx.textAlign = "left";
+    ctx.fillText("맥동 변광성의 광도 곡선(별이 부풀고 수축하며 밝기가 주기적으로 변함)", x0, lcY0 - 10);
+
+    info.innerHTML = "쌍성계에서 두 별은 <b>공통 질량 중심</b>을 사이에 두고 공전하며, 질량이 클수록 중심에서 가까이 공전합니다(질량이 " + ratio.toFixed(1) + "배인 B가 A보다 " + ratio.toFixed(1) + "배 가깝게 공전). <b>맥동 변광성</b>은 별 자체가 팽창·수축을 반복하며 밝기가 주기적으로 변하는 별로, 세페이드 변광성은 이 주기와 실제 밝기(광도) 사이의 관계를 이용해 먼 거리를 측정하는 데 쓰입니다.";
+  }
+  render();
+})();
+
+})();
+</script>
+</body>
+</html>

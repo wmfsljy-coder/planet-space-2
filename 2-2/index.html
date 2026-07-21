@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>은하와 우주 — 관측 스테이션</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+
+<div class="app">
+  <nav class="rail" id="rail">
+    <div class="brand">
+      <a class="home" href="../">← 행성우주과학2</a>
+      <div class="eyebrow" style="margin-top:8px">Ⅱ-2 · 은하와 우주</div>
+      <h1 class="display">우리은하와<br>우주의 구조</h1>
+    </div>
+    <button class="tab-btn active" data-tab="0"><span class="num">01</span> 성단과 우리은하</button>
+    <button class="tab-btn" data-tab="1"><span class="num">02</span> 은하의 질량과 암흑 물질</button>
+    <button class="tab-btn" data-tab="2"><span class="num">03</span> 은하의 후퇴와 우주 구조</button>
+  </nav>
+
+  <main>
+    <section class="tab-panel" data-panel="0">
+      <div class="stage-head">
+        <div class="eyebrow">01 · 별들이 모인 두 가지 방식</div>
+        <h2 class="display">성단과 우리은하의 구조</h2>
+        <p>성단의 종류를 비교하고, 우리은하 속에서 태양계가 어디에 위치하는지 확인해 보세요.</p>
+      </div>
+      <div class="stage-card">
+        <div class="canvas-wrap"><canvas id="c0" width="900" height="420"></canvas></div>
+        <div class="controls">
+          <div class="ctrl-group">
+            <div class="ctrl-label">보기</div>
+            <div class="seg" id="c0-view">
+              <button class="on" data-v="clusters">성단 비교</button>
+              <button data-v="galaxy">우리은하 구조</button>
+            </div>
+          </div>
+        </div>
+        <div class="info-card" id="c0-info"></div>
+      </div>
+    </section>
+
+    <section class="tab-panel" data-panel="1" hidden>
+      <div class="stage-head">
+        <div class="eyebrow">02 · 보이지 않는데 질량은 있다</div>
+        <h2 class="display">우리은하의 질량과 암흑 물질</h2>
+        <p>은하 중심에서 멀어질수록 회전 속도가 어떻게 관측되는지, 예상과 비교해 암흑 물질의 존재 증거를 확인해 보세요.</p>
+      </div>
+      <div class="stage-card">
+        <div class="canvas-wrap"><canvas id="c1" width="900" height="400"></canvas></div>
+        <div class="info-card">보이는 물질(별과 가스)의 분포만 고려하면, 은하 중심에서 멀어질수록 회전 속도가 <b>감소</b>할 것으로 예상됩니다(케플러 운동과 유사, 그래프의 점선). 하지만 실제 관측된 회전 속도(그래프의 실선)는 먼 거리에서도 <b>거의 일정하게 유지</b>됩니다. 이 차이를 설명하려면 은하 외곽에 우리가 볼 수 없는 추가적인 질량, 즉 <b>암흑 물질</b>이 널리 분포해야 합니다.</div>
+      </div>
+    </section>
+
+    <section class="tab-panel" data-panel="2" hidden>
+      <div class="stage-head">
+        <div class="eyebrow">03 · 멀어지는 은하들과 우주의 그물망</div>
+        <h2 class="display">은하의 적색 이동과 우주의 구조</h2>
+        <p>거리 슬라이더로 은하의 후퇴 속도와 적색 이동을, 아래에서 우주의 거대 구조를 확인해 보세요.</p>
+      </div>
+      <div class="stage-card">
+        <div class="canvas-wrap"><canvas id="c2" width="900" height="420"></canvas></div>
+        <div class="controls">
+          <div class="ctrl-group">
+            <div class="ctrl-label">은하까지의 거리(Mpc)<span class="val" id="c2-d-val">200</span></div>
+            <input type="range" id="c2-d" min="10" max="1000" step="10" value="200">
+          </div>
+        </div>
+        <div class="info-card" id="c2-info"></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<button class="theme-toggle" id="themeToggle">라이트 모드</button>
+<script src="../assets/theme.js"></script>
+<script>
+(function () {
+"use strict";
+
+/* TAB0 성단/우리은하 */
+(function () {
+  var canvas = document.getElementById("c0");
+  var ctx = setupCanvas(canvas);
+  var W = canvas._w, H = canvas._h;
+  var view = "clusters";
+  var info = document.getElementById("c0-info");
+  document.querySelectorAll("#c0-view button").forEach(function (b) {
+    b.addEventListener("click", function () { view = b.getAttribute("data-v"); document.querySelectorAll("#c0-view button").forEach(function (x) { x.classList.toggle("on", x === b); }); render(); });
+  });
+  var seed = 7;
+  function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+
+  function render() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
+    if (view === "clusters") {
+      // open cluster (left)
+      seed = 7;
+      for (var i = 0; i < 60; i++) {
+        var x = 230 + (rnd() - 0.5) * 240, y = 210 + (rnd() - 0.5) * 180;
+        ctx.fillStyle = cssVar("--teal"); ctx.beginPath(); ctx.arc(x, y, 2.5, 0, 7); ctx.fill();
+      }
+      ctx.font = "700 13px Segoe UI"; ctx.fillStyle = cssVar("--foam"); ctx.textAlign = "center";
+      ctx.fillText("산개 성단", 230, 340);
+      ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist");
+      ctx.fillText("수십~수천 개의 젊은 별, 불규칙한 분포", 230, 360);
+
+      // globular cluster (right)
+      seed = 42;
+      for (var j = 0; j < 200; j++) {
+        var ang = rnd() * Math.PI * 2, r = Math.pow(rnd(), 0.5) * 140;
+        var x2 = 650 + Math.cos(ang) * r, y2 = 210 + Math.sin(ang) * r;
+        ctx.fillStyle = cssVar("--coral"); ctx.beginPath(); ctx.arc(x2, y2, 2, 0, 7); ctx.fill();
+      }
+      ctx.font = "700 13px Segoe UI"; ctx.fillStyle = cssVar("--foam");
+      ctx.fillText("구상 성단", 650, 340);
+      ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist");
+      ctx.fillText("수만~수백만 개의 늙은 별, 공 모양으로 밀집", 650, 360);
+
+      info.innerHTML = "<b>산개 성단</b>은 나선 은하의 나선팔에 분포하는 비교적 젊고 파란 별들의 느슨한 무리입니다. <b>구상 성단</b>은 은하 헤일로에 분포하는 늙고 붉은 별들이 공 모양으로 빽빽하게 뭉친 무리입니다.";
+    } else {
+      var cx = W / 2, cy = H / 2;
+      ctx.save(); ctx.fillStyle = cssVar("--mist"); ctx.globalAlpha = .15;
+      ctx.beginPath(); ctx.arc(cx, cy, 190, 0, 7); ctx.fill(); ctx.restore();
+      ctx.font = "10px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center";
+      ctx.fillText("헤일로(구상 성단 분포)", cx, cy - 200);
+
+      for (var arm = 0; arm < 2; arm++) {
+        ctx.beginPath();
+        for (var t = 0; t < 4.5; t += 0.05) {
+          var r = 10 + t * 32;
+          var ang = t + arm * Math.PI;
+          var x = cx + r * Math.cos(ang), y = cy + r * Math.sin(ang) * 0.6;
+          if (t === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.strokeStyle = cssVar("--teal"); ctx.lineWidth = 8; ctx.globalAlpha = .5; ctx.stroke(); ctx.globalAlpha = 1;
+      }
+      ctx.fillStyle = cssVar("--coral"); ctx.beginPath(); ctx.arc(cx, cy, 22, 0, 7); ctx.fill();
+      ctx.font = "10px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.fillText("은하 중심(팽대부)", cx, cy - 30);
+
+      var sunAng = 2.3, sunR = 130;
+      var sunX = cx + sunR * Math.cos(sunAng), sunY = cy + sunR * Math.sin(sunAng) * 0.6;
+      ctx.fillStyle = cssVar("--violet"); ctx.beginPath(); ctx.arc(sunX, sunY, 6, 0, 7); ctx.fill();
+      ctx.fillText("태양계 위치", sunX, sunY - 14);
+
+      info.innerHTML = "우리은하는 지름 약 10만 광년의 막대 나선 은하로 추정됩니다. 태양계는 은하 중심에서 약 2.6만 광년 떨어진 나선팔 부근에 위치합니다. 구상 성단은 주로 <b>헤일로</b>에, 산개 성단은 <b>나선팔</b>에 분포합니다.";
+    }
+  }
+  render();
+})();
+
+/* TAB1 암흑물질 */
+(function () {
+  var canvas = document.getElementById("c1");
+  var ctx = setupCanvas(canvas);
+  var W = canvas._w, H = canvas._h;
+  function render() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
+    var x0 = 80, x1 = W - 80, y0 = 40, y1 = H - 60;
+    ctx.strokeStyle = cssVar("--line"); ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x0, y1); ctx.lineTo(x1, y1); ctx.stroke();
+    ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center";
+    ctx.fillText("은하 중심으로부터의 거리 →", (x0 + x1) / 2, y1 + 26);
+    ctx.save(); ctx.translate(24, (y0 + y1) / 2); ctx.rotate(-Math.PI / 2); ctx.fillText("회전 속도", 0, 0); ctx.restore();
+
+    // expected (Keplerian decline)
+    ctx.beginPath();
+    for (var px = 0; px <= 200; px++) {
+      var xx = x0 + px / 200 * (x1 - x0);
+      var frac = px / 200;
+      var v = frac < 0.15 ? frac / 0.15 : 1 / Math.sqrt(frac / 0.15);
+      var yy = y1 - v * 0.55 * (y1 - y0);
+      if (px === 0) ctx.moveTo(xx, yy); else ctx.lineTo(xx, yy);
+    }
+    ctx.strokeStyle = cssVar("--mist"); ctx.setLineDash([5, 4]); ctx.lineWidth = 2; ctx.stroke(); ctx.setLineDash([]);
+    ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "left";
+    ctx.fillText("예상(보이는 물질만 고려)", x1 - 220, y0 + 90);
+
+    // observed (flat)
+    ctx.beginPath();
+    for (var px2 = 0; px2 <= 200; px2++) {
+      var xx2 = x0 + px2 / 200 * (x1 - x0);
+      var frac2 = px2 / 200;
+      var v2 = frac2 < 0.15 ? frac2 / 0.15 : 1;
+      var yy2 = y1 - v2 * 0.7 * (y1 - y0);
+      if (px2 === 0) ctx.moveTo(xx2, yy2); else ctx.lineTo(xx2, yy2);
+    }
+    ctx.strokeStyle = cssVar("--teal"); ctx.lineWidth = 2.5; ctx.stroke();
+    ctx.fillStyle = cssVar("--teal"); ctx.fillText("실제 관측된 회전 속도", x0 + 20, y0 + 30);
+  }
+  render();
+})();
+
+/* TAB2 적색이동 */
+(function () {
+  var canvas = document.getElementById("c2");
+  var ctx = setupCanvas(canvas);
+  var W = canvas._w, H = canvas._h;
+  var dist = 200;
+  var H0 = 70;
+  var info = document.getElementById("c2-info");
+  document.getElementById("c2-d").addEventListener("input", function (e) { dist = +e.target.value; document.getElementById("c2-d-val").textContent = dist; render(); });
+
+  function render() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
+    var v = H0 * dist;
+    var x0 = 60, x1 = 480, y0 = 40, y1 = 220;
+    ctx.strokeStyle = cssVar("--line"); ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x0, y1); ctx.lineTo(x1, y1); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x0, y1); ctx.lineTo(x1, y1 - (H0 * 1000) / (H0 * 1000) * (y1 - y0)); ctx.strokeStyle = cssVar("--teal"); ctx.lineWidth = 2; ctx.stroke();
+    var px = x0 + dist / 1000 * (x1 - x0), py = y1 - v / (H0 * 1000) * (y1 - y0);
+    ctx.fillStyle = cssVar("--coral"); ctx.beginPath(); ctx.arc(px, py, 6, 0, 7); ctx.fill();
+    ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center"; ctx.fillText("거리(Mpc) →", (x0 + x1) / 2, y1 + 26);
+
+    // redshift wave illustration
+    var waveLen = 6 + dist / 60;
+    ctx.save(); ctx.strokeStyle = cssVar("--coral"); ctx.lineWidth = 2; ctx.beginPath();
+    for (var i = 0; i < 300; i++) {
+      var xx = 560 + i * 1.1;
+      var yy = 120 + Math.sin(i / waveLen) * 30;
+      if (i === 0) ctx.moveTo(xx, yy); else ctx.lineTo(xx, yy);
+    }
+    ctx.stroke(); ctx.restore();
+    ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "left";
+    ctx.fillText("멀어지는 은하의 빛 → 적색 이동(파장이 늘어남)", 560, 90);
+
+    // large scale structure schematic
+    var seed2 = 5;
+    function rnd2() { seed2 = (seed2 * 9301 + 49297) % 233280; return seed2 / 233280; }
+    ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.fillText("우주의 거대 구조(개념도): 은하단과 거대 공동", 60, 280);
+    for (var g = 0; g < 5; g++) {
+      var gx = 100 + rnd2() * 700, gy = 320 + rnd2() * 80;
+      for (var m = 0; m < 12; m++) {
+        ctx.fillStyle = cssVar("--violet");
+        ctx.beginPath(); ctx.arc(gx + (rnd2() - 0.5) * 40, gy + (rnd2() - 0.5) * 40, 2, 0, 7); ctx.fill();
+      }
+    }
+
+    info.innerHTML = "거리 " + dist + " Mpc인 은하의 후퇴 속도는 허블 법칙(v = H₀ × d)에 따라 약 <b>" + Math.round(v).toLocaleString() + " km/s</b>입니다. 멀어지는 은하의 빛은 파장이 길어지는 <b>적색 이동</b>을 보이며, 후퇴 속도가 빠를수록 적색 이동이 큽니다. 우주에는 은하들이 밀집한 <b>은하단</b>과 은하가 거의 없는 <b>거대 공동</b>이 그물망처럼 얽힌 거대 구조가 있습니다.";
+  }
+  render();
+})();
+
+})();
+</script>
+</body>
+</html>
