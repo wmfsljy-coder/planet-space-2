@@ -18,6 +18,7 @@
     <button class="tab-btn active" data-tab="0"><span class="num">01</span> 성단과 우리은하</button>
     <button class="tab-btn" data-tab="1"><span class="num">02</span> 은하의 질량과 암흑 물질</button>
     <button class="tab-btn" data-tab="2"><span class="num">03</span> 은하의 후퇴와 우주 구조</button>
+    <button class="tab-btn" data-tab="3"><span class="num">04</span> 성간 물질</button>
   </nav>
 
   <main>
@@ -69,6 +70,28 @@
           </div>
         </div>
         <div class="info-card" id="c2-info"></div>
+      </div>
+    </section>
+
+    <section class="tab-panel" data-panel="3" hidden>
+      <div class="stage-head">
+        <div class="eyebrow">04 · 별과 별 사이를 채우는 가스와 티끌</div>
+        <h2 class="display">성간 물질</h2>
+        <p>성운의 세 종류를 카드에서 확인하고, 슬라이더로 성간 티끌의 양에 따라 별빛의 색이 어떻게 붉어지는지(성간 적색화) 관찰해 보세요.</p>
+      </div>
+      <div class="stage-card">
+        <div class="card-grid" id="c3-grid" style="padding:18px 20px 0;"></div>
+        <div class="detail-panel" id="c3-detail"><span class="hint">위에서 성운 카드를 하나 선택해 보세요.</span></div>
+      </div>
+      <div class="stage-card" style="margin-top:14px;">
+        <div class="canvas-wrap"><canvas id="c3" width="900" height="200"></canvas></div>
+        <div class="controls">
+          <div class="ctrl-group">
+            <div class="ctrl-label">성간 티끌의 양<span class="val" id="c3-dust-val">0</span></div>
+            <input type="range" id="c3-dust" min="0" max="100" step="1" value="0">
+          </div>
+        </div>
+        <div class="info-card">성간 티끌은 파장이 짧은 파란빛을 파장이 긴 붉은빛보다 더 많이 산란시킵니다. 그 결과 티끌이 많은 성간 공간을 통과한 별빛일수록 실제보다 더 붉게 보이는데, 이를 <b>성간 적색화</b>라고 합니다. 이 효과 때문에 별의 겉보기 색만으로 표면 온도를 판단할 때는 성간 소광을 보정해야 합니다.</div>
       </div>
     </section>
   </main>
@@ -241,6 +264,76 @@
 
     info.innerHTML = "거리 " + dist + " Mpc인 은하의 후퇴 속도는 허블 법칙(v = H₀ × d)에 따라 약 <b>" + Math.round(v).toLocaleString() + " km/s</b>입니다. 멀어지는 은하의 빛은 파장이 길어지는 <b>적색 이동</b>을 보이며, 후퇴 속도가 빠를수록 적색 이동이 큽니다. 우주에는 은하들이 밀집한 <b>은하단</b>과 은하가 거의 없는 <b>거대 공동</b>이 그물망처럼 얽힌 거대 구조가 있습니다.";
   }
+  render();
+})();
+
+
+/* TAB3 성간 물질: 성운 카드 */
+(function () {
+  var items = [
+    { ico: "\ud83d\udd34", name: "\ubc29\ucd9c\uc131\uc6b4", desc: "\uadfc\ucc98\uc758 \ub728\uac70\uc6b4 \ubcc4(\uace0\uc628\uc758 \uc0c8\ub4e4)\uc774 \ub0b4\ub4dc\ub294 \uc790\uc678\uc120\uc5d0 \uc758\ud574 \uc131\uc6b4 \uc18d \uc218\uc18c \uac00\uc2a4\uac00 \uc804\ub9ac\ub418\uba74\uc11c \uc2a4\uc2a4\ub85c \ube5b\uc744 \ub0b4\ub294 \uc131\uc6b4\uc785\ub2c8\ub2e4. \ud070 \uc218\uc18c\uc6b4(\uc548\ub4dc\ub85c\uba54\ub2e4 \ub300\ud45c \uc0ac\ub840)\uc774 \ub300\ud45c\uc801\uc774\uba70, \uc218\uc18c\uc758 \uc4f0\uc774 \uc804\uc774\ub85c \ubd89\uc740\uc0c9\uc744 \ub139\ub2c8\ub2e4." },
+    { ico: "\ud83d\udd35", name: "\ubc18\uc0ac\uc131\uc6b4", desc: "\uc790\uccb4\uc801\uc73c\ub85c \ube5b\uc744 \ub0b4\uc9c0 \ubabb\ud558\ub294 \uc131\uc6b4\uc774\uc9c0\ub9cc, \uadfc\ucc98\uc758 \ubcc4\ube5b\uc774 \uc131\uc6b4\uc744 \uc774\ub8e8\ub294 \ubbf8\uc138 \uba3c\uc9c0\uc5d0 \uc0b0\ub780\ub418\uba74\uc11c \ud30c\ub791\ube5b\uc744 \ub744\uac8c \ub098\ud0c0\ub0b4\ub294 \uc131\uc6b4\uc785\ub2c8\ub2e4. \ud30c\uc7a5\uc774 \uc9e7\uc740 \ud30c\ub780\ube5b\uc774 \uba3c\uc9c0\uc5d0 \ub354 \uc798 \uc0b0\ub780\ub418\uae30 \ub54c\ubb38\uc785\ub2c8\ub2e4(\ud558\ub298\uc774 \ud30c\ub791 \ubcf4\uc774\ub294 \uc774\uc720\uc640 \uac19\uc740 \uc6d0\ub9ac)." },
+    { ico: "\u26ab", name: "\uc554\ud751\uc131\uc6b4", desc: "\uc131\uc6b4 \uc790\uccb4\uac00 \ube5b\uc744 \ub0b4\uc9c0 \uc54a\uc73c\uba70, \ub192\uc740 \ubc00\ub3c4\uc758 \uac00\uc2a4\uc640 \ud2f0\uc785\uc774 \ubc30\uacbd\uc758 \ubcc4\ube5b\uc744 \uac00\ub824 \uc2e4\ub8e8\uc5cc\ud2b8\ucc98\ub7fc \uac80\uac8c \ubcf4\uc774\ub294 \uc131\uc6b4\uc785\ub2c8\ub2e4. \ub9d0\ub370\uac00\ub9ac\uc131\uc6b4\uc774 \ub300\ud45c\uc801\uc778 \uc608\uc785\ub2c8\ub2e4." }
+  ];
+  var grid = document.getElementById("c3-grid");
+  var detail = document.getElementById("c3-detail");
+  items.forEach(function (it) {
+    var btn = document.createElement("button");
+    btn.className = "pick-card";
+    btn.innerHTML = "<span class=\"ico\">" + it.ico + "</span><div class=\"t\">" + it.name + "</div>";
+    btn.addEventListener("click", function () {
+      grid.querySelectorAll(".pick-card").forEach(function (c) { c.classList.remove("on"); });
+      btn.classList.add("on");
+      detail.innerHTML = "<h4>" + it.ico + " " + it.name + "</h4>" + it.desc;
+    });
+    grid.appendChild(btn);
+  });
+})();
+
+/* TAB3 성간 적색화 */
+(function () {
+  var canvas = document.getElementById("c3-dust") ? null : null;
+  var cv = document.getElementById("c3");
+  var ctx = setupCanvas(cv);
+  var W = cv._w, H = cv._h;
+  var slider = document.getElementById("c3-dust");
+  var val = document.getElementById("c3-dust-val");
+
+  function render() {
+    var d = +slider.value;
+    val.textContent = d;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
+
+    var t = d / 100;
+    var col = [
+      Math.round(150 + t * 105),
+      Math.round(180 - t * 140),
+      Math.round(255 - t * 220)
+    ];
+    var cx = 160, cy = H / 2;
+    ctx.beginPath(); ctx.arc(cx, cy, 30, 0, Math.PI * 2);
+    ctx.fillStyle = "rgb(" + col.join(",") + ")"; ctx.fill();
+    ctx.font = "12px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center";
+    ctx.fillText("관측되는 별빛의 색", cx, cy + 55);
+
+    // dust particles between star and observer
+    for (var i = 0; i < d; i += 3) {
+      var x = 220 + (i / 100) * 550;
+      var y = cy + (Math.sin(i * 12.9) * 40);
+      ctx.beginPath();
+      ctx.arc(x, y, 1.6, 0, Math.PI * 2);
+      ctx.fillStyle = cssVar("--mist");
+      ctx.fill();
+    }
+    ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center";
+    ctx.fillText("성간 티끌", (220 + W - 40) / 2, cy - 70);
+
+    ctx.beginPath(); ctx.arc(W - 60, cy, 8, 0, Math.PI * 2);
+    ctx.fillStyle = cssVar("--foam"); ctx.fill();
+    ctx.fillText("관측자", W - 60, cy + 30);
+  }
+  slider.addEventListener("input", render);
   render();
 })();
 
