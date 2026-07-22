@@ -18,7 +18,8 @@
     <button class="tab-btn active" data-tab="0"><span class="num">01</span> 태양 관측</button>
     <button class="tab-btn" data-tab="1"><span class="num">02</span> 연주 시차와 거리</button>
     <button class="tab-btn" data-tab="2"><span class="num">03</span> 별의 공간 운동</button>
-    <button class="tab-btn" data-tab="3"><span class="num">04</span> 별의 질량과 변광성</button>
+    <button class="tab-btn" data-tab="3"><span class="num">04</span> 별의 질량</button>
+    <button class="tab-btn" data-tab="4"><span class="num">05</span> 변광성</button>
   </nav>
 
   <main>
@@ -86,9 +87,9 @@
 
     <section class="tab-panel" data-panel="3" hidden>
       <div class="stage-head">
-        <div class="eyebrow">04 · 쌍성과 맥동변광성</div>
-        <h2 class="display">별의 질량과 변광성</h2>
-        <p>쌍성의 공통 질량 중심 위치로 질량비를, 맥동변광성의 광도 곡선으로 변광 주기를 확인해 보세요.</p>
+        <div class="eyebrow">04 · 쌍성으로 별의 질량 구하기</div>
+        <h2 class="display">별의 질량</h2>
+        <p>쌍성의 공통 질량 중심 위치로 두 별의 질량비를 확인해 보세요.</p>
       </div>
       <div class="stage-card">
         <div class="canvas-wrap"><canvas id="c3" width="900" height="420"></canvas></div>
@@ -100,6 +101,29 @@
         </div>
         <div class="info-card" id="c3-info"></div>
       </div>
+    </section>
+
+    <section class="tab-panel" data-panel="4" hidden>
+      <div class="stage-head">
+        <div class="eyebrow">05 · 밝기가 변하는 별</div>
+        <h2 class="display">변광성</h2>
+        <p>변광의 원인에 따라 광도 곡선의 모양이 다릅니다. 세 가지 변광성의 광도 곡선을 비교해 보세요.</p>
+      </div>
+      <div class="stage-card">
+        <div class="canvas-wrap"><canvas id="c4" width="900" height="380"></canvas></div>
+        <div class="controls">
+          <div class="ctrl-group" style="flex:1 1 100%">
+            <div class="ctrl-label">변광성의 종류</div>
+            <div class="seg" id="c4-type">
+              <button class="on" data-t="eclipsing">식변광성</button>
+              <button data-t="pulsating">맥동 변광성</button>
+              <button data-t="explosive">폭발 변광성</button>
+            </div>
+          </div>
+        </div>
+        <div class="info-card" id="c4-info"></div>
+      </div>
+      <p class="foot-note">알골(식변광성)·세페이드(맥동변광성)·신성과 초신성(폭발변광성)이 대표적인 예입니다. 광도 곡선의 모양과 변광 주기의 유무로 변광 천체를 구분할 수 있습니다.</p>
     </section>
   </main>
 </div>
@@ -267,23 +291,70 @@
     ctx.fillStyle = cssVar("--foam"); ctx.beginPath(); ctx.arc(comX, cy, 4, 0, 7); ctx.fill();
     ctx.font = "10px Segoe UI"; ctx.fillText("공통 질량 중심", comX, cy + 20);
 
-    var lcY0 = 260, lcY1 = 400, x0 = 80, x1 = W - 80;
-    ctx.strokeStyle = cssVar("--line"); ctx.beginPath(); ctx.moveTo(x0, lcY0); ctx.lineTo(x0, lcY1); ctx.lineTo(x1, lcY1); ctx.stroke();
+    info.innerHTML = "쌍성계에서 두 별은 <b>공통 질량 중심</b>을 사이에 두고 공전하며, 질량이 클수록 중심에서 가까이 공전합니다(질량이 " + ratio.toFixed(1) + "배인 B가 A보다 " + ratio.toFixed(1) + "배 가깝게 공전). 이처럼 <b>쌍성</b>의 공전을 관측하면 두 별의 <b>질량비</b>를 구할 수 있고, 분광 관측 등을 더하면 각 별의 실제 질량까지 구할 수 있습니다.";
+  }
+  render();
+})();
+
+/* TAB4 변광성 */
+(function () {
+  var canvas = document.getElementById("c4");
+  if (!canvas) return;
+  var ctx = setupCanvas(canvas);
+  var W = canvas._w, H = canvas._h;
+  var type = "eclipsing";
+  var info = document.getElementById("c4-info");
+  document.querySelectorAll("#c4-type button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      type = b.getAttribute("data-t");
+      document.querySelectorAll("#c4-type button").forEach(function (x) { x.classList.toggle("on", x === b); });
+      render();
+    });
+  });
+
+  var texts = {
+    eclipsing: "<b>식변광성</b>(예: 알골) — 쌍성계의 두 별이 서로를 가리는 <b>식 현상</b>으로 겉보기 밝기가 변합니다. 별 자체의 광도는 변하지 않으며, 공전 주기마다 반복되는 광도 곡선에는 <b>깊이가 다른 두 개의 극소(주식·부식)</b>가 나타납니다.",
+    pulsating: "<b>맥동 변광성</b>(예: 세페이드 변광성) — 별이 주기적으로 <b>팽창과 수축</b>을 반복하면서 반지름과 표면 온도가 변해 광도가 매끄럽게 오르내립니다. 세페이드 변광성은 이 변광 주기와 실제 광도 사이의 관계(주기-광도 관계)를 이용해 먼 거리를 측정하는 데 쓰입니다.",
+    explosive: "<b>폭발 변광성</b>(신성·초신성) — 별 표면이나 중심핵에서 폭발적으로 에너지가 방출되어 밝기가 아주 짧은 시간에 급격히 증가했다가 서서히 어두워집니다. 초신성은 최대 밝기가 태양의 수천만~100억 배에 달해, 우리은하 바깥 먼 은하에서도 관측할 수 있습니다."
+  };
+
+  function render() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
+    var x0 = 70, x1 = W - 40, y0 = 40, ymid = H / 2, y1 = H - 60;
+    ctx.strokeStyle = cssVar("--line"); ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x0, y1); ctx.lineTo(x1, y1); ctx.stroke();
     ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center";
-    ctx.fillText("시간 →", (x0 + x1) / 2, lcY1 + 20);
-    ctx.save(); ctx.translate(20, (lcY0 + lcY1) / 2); ctx.rotate(-Math.PI / 2); ctx.fillText("밝기", 0, 0); ctx.restore();
+    ctx.fillText("시간 →", (x0 + x1) / 2, y1 + 26);
+    ctx.save(); ctx.translate(24, (y0 + y1) / 2); ctx.rotate(-Math.PI / 2); ctx.fillText("밝기(겉보기 등급, 위로 갈수록 밝음)", 0, 0); ctx.restore();
 
     ctx.beginPath();
     for (var px = 0; px <= 300; px++) {
-      var xx = x0 + px / 300 * (x1 - x0);
-      var yy = (lcY0 + lcY1) / 2 - Math.sin(px / 300 * Math.PI * 2 * 3) * (lcY1 - lcY0) * 0.35;
+      var t = px / 300;
+      var yy;
+      if (type === "eclipsing") {
+        var phase = (t * 3) % 1;
+        var dip = 0;
+        if (phase < 0.08) dip = 0.85 * Math.exp(-Math.pow((phase - 0.04) / 0.02, 2));
+        if (phase > 0.48 && phase < 0.6) dip = 0.4 * Math.exp(-Math.pow((phase - 0.54) / 0.02, 2));
+        yy = ymid - (0.9 - dip) * (y1 - ymid) * 0.9;
+      } else if (type === "pulsating") {
+        yy = ymid - Math.sin(t * Math.PI * 2 * 4) * (y1 - y0) * 0.32 - (y1 - ymid) * 0.2;
+      } else {
+        var peak = 0.12;
+        if (t < peak) yy = y1 - (t / peak) * (y1 - y0) * 0.95;
+        else yy = y0 + (y1 - y0) * 0.05 + (y1 - y0) * 0.8 * (1 - Math.exp(-(t - peak) * 2.2));
+      }
+      var xx = x0 + t * (x1 - x0);
       if (px === 0) ctx.moveTo(xx, yy); else ctx.lineTo(xx, yy);
     }
-    ctx.strokeStyle = cssVar("--violet"); ctx.lineWidth = 2.5; ctx.stroke();
-    ctx.font = "700 12px Segoe UI"; ctx.fillStyle = cssVar("--violet"); ctx.textAlign = "left";
-    ctx.fillText("맥동 변광성의 광도 곡선(별이 부풀고 수축하며 밝기가 주기적으로 변함)", x0, lcY0 - 10);
+    ctx.strokeStyle = cssVar(type === "eclipsing" ? "--coral" : type === "pulsating" ? "--violet" : "--teal");
+    ctx.lineWidth = 2.5; ctx.stroke();
 
-    info.innerHTML = "쌍성계에서 두 별은 <b>공통 질량 중심</b>을 사이에 두고 공전하며, 질량이 클수록 중심에서 가까이 공전합니다(질량이 " + ratio.toFixed(1) + "배인 B가 A보다 " + ratio.toFixed(1) + "배 가깝게 공전). <b>맥동 변광성</b>은 별 자체가 팽창·수축을 반복하며 밝기가 주기적으로 변하는 별로, 세페이드 변광성은 이 주기와 실제 밝기(광도) 사이의 관계를 이용해 먼 거리를 측정하는 데 쓰입니다.";
+    var labels = { eclipsing: "식변광성의 광도 곡선(깊이가 다른 두 극소)", pulsating: "맥동 변광성의 광도 곡선(매끄러운 주기 변화)", explosive: "폭발 변광성의 광도 곡선(급상승 후 서서히 감소)" };
+    ctx.font = "700 12px Segoe UI"; ctx.fillStyle = cssVar("--foam"); ctx.textAlign = "left";
+    ctx.fillText(labels[type], x0, y0 - 10);
+
+    info.innerHTML = texts[type];
   }
   render();
 })();
