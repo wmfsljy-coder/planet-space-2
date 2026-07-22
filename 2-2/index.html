@@ -5,6 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>은하와 우주 — 관측 스테이션</title>
 <link rel="stylesheet" href="../assets/theme.css">
+<style>
+  .mission-cards { display: flex; gap: 10px; flex-wrap: wrap; padding: 18px 20px 0; }
+  .mission-card { flex: 1 1 160px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-size: 12px; line-height: 1.55; color: var(--mist); cursor: pointer; transition: all .15s; }
+  .mission-card:hover { border-color: var(--teal-dim); }
+  .mission-card.selected { border-color: var(--teal); box-shadow: 0 0 0 2px var(--teal) inset; }
+  .mission-slots { display: flex; gap: 10px; flex-wrap: wrap; padding: 16px 20px 0; }
+  .mission-slot { flex: 1 1 160px; min-height: 90px; border: 1.5px dashed var(--line); border-radius: 10px; padding: 10px 12px; cursor: pointer; transition: all .15s; }
+  .mission-slot .slot-title { font-size: 12.5px; font-weight: 700; color: var(--foam); margin-bottom: 6px; }
+  .mission-slot .slot-body { font-size: 11.5px; line-height: 1.5; color: var(--mist); }
+  .mission-slot.filled { border-style: solid; background: var(--panel-2); }
+  .mission-slot.correct { border-color: var(--teal); }
+  .mission-slot.wrong { border-color: var(--coral); }
+  .data-mini-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 4px 0 0; }
+  .data-mini-table th, .data-mini-table td { border: 1px solid var(--line); padding: 6px 8px; text-align: center; }
+  .data-mini-table th { background: var(--panel-2); color: var(--mist); font-weight: 600; }
+</style>
 </head>
 <body>
 
@@ -50,6 +66,21 @@
         </div>
         <div class="info-card" id="c0c-info"></div>
       </div>
+
+      <div class="stage-head" style="margin-top:30px;">
+        <div class="eyebrow">🔎 미션 · 주계열 맞추기로 성단 거리 구하기</div>
+        <h2 class="display" style="font-size:20px;">이 성단은 얼마나 멀리 있을까요?</h2>
+        <p>성단의 주계열을 표준 주계열(HR도)에 맞추면, 같은 별의 겉보기 등급(m)과 절대 등급(M) 차이로 거리를 구할 수 있습니다. 거리 지수 공식 m - M = 5log(d/10 pc)를 이용해 거리로 가장 알맞은 값을 선택해 보세요.</p>
+      </div>
+      <div class="stage-card">
+        <div class="info-card" id="c0m-data" style="margin:18px 20px 0;"></div>
+        <div class="seg" id="c0m-choices" style="margin:14px 20px 0;"></div>
+        <div class="toggle-row" style="margin:14px 20px 0;">
+          <button class="chip" id="c0m-check">정답 확인</button>
+          <button class="chip" id="c0m-new">새 성단 자료</button>
+        </div>
+        <div class="info-card" id="c0m-info">보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.</div>
+      </div>
     </section>
 
     <section class="tab-panel" data-panel="1" hidden>
@@ -69,6 +100,21 @@
         <div class="info-card" id="c0b-info"></div>
       </div>
       <p class="foot-note">세페이드 변광성의 분포를 이용해 우리은하 중심의 위치와 은하의 크기를 알아낼 수 있습니다.</p>
+
+      <div class="stage-head" style="margin-top:30px;">
+        <div class="eyebrow">🔎 미션 · 세페이드 변광성으로 거리 구하기</div>
+        <h2 class="display" style="font-size:20px;">이 세페이드까지의 거리는 얼마일까요?</h2>
+        <p>세페이드 변광성은 변광 주기가 길수록 실제 밝기(절대 등급)가 밝아지는 주기-광도 관계를 가집니다(M ≈ -2.4log P - 1.6). 관측된 주기와 겉보기 등급 자료로 거리를 구해 보세요.</p>
+      </div>
+      <div class="stage-card">
+        <div class="info-card" id="c1m-data" style="margin:18px 20px 0;"></div>
+        <div class="seg" id="c1m-choices" style="margin:14px 20px 0;"></div>
+        <div class="toggle-row" style="margin:14px 20px 0;">
+          <button class="chip" id="c1m-check">정답 확인</button>
+          <button class="chip" id="c1m-new">새 변광성 자료</button>
+        </div>
+        <div class="info-card" id="c1m-info">보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.</div>
+      </div>
     </section>
 
     <section class="tab-panel" data-panel="2" hidden>
@@ -113,6 +159,24 @@
         </div>
         <div class="info-card" id="c2-calc-info">보이는 물질(별과 가스)의 분포만 고려하면, 은하 중심에서 멀어질수록 회전 속도가 <b>감소</b>할 것으로 예상됩니다(케플러 운동과 유사, 그래프의 점선). 하지만 실제 관측된 회전 속도(그래프의 실선)는 먼 거리에서도 <b>거의 일정하게 유지</b>됩니다. 이 차이를 설명하려면 은하 외곽에 우리가 볼 수 없는 추가적인 질량, 즉 <b>암흑 물질</b>이 널리 분포해야 합니다.</div>
       </div>
+
+      <div class="stage-head" style="margin-top:30px;">
+        <div class="eyebrow">🔎 미션 · 회전 속도 곡선으로 암흑 물질 판별하기</div>
+        <h2 class="display" style="font-size:20px;">이 관측 자료는 암흑 물질의 강한 증거일까요?</h2>
+        <p>은하 중심에서 특정 거리만큼 떨어진 지점의 케플러 예측 속도와 실제 관측 속도 자료가 주어집니다. 두 값의 차이가 크면 암흑 물질의 강한 증거이고, 두 값이 비슷하면 보이는 물질만으로 설명 가능합니다.</p>
+      </div>
+      <div class="stage-card">
+        <div class="info-card" id="c2m-data" style="margin:18px 20px 0;"></div>
+        <div class="seg" id="c2m-choices" style="margin:14px 20px 0;">
+          <button data-c="dark">암흑 물질의 강한 증거</button>
+          <button data-c="match">케플러 예측과 대체로 일치</button>
+        </div>
+        <div class="toggle-row" style="margin:14px 20px 0;">
+          <button class="chip" id="c2m-check">정답 확인</button>
+          <button class="chip" id="c2m-new">새 관측 지점</button>
+        </div>
+        <div class="info-card" id="c2m-info">보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.</div>
+      </div>
     </section>
 
     <section class="tab-panel" data-panel="4" hidden>
@@ -154,6 +218,21 @@
         <div class="info-card" id="c5-info"></div>
       </div>
       <p class="foot-note">은하군·은하단에 속한 은하들은 중력으로 뭉쳐 있어 우주가 팽창해도 서로 멀어지지 않지만, 초은하단은 중력으로 단단히 묶여 있지 않아 팽창에 따라 흩어질 수 있습니다.</p>
+
+      <div class="stage-head" style="margin-top:30px;">
+        <div class="eyebrow">🔎 미션 · 은하 공간 분포 구조 식별하기</div>
+        <h2 class="display" style="font-size:20px;">이 설명은 어떤 구조를 말하는 것일까요?</h2>
+        <p>전천 탐사로 얻은 은하의 공간 분포 자료에는 규모가 다른 여러 구조가 나타납니다. 설명 카드를 클릭해 선택한 뒤, 알맞은 구조 칸을 클릭해 짝지어 보세요.</p>
+      </div>
+      <div class="stage-card">
+        <div class="mission-cards" id="c5m-cards"></div>
+        <div class="mission-slots" id="c5m-slots"></div>
+        <div class="toggle-row" style="margin:14px 20px 0;">
+          <button class="chip" id="c5m-check">채점하기</button>
+          <button class="chip" id="c5m-new">카드 새로 섞기</button>
+        </div>
+        <div class="info-card" id="c5m-info">카드를 클릭해 선택한 뒤, 놓을 칸을 클릭하세요.</div>
+      </div>
     </section>
   </main>
 </div>
@@ -290,6 +369,77 @@
   update();
 })();
 
+/* TAB0 미션 — 주계열 맞추기로 성단 거리 구하기 */
+(function () {
+  var dataEl = document.getElementById("c0m-data");
+  var choicesEl = document.getElementById("c0m-choices");
+  var checkBtn = document.getElementById("c0m-check");
+  var newBtn = document.getElementById("c0m-new");
+  if (!dataEl) return;
+
+  var m = 12, M = 2, trueD = 1000;
+  var picked = null, choices = [];
+
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
+  function newQuestion() {
+    M = Math.round((Math.random() * 4) * 10) / 10;
+    var distIndex = 3 + Math.round(Math.random() * 12) / 2;
+    m = Math.round((M + distIndex) * 10) / 10;
+    trueD = Math.round(Math.pow(10, distIndex / 5 + 1));
+    dataEl.innerHTML = "표준 주계열에 맞춘 결과, 이 성단 별의 겉보기 등급 m = <b>" + m.toFixed(1) + "</b>, 절대 등급 M = <b>" + M.toFixed(1) + "</b>입니다.";
+    var decoys = [];
+    while (decoys.length < 3) {
+      var factor = 0.3 + Math.random() * 3;
+      var d = Math.round(trueD * factor);
+      if (Math.abs(d - trueD) > trueD * 0.3 && decoys.indexOf(d) === -1 && d > 0) decoys.push(d);
+    }
+    choices = shuffle([trueD].concat(decoys));
+    picked = null;
+    renderChoices();
+    var info = document.getElementById("c0m-info");
+    info.style.color = "";
+    info.textContent = "보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.";
+  }
+
+  function renderChoices() {
+    choicesEl.innerHTML = "";
+    choices.forEach(function (d) {
+      var btn = document.createElement("button");
+      btn.className = picked === d ? "on" : "";
+      btn.textContent = d.toLocaleString() + " pc";
+      btn.addEventListener("click", function () { picked = d; renderChoices(); });
+      choicesEl.appendChild(btn);
+    });
+  }
+
+  checkBtn.addEventListener("click", function () {
+    var info = document.getElementById("c0m-info");
+    if (picked === null) {
+      info.style.color = "";
+      info.textContent = "먼저 보기 중 하나를 선택하세요.";
+      return;
+    }
+    if (picked === trueD) {
+      info.style.color = "var(--teal)";
+      info.innerHTML = "<b>정답입니다!</b> m - M = " + (m - M).toFixed(1) + " = 5log(d/10)에서 d ≈ " + trueD.toLocaleString() + " pc입니다.";
+    } else {
+      info.style.color = "var(--coral)";
+      info.innerHTML = "다시 생각해 보세요. 정답은 <b>" + trueD.toLocaleString() + " pc</b>입니다. d = 10^((m-M)/5 + 1) pc 공식을 이용해 보세요.";
+    }
+  });
+
+  newBtn.addEventListener("click", newQuestion);
+  newQuestion();
+})();
+
 /* TAB0b 우리은하 구조 */
 (function () {
   var canvas = document.getElementById("c0b");
@@ -342,6 +492,80 @@
   }
   slider.addEventListener("input", update);
   update();
+})();
+
+/* TAB1 미션 — 세페이드 변광성으로 거리 구하기 */
+(function () {
+  var dataEl = document.getElementById("c1m-data");
+  var choicesEl = document.getElementById("c1m-choices");
+  var checkBtn = document.getElementById("c1m-check");
+  var newBtn = document.getElementById("c1m-new");
+  if (!dataEl) return;
+
+  var P = 10, m = 15, trueD = 1000;
+  var picked = null, choices = [];
+
+  function absMag(period) { return -2.4 * Math.log(period) / Math.LN10 - 1.6; }
+
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
+  function newQuestion() {
+    P = 3 + Math.round(Math.random() * 47);
+    var M = absMag(P);
+    var distIndex = 3 + Math.round(Math.random() * 12) / 2;
+    m = Math.round((M + distIndex) * 10) / 10;
+    trueD = Math.round(Math.pow(10, distIndex / 5 + 1));
+    dataEl.innerHTML = "관측된 변광 주기 P = <b>" + P + "일</b>, 겉보기 등급 m = <b>" + m.toFixed(1) + "</b>입니다. (주기-광도 관계: M ≈ -2.4log P - 1.6)";
+    var decoys = [];
+    while (decoys.length < 3) {
+      var factor = 0.3 + Math.random() * 3;
+      var d = Math.round(trueD * factor);
+      if (Math.abs(d - trueD) > trueD * 0.3 && decoys.indexOf(d) === -1 && d > 0) decoys.push(d);
+    }
+    choices = shuffle([trueD].concat(decoys));
+    picked = null;
+    renderChoices();
+    var info = document.getElementById("c1m-info");
+    info.style.color = "";
+    info.textContent = "보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.";
+  }
+
+  function renderChoices() {
+    choicesEl.innerHTML = "";
+    choices.forEach(function (d) {
+      var btn = document.createElement("button");
+      btn.className = picked === d ? "on" : "";
+      btn.textContent = d.toLocaleString() + " pc";
+      btn.addEventListener("click", function () { picked = d; renderChoices(); });
+      choicesEl.appendChild(btn);
+    });
+  }
+
+  checkBtn.addEventListener("click", function () {
+    var info = document.getElementById("c1m-info");
+    if (picked === null) {
+      info.style.color = "";
+      info.textContent = "먼저 보기 중 하나를 선택하세요.";
+      return;
+    }
+    if (picked === trueD) {
+      info.style.color = "var(--teal)";
+      info.innerHTML = "<b>정답입니다!</b> 주기-광도 관계로 절대 등급을 구하고, 거리 지수 공식에 대입하면 d ≈ " + trueD.toLocaleString() + " pc입니다.";
+    } else {
+      info.style.color = "var(--coral)";
+      info.innerHTML = "다시 생각해 보세요. 정답은 <b>" + trueD.toLocaleString() + " pc</b>입니다. 주기가 길수록 절대 등급이 밝아진다(M이 작아진다)는 점을 이용해 보세요.";
+    }
+  });
+
+  newBtn.addEventListener("click", newQuestion);
+  newQuestion();
 })();
 
 /* TAB2 성간 물질: 성운 카드 */
@@ -485,6 +709,70 @@
   update();
 })();
 
+/* TAB3 미션 — 회전 속도 곡선으로 암흑 물질 판별하기 */
+(function () {
+  var dataEl = document.getElementById("c2m-data");
+  var choicesEl = document.getElementById("c2m-choices");
+  var checkBtn = document.getElementById("c2m-check");
+  var newBtn = document.getElementById("c2m-new");
+  if (!dataEl) return;
+
+  var RMAX = 20;
+  function vExpOf(r) {
+    var frac = r / RMAX;
+    return frac < 0.15 ? frac / 0.15 : 1 / Math.sqrt(frac / 0.15);
+  }
+  function vObsOf(r) {
+    var frac = r / RMAX;
+    return frac < 0.15 ? frac / 0.15 : 1;
+  }
+
+  var r = 5, trueKey = "dark";
+  var picked = null;
+  var seg = choicesEl.querySelectorAll("button");
+
+  seg.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      picked = btn.dataset.c;
+      seg.forEach(function (b) { b.classList.toggle("on", b === btn); });
+    });
+  });
+
+  function newQuestion() {
+    r = 1 + Math.round(Math.random() * 38) / 2;
+    var vExp = (vExpOf(r) * 220).toFixed(0);
+    var vObs = (vObsOf(r) * 220).toFixed(0);
+    trueKey = (vObs / vExp > 1.15) ? "dark" : "match";
+    dataEl.innerHTML = "은하 중심으로부터 <b>" + r.toFixed(1) + "</b>(임의단위) 떨어진 지점: 케플러 예측 속도 <b>" + vExp + " km/s</b>, 실제 관측 속도 <b>" + vObs + " km/s</b>";
+    picked = null;
+    seg.forEach(function (b) { b.classList.remove("on"); });
+    var info = document.getElementById("c2m-info");
+    info.style.color = "";
+    info.textContent = "보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.";
+  }
+
+  var labels = { dark: "암흑 물질의 강한 증거", match: "케플러 예측과 대체로 일치" };
+
+  checkBtn.addEventListener("click", function () {
+    var info = document.getElementById("c2m-info");
+    if (picked === null) {
+      info.style.color = "";
+      info.textContent = "먼저 보기 중 하나를 선택하세요.";
+      return;
+    }
+    if (picked === trueKey) {
+      info.style.color = "var(--teal)";
+      info.innerHTML = "<b>정답입니다!</b> 이 자료는 <b>" + labels[trueKey] + "</b>에 해당합니다.";
+    } else {
+      info.style.color = "var(--coral)";
+      info.innerHTML = "다시 생각해 보세요. 정답은 <b>" + labels[trueKey] + "</b>입니다. 관측 속도가 예측보다 훨씬 크면 암흑 물질의 증거입니다.";
+    }
+  });
+
+  newBtn.addEventListener("click", newQuestion);
+  newQuestion();
+})();
+
 /* TAB4 적색이동 */
 (function () {
   var canvas = document.getElementById("c3");
@@ -596,6 +884,116 @@
     }
   }
   render();
+})();
+
+/* TAB5 미션 — 은하 공간 분포 구조 식별하기 */
+(function () {
+  var cardsEl = document.getElementById("c5m-cards");
+  var slotsEl = document.getElementById("c5m-slots");
+  var checkBtn = document.getElementById("c5m-check");
+  var newBtn = document.getElementById("c5m-new");
+  if (!cardsEl) return;
+
+  var slotNames = { group: "은하군", cluster: "은하단", filament: "필라멘트", void: "거대 공동" };
+  var slotOrder = ["group", "cluster", "filament", "void"];
+  var clues = {
+    group: "은하 수십 개 정도가 중력으로 모여 있는 비교적 작은 집단으로, 우리은하가 속한 국부 은하군이 대표적인 예입니다.",
+    cluster: "은하 수백~수천 개가 중력으로 강하게 묶여 지름 수백만~수천만 광년에 걸쳐 있는 큰 집단입니다.",
+    filament: "은하와 은하단이 수억 광년에 걸쳐 실처럼 길게 이어져 늘어선 구조입니다.",
+    void: "은하가 거의 존재하지 않아 텅 비어 보이는, 지름이 수억 광년에 이르는 공간입니다."
+  };
+
+  var pool = [];
+  var slots = {};
+  var selected = null;
+
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
+  function reset() {
+    pool = shuffle(slotOrder.slice());
+    slots = { group: null, cluster: null, filament: null, void: null };
+    selected = null;
+    var info = document.getElementById("c5m-info");
+    info.style.color = "";
+    info.textContent = "카드를 클릭해 선택한 뒤, 놓을 칸을 클릭하세요.";
+    render();
+  }
+
+  function render() {
+    cardsEl.innerHTML = "";
+    pool.forEach(function (key) {
+      var card = document.createElement("div");
+      card.className = "mission-card" + (selected === key ? " selected" : "");
+      card.textContent = clues[key];
+      card.addEventListener("click", function () {
+        selected = (selected === key) ? null : key;
+        render();
+      });
+      cardsEl.appendChild(card);
+    });
+
+    slotsEl.innerHTML = "";
+    slotOrder.forEach(function (targetKey) {
+      var slot = document.createElement("div");
+      var filledKey = slots[targetKey];
+      slot.className = "mission-slot" + (filledKey ? " filled" : "");
+      var title = document.createElement("div");
+      title.className = "slot-title";
+      title.textContent = slotNames[targetKey];
+      slot.appendChild(title);
+      var body = document.createElement("div");
+      body.className = "slot-body";
+      body.textContent = filledKey ? clues[filledKey] : "여기를 클릭해 선택한 카드를 놓으세요.";
+      slot.appendChild(body);
+      slot.addEventListener("click", function () {
+        if (filledKey) {
+          pool.push(filledKey);
+          slots[targetKey] = null;
+          render();
+        } else if (selected) {
+          slots[targetKey] = selected;
+          pool = pool.filter(function (k) { return k !== selected; });
+          selected = null;
+          render();
+        }
+      });
+      slotsEl.appendChild(slot);
+    });
+  }
+
+  checkBtn.addEventListener("click", function () {
+    var info = document.getElementById("c5m-info");
+    if (pool.length > 0) {
+      info.style.color = "";
+      info.textContent = "아직 배치하지 않은 카드가 있습니다. 4장을 모두 알맞은 칸에 놓아 주세요.";
+      return;
+    }
+    var correctCount = 0;
+    slotsEl.querySelectorAll(".mission-slot").forEach(function (slotEl, i) {
+      var targetKey = slotOrder[i];
+      var ok = slots[targetKey] === targetKey;
+      slotEl.classList.remove("correct", "wrong");
+      slotEl.classList.add(ok ? "correct" : "wrong");
+      if (ok) correctCount++;
+    });
+    if (correctCount === 4) {
+      info.style.color = "var(--teal)";
+      info.innerHTML = "<b>4장 모두 정답입니다!</b> 은하는 은하군·은하단처럼 중력으로 묶인 집단을 이루고, 더 큰 규모에서는 필라멘트와 거대 공동이 그물망 같은 우주의 거대 구조를 만듭니다.";
+    } else {
+      info.style.color = "var(--coral)";
+      info.innerHTML = correctCount + " / 4 칸이 맞았습니다. 빨간 테두리 칸을 다시 살펴보고 카드를 옮겨 보세요.";
+    }
+  });
+
+  newBtn.addEventListener("click", reset);
+  reset();
 })();
 
 })();

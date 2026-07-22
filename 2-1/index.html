@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>태양과 별의 관측 — 관측 스테이션</title>
 <link rel="stylesheet" href="../assets/theme.css">
+<style>
+  .data-mini-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 4px 0 0; }
+  .data-mini-table th, .data-mini-table td { border: 1px solid var(--line); padding: 6px 8px; text-align: center; }
+  .data-mini-table th { background: var(--panel-2); color: var(--mist); font-weight: 600; }
+</style>
 </head>
 <body>
 
@@ -42,6 +47,21 @@
           <div class="stat-box"><div class="lbl">추정 자전 주기</div><div class="num">약 27일</div></div>
         </div>
         <div class="info-card">태양 표면의 흑점을 매일 같은 시각에 관측하면, 흑점이 태양면을 가로질러 서서히 이동하는 것을 볼 수 있습니다. 같은 흑점이 태양면을 한 바퀴 도는 데 걸린 시간을 재면 태양의 <b>자전 주기(약 27일)</b>를 구할 수 있습니다. 또한 태양 스펙트럼의 <b>도플러 효과</b>(태양 양쪽 끝에서 오는 빛의 파장 차이)를 이용해서도 자전 속도를 구할 수 있습니다.</div>
+      </div>
+
+      <div class="stage-head" style="margin-top:30px;">
+        <div class="eyebrow">🔎 미션 · 흑점 자료로 자전 주기 구하기</div>
+        <h2 class="display" style="font-size:20px;">이 별의 자전 주기는 며칠일까요?</h2>
+        <p>어느 관측소에서 흑점의 위치각을 이틀에 걸쳐 측정했습니다. 흑점은 보이는 반구(180°)를 자전 주기의 절반 동안 가로지릅니다. 관측 자료를 보고 자전 주기로 가장 알맞은 값을 선택해 보세요.</p>
+      </div>
+      <div class="stage-card">
+        <div id="c0m-data" style="margin:18px 20px 0;"></div>
+        <div class="seg" id="c0m-choices" style="margin:14px 20px 0;"></div>
+        <div class="toggle-row" style="margin:14px 20px 0;">
+          <button class="chip" id="c0m-check">정답 확인</button>
+          <button class="chip" id="c0m-new">새 관측 자료</button>
+        </div>
+        <div class="info-card" id="c0m-info">보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.</div>
       </div>
     </section>
 
@@ -83,6 +103,21 @@
         </div>
         <div class="info-card" id="c2-info"></div>
       </div>
+
+      <div class="stage-head" style="margin-top:30px;">
+        <div class="eyebrow">🔎 미션 · 별자리의 실제 공간 분포 추론하기</div>
+        <h2 class="display" style="font-size:20px;">이 중 지구에서 가장 가까운 별은 어느 것일까요?</h2>
+        <p>같은 별자리를 이루는 별들은 하늘에서는 가까워 보이지만, 실제 거리는 서로 크게 다를 수 있습니다. 아래 별들의 거리 자료를 보고 지구에서 가장 가까운 별을 선택해 보세요.</p>
+      </div>
+      <div class="stage-card">
+        <div id="c2m-data" style="margin:18px 20px 0;"></div>
+        <div class="seg" id="c2m-choices" style="margin:14px 20px 0;"></div>
+        <div class="toggle-row" style="margin:14px 20px 0;">
+          <button class="chip" id="c2m-check">정답 확인</button>
+          <button class="chip" id="c2m-new">새 별자리 자료</button>
+        </div>
+        <div class="info-card" id="c2m-info">보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.</div>
+      </div>
     </section>
 
     <section class="tab-panel" data-panel="3" hidden>
@@ -100,6 +135,24 @@
           </div>
         </div>
         <div class="info-card" id="c3-info"></div>
+      </div>
+
+      <div class="stage-head" style="margin-top:30px;">
+        <div class="eyebrow">🔎 미션 · 쌍성 자료로 질량 비교하기</div>
+        <h2 class="display" style="font-size:20px;">어느 별이 더 무거울까요?</h2>
+        <p>쌍성계에서는 두 별이 공통 질량 중심을 사이에 두고 서로 반대편에서 공전합니다. 질량 중심으로부터 각 별까지의 거리는 질량에 반비례합니다(m_A × d_A = m_B × d_B). 자료를 보고 질량이 더 큰 별을 선택해 보세요.</p>
+      </div>
+      <div class="stage-card">
+        <div id="c3m-data" style="margin:18px 20px 0;"></div>
+        <div class="seg" id="c3m-choices" style="margin:14px 20px 0;">
+          <button data-c="a">별 A</button>
+          <button data-c="b">별 B</button>
+        </div>
+        <div class="toggle-row" style="margin:14px 20px 0;">
+          <button class="chip" id="c3m-check">정답 확인</button>
+          <button class="chip" id="c3m-new">새 쌍성 자료</button>
+        </div>
+        <div class="info-card" id="c3m-info">보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.</div>
       </div>
     </section>
 
@@ -186,6 +239,76 @@
   render();
 })();
 
+/* TAB0 미션 — 흑점 자료로 자전 주기 구하기 */
+(function () {
+  var dataEl = document.getElementById("c0m-data");
+  var choicesEl = document.getElementById("c0m-choices");
+  var checkBtn = document.getElementById("c0m-check");
+  var newBtn = document.getElementById("c0m-new");
+  if (!dataEl) return;
+
+  var trueP = 27, day2 = 10, angle2 = 60;
+  var picked = null, choices = [];
+
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
+  function newQuestion() {
+    trueP = 22 + Math.round(Math.random() * 10);
+    day2 = 2 + Math.round(Math.random() * (trueP / 2 - 3));
+    angle2 = Math.round((day2 / trueP) * 360);
+    dataEl.innerHTML = '<table class="data-mini-table"><tr><th>관측일</th><th>흑점 위치각(자전 시작 기준)</th></tr>' +
+      "<tr><td>0일</td><td>0°</td></tr><tr><td>" + day2 + "일</td><td>" + angle2 + "°</td></tr></table>";
+    var decoys = [];
+    while (decoys.length < 3) {
+      var d = trueP + Math.round((Math.random() - 0.5) * 16);
+      if (Math.abs(d - trueP) > 2 && decoys.indexOf(d) === -1 && d > 0) decoys.push(d);
+    }
+    choices = shuffle([trueP].concat(decoys));
+    picked = null;
+    renderChoices();
+    var info = document.getElementById("c0m-info");
+    info.style.color = "";
+    info.textContent = "보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.";
+  }
+
+  function renderChoices() {
+    choicesEl.innerHTML = "";
+    choices.forEach(function (p) {
+      var btn = document.createElement("button");
+      btn.className = picked === p ? "on" : "";
+      btn.textContent = p + "일";
+      btn.addEventListener("click", function () { picked = p; renderChoices(); });
+      choicesEl.appendChild(btn);
+    });
+  }
+
+  checkBtn.addEventListener("click", function () {
+    var info = document.getElementById("c0m-info");
+    if (picked === null) {
+      info.style.color = "";
+      info.textContent = "먼저 보기 중 하나를 선택하세요.";
+      return;
+    }
+    if (picked === trueP) {
+      info.style.color = "var(--teal)";
+      info.innerHTML = "<b>정답입니다!</b> " + day2 + "일 동안 " + angle2 + "° 이동했으므로, 360° 회전하는 데 걸리는 시간은 360 × " + day2 + " / " + angle2 + " ≈ " + trueP + "일입니다.";
+    } else {
+      info.style.color = "var(--coral)";
+      info.innerHTML = "다시 생각해 보세요. 정답은 <b>" + trueP + "일</b>입니다. (경과일 ÷ 이동각) × 360°로 계산해 보세요.";
+    }
+  });
+
+  newBtn.addEventListener("click", newQuestion);
+  newQuestion();
+})();
+
 /* TAB1 연주시차 */
 (function () {
   var canvas = document.getElementById("c1");
@@ -260,6 +383,76 @@
   render();
 })();
 
+/* TAB2 미션 — 별자리의 실제 공간 분포 추론하기 */
+(function () {
+  var dataEl = document.getElementById("c2m-data");
+  var choicesEl = document.getElementById("c2m-choices");
+  var checkBtn = document.getElementById("c2m-check");
+  var newBtn = document.getElementById("c2m-new");
+  if (!dataEl) return;
+
+  var names = ["별 A", "별 B", "별 C", "별 D"];
+  var dists = [];
+  var trueIdx = 0;
+  var picked = null;
+
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
+  function newQuestion() {
+    var pool = [];
+    while (pool.length < 4) {
+      var d = 10 + Math.round(Math.random() * 490);
+      if (pool.indexOf(d) === -1) pool.push(d);
+    }
+    dists = pool;
+    trueIdx = dists.indexOf(Math.min.apply(null, dists));
+    var rows = names.map(function (n, i) { return "<tr><td>" + n + "</td><td>" + dists[i] + " 광년</td></tr>"; }).join("");
+    dataEl.innerHTML = '<table class="data-mini-table"><tr><th>별</th><th>지구로부터의 거리</th></tr>' + rows + "</table>";
+    picked = null;
+    renderChoices();
+    var info = document.getElementById("c2m-info");
+    info.style.color = "";
+    info.textContent = "보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.";
+  }
+
+  function renderChoices() {
+    choicesEl.innerHTML = "";
+    names.forEach(function (n, i) {
+      var btn = document.createElement("button");
+      btn.className = picked === i ? "on" : "";
+      btn.textContent = n;
+      btn.addEventListener("click", function () { picked = i; renderChoices(); });
+      choicesEl.appendChild(btn);
+    });
+  }
+
+  checkBtn.addEventListener("click", function () {
+    var info = document.getElementById("c2m-info");
+    if (picked === null) {
+      info.style.color = "";
+      info.textContent = "먼저 보기 중 하나를 선택하세요.";
+      return;
+    }
+    if (picked === trueIdx) {
+      info.style.color = "var(--teal)";
+      info.innerHTML = "<b>정답입니다!</b> " + names[trueIdx] + "이(가) " + dists[trueIdx] + " 광년으로 가장 가깝습니다. 같은 별자리라도 실제 거리는 서로 다르므로, 겉보기 배열과 실제 공간 배치는 다릅니다.";
+    } else {
+      info.style.color = "var(--coral)";
+      info.innerHTML = "다시 생각해 보세요. 정답은 <b>" + names[trueIdx] + "</b>입니다. 거리 값이 가장 작은 별을 찾아보세요.";
+    }
+  });
+
+  newBtn.addEventListener("click", newQuestion);
+  newQuestion();
+})();
+
 /* TAB3 쌍성과 변광성 */
 (function () {
   var canvas = document.getElementById("c3");
@@ -294,6 +487,62 @@
     info.innerHTML = "쌍성계에서 두 별은 <b>공통 질량 중심</b>을 사이에 두고 공전하며, 질량이 클수록 중심에서 가까이 공전합니다(질량이 " + ratio.toFixed(1) + "배인 B가 A보다 " + ratio.toFixed(1) + "배 가깝게 공전). 이처럼 <b>쌍성</b>의 공전을 관측하면 두 별의 <b>질량비</b>를 구할 수 있고, 분광 관측 등을 더하면 각 별의 실제 질량까지 구할 수 있습니다.";
   }
   render();
+})();
+
+/* TAB3 미션 — 쌍성 자료로 질량 비교하기 */
+(function () {
+  var dataEl = document.getElementById("c3m-data");
+  var choicesEl = document.getElementById("c3m-choices");
+  var checkBtn = document.getElementById("c3m-check");
+  var newBtn = document.getElementById("c3m-new");
+  if (!dataEl) return;
+
+  var dA = 3, dB = 6;
+  var trueKey = "b";
+  var picked = null;
+  var seg = choicesEl.querySelectorAll("button");
+
+  seg.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      picked = btn.dataset.c;
+      seg.forEach(function (b) { b.classList.toggle("on", b === btn); });
+    });
+  });
+
+  function newQuestion() {
+    dA = 1 + Math.round(Math.random() * 90) / 10;
+    do {
+      dB = 1 + Math.round(Math.random() * 90) / 10;
+    } while (Math.abs(dA - dB) < 0.5);
+    trueKey = dA < dB ? "a" : "b";
+    dataEl.innerHTML = "질량 중심으로부터 별 A까지의 거리는 <b>" + dA.toFixed(1) + " AU</b>, 별 B까지의 거리는 <b>" + dB.toFixed(1) + " AU</b>입니다.";
+    picked = null;
+    seg.forEach(function (b) { b.classList.remove("on"); });
+    var info = document.getElementById("c3m-info");
+    info.style.color = "";
+    info.textContent = "보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.";
+  }
+
+  checkBtn.addEventListener("click", function () {
+    var info = document.getElementById("c3m-info");
+    if (picked === null) {
+      info.style.color = "";
+      info.textContent = "먼저 보기 중 하나를 선택하세요.";
+      return;
+    }
+    var ratio = trueKey === "a" ? (dB / dA) : (dA / dB);
+    var heavier = trueKey === "a" ? "A" : "B";
+    if (picked === trueKey) {
+      info.style.color = "var(--teal)";
+      info.innerHTML = "<b>정답입니다!</b> 질량 중심에 더 가까운 별 " + heavier + "이(가) 약 " + ratio.toFixed(1) + "배 더 무겁습니다(m×d가 같으므로 거리가 가까울수록 질량이 큽니다).";
+    } else {
+      info.style.color = "var(--coral)";
+      info.innerHTML = "다시 생각해 보세요. 질량 중심으로부터의 거리가 <b>더 가까운 별</b>이 더 무겁습니다.";
+    }
+  });
+
+  newBtn.addEventListener("click", newQuestion);
+  newQuestion();
 })();
 
 /* TAB4 변광성 */
