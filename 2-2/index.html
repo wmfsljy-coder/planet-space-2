@@ -35,6 +35,21 @@
         <div class="info-card" id="c0-info">산개 성단은 젊고 파란 별들의 느슨한 무리이고, 구상 성단은 늙고 붉은 별들이 빽빽하게 뭉친 무리입니다.</div>
       </div>
       <p class="foot-note">성단의 색등급도(HR도)에서 주계열이 꺾이는 지점(주계열 맞추기)으로 성단의 나이와 거리를 추정할 수 있습니다.</p>
+
+      <div class="stage-card" style="margin-top:14px;">
+        <div class="stage-head" style="padding:16px 20px 0;">
+          <div class="eyebrow">심화 · 주계열 이탈점으로 성단 나이 구하기</div>
+          <h2 class="display" style="font-size:20px;">성단의 나이와 주계열 이탈</h2>
+        </div>
+        <div class="canvas-wrap"><canvas id="c0c" width="900" height="380"></canvas></div>
+        <div class="controls">
+          <div class="ctrl-group">
+            <div class="ctrl-label">성단 나이(백만 년)<span class="val" id="c0c-age-val">10</span></div>
+            <input type="range" id="c0c-age" min="1" max="13000" step="1" value="10">
+          </div>
+        </div>
+        <div class="info-card" id="c0c-info"></div>
+      </div>
     </section>
 
     <section class="tab-panel" data-panel="1" hidden>
@@ -45,6 +60,12 @@
       </div>
       <div class="stage-card">
         <div class="canvas-wrap"><canvas id="c0b" width="900" height="420"></canvas></div>
+        <div class="controls">
+          <div class="ctrl-group">
+            <div class="ctrl-label">나선팔 감김 정도(피치각, °)<span class="val" id="c0b-pitch-val">12</span></div>
+            <input type="range" id="c0b-pitch" min="5" max="35" step="1" value="12">
+          </div>
+        </div>
         <div class="info-card" id="c0b-info"></div>
       </div>
       <p class="foot-note">세페이드 변광성의 분포를 이용해 우리은하 중심의 위치와 은하의 크기를 알아낼 수 있습니다.</p>
@@ -80,7 +101,17 @@
       </div>
       <div class="stage-card">
         <div class="canvas-wrap"><canvas id="c2" width="900" height="400"></canvas></div>
-        <div class="info-card">보이는 물질(별과 가스)의 분포만 고려하면, 은하 중심에서 멀어질수록 회전 속도가 <b>감소</b>할 것으로 예상됩니다(케플러 운동과 유사, 그래프의 점선). 하지만 실제 관측된 회전 속도(그래프의 실선)는 먼 거리에서도 <b>거의 일정하게 유지</b>됩니다. 이 차이를 설명하려면 은하 외곽에 우리가 볼 수 없는 추가적인 질량, 즉 <b>암흑 물질</b>이 널리 분포해야 합니다.</div>
+        <div class="controls">
+          <div class="ctrl-group">
+            <div class="ctrl-label">은하 중심으로부터의 거리(임의단위)<span class="val" id="c2-r-val">5</span></div>
+            <input type="range" id="c2-r" min="1" max="20" step="0.5" value="5">
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-box"><div class="lbl">이 지점의 관측 회전 속도</div><div class="num" id="c2-v">—</div></div>
+          <div class="stat-box"><div class="lbl">필요한 내부 질량(상대값, M∝v²r)</div><div class="num" id="c2-mass">—</div></div>
+        </div>
+        <div class="info-card" id="c2-calc-info">보이는 물질(별과 가스)의 분포만 고려하면, 은하 중심에서 멀어질수록 회전 속도가 <b>감소</b>할 것으로 예상됩니다(케플러 운동과 유사, 그래프의 점선). 하지만 실제 관측된 회전 속도(그래프의 실선)는 먼 거리에서도 <b>거의 일정하게 유지</b>됩니다. 이 차이를 설명하려면 은하 외곽에 우리가 볼 수 없는 추가적인 질량, 즉 <b>암흑 물질</b>이 널리 분포해야 합니다.</div>
       </div>
     </section>
 
@@ -167,6 +198,98 @@
   render();
 })();
 
+/* TAB0c 성단 나이 - 주계열 이탈 */
+(function () {
+  var canvas = document.getElementById("c0c");
+  if (!canvas) return;
+  var ctx = setupCanvas(canvas);
+  var W = canvas._w, H = canvas._h;
+  var slider = document.getElementById("c0c-age");
+  var val = document.getElementById("c0c-age-val");
+  var info = document.getElementById("c0c-info");
+
+  // main-sequence lifetime(Myr) approx t = 10000 * M^-2.5 (M in solar masses), so turnoff mass:
+  function turnoffMass(ageMyr) { return Math.pow(10000 / ageMyr, 1 / 2.5); }
+
+  // representative stars spanning O~M spectral types with mass(solar), temp(K), luminosity(solar, ~M^3.5)
+  var stars = [
+    { name: "O형", mass: 20, temp: 30000 },
+    { name: "B형", mass: 8, temp: 15000 },
+    { name: "A형", mass: 2.5, temp: 9000 },
+    { name: "F형", mass: 1.5, temp: 7000 },
+    { name: "G형(태양)", mass: 1.0, temp: 5800 },
+    { name: "K형", mass: 0.7, temp: 4500 },
+    { name: "M형", mass: 0.3, temp: 3200 }
+  ];
+
+  function tempToX(t, x0, x1) {
+    var logT = Math.log10(t);
+    var lo = Math.log10(3000), hi = Math.log10(35000);
+    return x1 - ((logT - lo) / (hi - lo)) * (x1 - x0); // hot(left) to cool(right) like real HR diagram
+  }
+  function lumOf(m) { return Math.pow(m, 3.5); }
+  function lumToY(l, y0, y1) {
+    var logL = Math.log10(l);
+    var lo = -3, hi = 5.5;
+    return y1 - ((logL - lo) / (hi - lo)) * (y1 - y0);
+  }
+
+  function render(ageMyr, mTurn) {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
+    var x0 = 70, x1 = W - 40, y0 = 30, y1 = H - 50;
+    ctx.strokeStyle = cssVar("--line"); ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x0, y1); ctx.lineTo(x1, y1); ctx.stroke();
+    ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center";
+    ctx.fillText("표면 온도(뜨거움 ← → 차가움)", (x0 + x1) / 2, y1 + 26);
+    ctx.save(); ctx.translate(20, (y0 + y1) / 2); ctx.rotate(-Math.PI / 2); ctx.fillText("광도(밝기)", 0, 0); ctx.restore();
+
+    // main sequence line
+    ctx.beginPath();
+    for (var m = 0.2; m <= 25; m += 0.2) {
+      var t = 3000 + (35000 - 3000) * Math.pow((m - 0.2) / 24.8, 0.55);
+      var x = tempToX(t, x0, x1), y = lumToY(lumOf(m), y0, y1);
+      if (m === 0.2) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.strokeStyle = cssVar("--line"); ctx.lineWidth = 2; ctx.stroke();
+
+    stars.forEach(function (s) {
+      var x = tempToX(s.temp, x0, x1), y = lumToY(lumOf(s.mass), y0, y1);
+      var evolved = s.mass > mTurn;
+      if (evolved) {
+        // moved to red giant region: cooler, much brighter
+        var gx = tempToX(3200, x0, x1) + 40, gy = lumToY(lumOf(s.mass) * 25, y0, y1);
+        ctx.fillStyle = cssVar("--coral");
+        ctx.beginPath(); ctx.arc(gx, Math.max(y0 + 10, gy), 9, 0, Math.PI * 2); ctx.fill();
+        ctx.font = "9px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center";
+        ctx.fillText(s.name + " → 적색거성", gx, Math.max(y0 + 10, gy) - 14);
+      } else {
+        ctx.fillStyle = cssVar("--teal");
+        ctx.beginPath(); ctx.arc(x, y, 5, 0, Math.PI * 2); ctx.fill();
+        ctx.font = "9px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center";
+        ctx.fillText(s.name, x, y - 12);
+      }
+    });
+
+    // turnoff marker
+    var turnT = 3000 + (35000 - 3000) * Math.pow(Math.min(24.8, Math.max(0, mTurn - 0.2)) / 24.8, 0.55);
+    var tx = tempToX(turnT, x0, x1);
+    ctx.save(); ctx.strokeStyle = cssVar("--foam"); ctx.setLineDash([4, 4]); ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(tx, y0); ctx.lineTo(tx, y1); ctx.stroke(); ctx.restore();
+    ctx.font = "700 10px Segoe UI"; ctx.fillStyle = cssVar("--foam"); ctx.textAlign = "center";
+    ctx.fillText("주계열 이탈점", tx, y0 - 10);
+  }
+
+  function update() {
+    var age = +slider.value;
+    val.textContent = age.toLocaleString();
+    var mTurn = turnoffMass(age);
+    render(age, mTurn);
+    info.innerHTML = "항성의 수명은 질량이 클수록 훨씬 짧습니다(대략 <b>수명(백만 년) ≈ 10,000 × 질량⁻²·⁵</b>). 성단의 나이가 <b>" + age.toLocaleString() + "백만 년</b>이면, 태양 질량의 약 <b>" + mTurn.toFixed(2) + "배</b>보다 무거운 별은 이미 주계열을 벗어나 적색거성 등으로 진화했습니다. 이 '주계열 이탈점(turnoff point)'의 위치를 관측하면 성단의 나이를 거꾸로 추정할 수 있습니다.";
+  }
+  slider.addEventListener("input", update);
+  update();
+})();
+
 /* TAB0b 우리은하 구조 */
 (function () {
   var canvas = document.getElementById("c0b");
@@ -174,7 +297,10 @@
   var ctx = setupCanvas(canvas);
   var W = canvas._w, H = canvas._h;
   var info = document.getElementById("c0b-info");
-  function render() {
+  var slider = document.getElementById("c0b-pitch");
+  var pitchVal = document.getElementById("c0b-pitch-val");
+
+  function render(pitchDeg) {
     ctx.clearRect(0, 0, W, H);
     ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
     var cx = W / 2, cy = H / 2;
@@ -183,13 +309,18 @@
     ctx.font = "10px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center";
     ctx.fillText("헤일로(구상 성단 분포)", cx, cy - 200);
 
+    // logarithmic spiral r = a * e^(b*theta), b = tan(pitch angle) controls how tightly the arm winds
+    var b = Math.tan(pitchDeg * Math.PI / 180);
+    var a = 8;
     for (var arm = 0; arm < 2; arm++) {
       ctx.beginPath();
-      for (var t = 0; t < 4.5; t += 0.05) {
-        var r = 10 + t * 32;
-        var ang = t + arm * Math.PI;
+      var started = false;
+      for (var theta = 0; theta < 4.6; theta += 0.03) {
+        var r = a * Math.exp(b * theta);
+        if (r > 185) break;
+        var ang = theta + arm * Math.PI;
         var x = cx + r * Math.cos(ang), y = cy + r * Math.sin(ang) * 0.6;
-        if (t === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        if (!started) { ctx.moveTo(x, y); started = true; } else ctx.lineTo(x, y);
       }
       ctx.strokeStyle = cssVar("--teal"); ctx.lineWidth = 8; ctx.globalAlpha = .5; ctx.stroke(); ctx.globalAlpha = 1;
     }
@@ -200,10 +331,17 @@
     var sunX = cx + sunR * Math.cos(sunAng), sunY = cy + sunR * Math.sin(sunAng) * 0.6;
     ctx.fillStyle = cssVar("--violet"); ctx.beginPath(); ctx.arc(sunX, sunY, 6, 0, 7); ctx.fill();
     ctx.fillText("태양계 위치", sunX, sunY - 14);
-
-    info.innerHTML = "우리은하는 지름 약 10만 광년의 막대 나선 은하로 추정됩니다. 태양계는 은하 중심에서 약 2.6만 광년 떨어진 나선팔 부근에 위치합니다. 구상 성단은 주로 <b>헤일로</b>에, 산개 성단은 <b>나선팔</b>에 분포합니다.";
   }
-  render();
+
+  function update() {
+    var pitch = +slider.value;
+    pitchVal.textContent = pitch;
+    render(pitch);
+    var tight = pitch < 12 ? "촘촘하게 감긴(피치각이 작은)" : pitch > 20 ? "느슨하게 열린(피치각이 큰)" : "우리은하와 비슷한 정도로 감긴";
+    info.innerHTML = "나선팔은 로그 나선(r = a·e^(b&theta;)) 모양을 이루며, 피치각(나선이 감기는 정도를 나타내는 각도)이 <b>" + pitch + "°</b>일 때 " + tight + " 모양이 됩니다. 실제 우리은하의 나선팔 피치각은 대략 12°로 추정됩니다. 우리은하는 지름 약 10만 광년의 막대 나선 은하이며, 태양계는 은하 중심에서 약 2.6만 광년 떨어진 나선팔 부근에 위치합니다. 구상 성단은 주로 <b>헤일로</b>에, 산개 성단은 <b>나선팔</b>에 분포합니다.";
+  }
+  slider.addEventListener("input", update);
+  update();
 })();
 
 /* TAB2 성간 물질: 성운 카드 */
@@ -278,7 +416,19 @@
   var canvas = document.getElementById("c2");
   var ctx = setupCanvas(canvas);
   var W = canvas._w, H = canvas._h;
-  function render() {
+  var slider = document.getElementById("c2-r");
+  var rVal = document.getElementById("c2-r-val");
+  var vEl = document.getElementById("c2-v");
+  var massEl = document.getElementById("c2-mass");
+
+  var RMAX = 20;
+  function vObsOf(r) {
+    // flat rotation curve model in arbitrary units: rises then plateaus
+    var frac = Math.min(1, r / (0.15 * RMAX));
+    return frac < 1 ? frac : 1;
+  }
+
+  function render(rSel) {
     ctx.clearRect(0, 0, W, H);
     ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
     var x0 = 80, x1 = W - 80, y0 = 40, y1 = H - 60;
@@ -309,8 +459,30 @@
     }
     ctx.strokeStyle = cssVar("--teal"); ctx.lineWidth = 2.5; ctx.stroke();
     ctx.fillStyle = cssVar("--teal"); ctx.fillText("실제 관측된 회전 속도", x0 + 20, y0 + 30);
+
+    // marker at selected radius on the observed curve
+    var selFrac = rSel / RMAX;
+    var selX = x0 + selFrac * (x1 - x0);
+    var selV = vObsOf(rSel);
+    var selY = y1 - selV * 0.7 * (y1 - y0);
+    ctx.fillStyle = cssVar("--coral");
+    ctx.beginPath(); ctx.arc(selX, selY, 7, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = cssVar("--panel"); ctx.lineWidth = 2; ctx.stroke();
   }
-  render();
+
+  function update() {
+    var r = +slider.value;
+    rVal.textContent = r;
+    var v = vObsOf(r);
+    vEl.textContent = v.toFixed(2) + " (상대값)";
+    // M ∝ v^2 * r (from v^2 = GM/r → M = v^2 r / G); using arbitrary consistent units
+    var massNeeded = (v * v * r).toFixed(2);
+    massEl.textContent = massNeeded;
+    render(r);
+    document.getElementById("c2-calc-info").innerHTML = "뉴턴 역학의 원운동 공식(v² = GM/r)을 뒤집으면 <b>M = v²r / G</b>, 즉 그 지점까지 은하 내부에 있어야 할 질량은 (속도)²×(거리)에 비례합니다. 거리 " + r.toFixed(1) + "(임의단위) 지점에서 실제 관측된 회전 속도가 " + v.toFixed(2) + "이므로, 필요한 내부 질량(상대값)은 <b>" + massNeeded + "</b>입니다. 거리가 멀어질수록 보이는 물질만으로 예상한 질량보다 훨씬 큰 질량이 필요해지는데, 이 '보이지 않는 초과 질량'이 바로 <b>암흑 물질</b>의 증거입니다.";
+  }
+  slider.addEventListener("input", update);
+  update();
 })();
 
 /* TAB4 적색이동 */
