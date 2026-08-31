@@ -25,6 +25,7 @@
     <button class="tab-btn" data-tab="2"><span class="num">03</span> 별의 공간 운동</button>
     <button class="tab-btn" data-tab="3"><span class="num">04</span> 별의 질량</button>
     <button class="tab-btn" data-tab="4"><span class="num">05</span> 변광성</button>
+    <button class="tab-btn" data-tab="5"><span class="num">06</span> 정리하기</button>
   </nav>
 
   <main>
@@ -33,6 +34,8 @@
         <div class="eyebrow">01 · 흑점의 이동으로 알아내는 자전 주기</div>
         <h2 class="display">태양 관측</h2>
         <p>관측 경과일 슬라이더를 움직여, 태양면의 흑점이 날마다 어떻게 이동하는지 관찰하고 태양의 자전 주기를 구해 보세요.</p>
+      
+        <span class="std-chip">12행우02-01</span><span class="std-chip">12행우02-02</span><span class="std-chip">12행우02-03</span><span class="std-chip">12행우02-05</span><div class="std-note"><b>[12행우02-01]</b> 태양의 현상을 설명하고 다양한 파장의 관측 자료를 비교·분석할 수 있다.  (확인 필요 — 학생용 교과서만 있어 교사용 원문과 대조하지 못했습니다)<br><b>[12행우02-02]</b> 별의 시차와 밝기를 이용한 거리 측정 방법을 비교·평가할 수 있다.  (확인 필요 — 학생용 교과서만 있어 교사용 원문과 대조하지 못했습니다)<br><b>[12행우02-03]</b> 별의 시선속도와 접선속도를 통해 공간 운동을 이해할 수 있다.  (확인 필요 — 학생용 교과서만 있어 교사용 원문과 대조하지 못했습니다)<br><b>[12행우02-05]</b> 광도곡선의 특징을 비교하여 맥동변광성과 폭발 변광성을 구분할 수 있다.  (확인 필요 — 학생용 교과서만 있어 교사용 원문과 대조하지 못했습니다)</div><div class="terms"><b>연주 시차</b><b>시선속도</b><b>접선속도</b><b>변광성</b></div>
       </div>
       <div class="stage-card">
         <div class="canvas-wrap"><canvas id="c0" width="900" height="420"></canvas></div>
@@ -177,6 +180,15 @@
         <div class="info-card" id="c4-info"></div>
       </div>
       <p class="foot-note">알골(식변광성)·세페이드(맥동변광성)·신성과 초신성(폭발변광성)이 대표적인 예입니다. 광도 곡선의 모양과 변광 주기의 유무로 변광 천체를 구분할 수 있습니다.</p>
+    </section>
+
+    <section class="tab-panel" data-panel="5" hidden>
+      <div class="stage-head">
+        <div class="eyebrow">06 · 오늘 알아낸 것을 문장으로</div>
+        <h2 class="display">정리하기</h2>
+        <p>조작한 것을 말이나 글로 옮기지 않으면 남지 않습니다. 아래를 채우고 <b>답안 복사</b>를 눌러 제출하세요. 쓰는 동안 자동으로 저장됩니다.</p>
+      </div>
+      <div class="stage-card" style="padding:6px 0 4px"><div id="wk"></div></div>
     </section>
   </main>
 </div>
@@ -608,6 +620,36 @@
   render();
 })();
 
+})();
+</script>
+
+<script>
+(function () {
+  window.sthUnit("psp-2-1");
+  window.sthWork({
+    mount: "wk",
+    unitLabel: "[행성우주과학] 태양과 별의 관측",
+    items: [
+      {
+            "id": "w1",
+            "label": "연주 시차로 거리를 재는 한계",
+            "hint": "시차가 작아질수록 왜 오차가 커지는지, 어느 거리까지 쓸 수 있는지 쓰세요.",
+            "ph": ""
+      },
+      {
+            "id": "w2",
+            "label": "광도곡선 읽기",
+            "hint": "맥동변광성과 폭발 변광성의 광도곡선이 어떻게 다른지, 모양으로 구분하는 법을 쓰세요.",
+            "ph": ""
+      },
+      {
+            "id": "w3",
+            "label": "아직 헷갈리는 것",
+            "hint": "다음 시간에 여기서부터 시작합니다.",
+            "ph": ""
+      }
+]
+  });
 })();
 </script>
 </body>
