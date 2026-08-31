@@ -37,6 +37,7 @@
     <button class="tab-btn" data-tab="3"><span class="num">04</span> 은하의 질량과 암흑 물질</button>
     <button class="tab-btn" data-tab="4"><span class="num">05</span> 은하의 적색 이동 탐사</button>
     <button class="tab-btn" data-tab="5"><span class="num">06</span> 우주의 구조</button>
+    <button class="tab-btn" data-tab="6"><span class="num">07</span> 정리하기</button>
   </nav>
 
   <main>
@@ -45,6 +46,8 @@
         <div class="eyebrow">01 · 별들이 모인 두 가지 방식</div>
         <h2 class="display">성단 — 산개 성단과 구상 성단</h2>
         <p>두 성단의 별의 개수, 나이, 분포 형태를 비교해 보세요.</p>
+      
+        <span class="std-chip">12행우03-01</span><span class="std-chip">12행우03-02</span><span class="std-chip">12행우03-03</span><span class="std-chip">12행우03-05</span><div class="std-note"><b>[12행우03-01]</b> 성단의 C-M도와 세페이드 변광성을 이용하여 우리은하의 구조를 추론할 수 있다.  (확인 필요)<br><b>[12행우03-02]</b> 성간 소광 자료를 통해 성간 티끌의 존재를 추론할 수 있다.  (확인 필요)<br><b>[12행우03-03]</b> 은하 회전 속도 곡선을 이용하여 질량 분포를 이해할 수 있다.  (확인 필요)<br><b>[12행우03-05]</b> 은하의 공간 분포를 통해 우주의 거대 구조를 설명할 수 있다.  (확인 필요)</div><p class="std-note" style="margin-top:6px">※ 이 과목은 학생용 교과서만 있어 성취기준 문구를 교사용 원문과 대조하지 못했습니다. 오개념 지도 상자도 학생용에는 없습니다.</p><div class="terms"><b>성단</b><b>성간 물질</b><b>암흑 물질</b><b>우주 거대 구조</b></div>
       </div>
       <div class="stage-card">
         <div class="canvas-wrap"><canvas id="c0" width="900" height="420"></canvas></div>
@@ -233,6 +236,15 @@
         </div>
         <div class="info-card" id="c5m-info">카드를 클릭해 선택한 뒤, 놓을 칸을 클릭하세요.</div>
       </div>
+    </section>
+
+    <section class="tab-panel" data-panel="6" hidden>
+      <div class="stage-head">
+        <div class="eyebrow">07 · 오늘 알아낸 것을 문장으로</div>
+        <h2 class="display">정리하기</h2>
+        <p>조작한 것을 말이나 글로 옮기지 않으면 남지 않습니다. 아래를 채우고 <b>답안 복사</b>를 눌러 제출하세요. 쓰는 동안 자동으로 저장됩니다.</p>
+      </div>
+      <div class="stage-card" style="padding:6px 0 4px"><div id="wk"></div></div>
     </section>
   </main>
 </div>
@@ -996,6 +1008,36 @@
   reset();
 })();
 
+})();
+</script>
+
+<script>
+(function () {
+  window.sthUnit("psp-2-2");
+  window.sthWork({
+    mount: "wk",
+    unitLabel: "[행성우주과학] 은하와 우주",
+    items: [
+      {
+            "id": "w1",
+            "label": "회전 속도 곡선이 이상한 이유",
+            "hint": "바깥쪽 별의 회전 속도가 예상보다 느려지지 않는다는 관측이, 왜 보이지 않는 질량의 증거가 되는지 쓰세요.",
+            "ph": ""
+      },
+      {
+            "id": "w2",
+            "label": "성간 물질이 있다는 증거",
+            "hint": "성간 소광과 적색화를 근거로 쓰세요.",
+            "ph": ""
+      },
+      {
+            "id": "w3",
+            "label": "아직 헷갈리는 것",
+            "hint": "다음 시간에 여기서부터 시작합니다.",
+            "ph": ""
+      }
+]
+  });
 })();
 </script>
 </body>
