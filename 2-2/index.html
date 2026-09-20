@@ -5,21 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>은하와 우주 — 관측 스테이션</title>
 <link rel="stylesheet" href="../assets/theme.css">
+<link rel="stylesheet" href="../assets/story.css">
 <style>
-  .mission-cards { display: flex; gap: 10px; flex-wrap: wrap; padding: 18px 20px 0; }
-  .mission-card { flex: 1 1 160px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-size: 12px; line-height: 1.55; color: var(--mist); cursor: pointer; transition: all .15s; }
-  .mission-card:hover { border-color: var(--teal-dim); }
-  .mission-card.selected { border-color: var(--teal); box-shadow: 0 0 0 2px var(--teal) inset; }
-  .mission-slots { display: flex; gap: 10px; flex-wrap: wrap; padding: 16px 20px 0; }
-  .mission-slot { flex: 1 1 160px; min-height: 90px; border: 1.5px dashed var(--line); border-radius: 10px; padding: 10px 12px; cursor: pointer; transition: all .15s; }
-  .mission-slot .slot-title { font-size: 12.5px; font-weight: 700; color: var(--foam); margin-bottom: 6px; }
-  .mission-slot .slot-body { font-size: 11.5px; line-height: 1.5; color: var(--mist); }
-  .mission-slot.filled { border-style: solid; background: var(--panel-2); }
-  .mission-slot.correct { border-color: var(--teal); }
-  .mission-slot.wrong { border-color: var(--coral); }
   .data-mini-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 4px 0 0; }
   .data-mini-table th, .data-mini-table td { border: 1px solid var(--line); padding: 6px 8px; text-align: center; }
-  .data-mini-table th { background: var(--panel-2); color: var(--mist); font-weight: 600; }
+  .data-mini-table th { background: var(--card-2); color: var(--mist); font-weight: 700; }
 </style>
 </head>
 <body>
@@ -31,1014 +21,404 @@
       <div class="eyebrow" style="margin-top:8px">Ⅱ-2 · 은하와 우주</div>
       <h1 class="display">우리은하와<br>우주의 구조</h1>
     </div>
-    <button class="tab-btn active" data-tab="0"><span class="num">01</span> 성단</button>
-    <button class="tab-btn" data-tab="1"><span class="num">02</span> 우리은하의 규모와 구조</button>
-    <button class="tab-btn" data-tab="2"><span class="num">03</span> 성간 물질</button>
-    <button class="tab-btn" data-tab="3"><span class="num">04</span> 은하의 질량과 암흑 물질</button>
-    <button class="tab-btn" data-tab="4"><span class="num">05</span> 은하의 적색 이동 탐사</button>
-    <button class="tab-btn" data-tab="5"><span class="num">06</span> 우주의 구조</button>
-    <button class="tab-btn" data-tab="6"><span class="num">07</span> 정리하기</button>
+    <button class="tab-btn active" data-tab="0"><span class="num">01</span> 하늘 한쪽에 몰린 공들</button>
+    <button class="tab-btn" data-tab="1"><span class="num">02</span> 사라진 빛</button>
+    <button class="tab-btn" data-tab="2"><span class="num">03</span> 보이지 않는 것의 무게</button>
+    <button class="tab-btn" data-tab="3"><span class="num">04</span> 막대 인간이 나타났다</button>
+    <button class="tab-btn" data-tab="4"><span class="num">05</span> 정리하기</button>
+    <button class="tab-btn" data-tab="5"><span class="num">06</span> 우리 반</button>
   </nav>
 
   <main>
+
+    <!-- =====================================================================
+         01 성단과 우리은하 — 이야기 「하늘 한쪽에 몰린 공들」
+         ===================================================================== -->
     <section class="tab-panel" data-panel="0">
       <div class="stage-head">
-        <div class="eyebrow">01 · 별들이 모인 두 가지 방식</div>
-        <h2 class="display">성단 — 산개 성단과 구상 성단</h2>
-        <p>두 성단의 별의 개수, 나이, 분포 형태를 비교해 보세요.</p>
-      
-        <span class="std-chip">12행우03-01</span><span class="std-chip">12행우03-02</span><span class="std-chip">12행우03-03</span><span class="std-chip">12행우03-04</span><span class="std-chip">12행우03-05</span><div class="std-note"><b>[12행우03-01]</b> 성단의 C-M도를 이용하여 성단의 나이와 거리를 비교하고, 맥동변광성의 주기-광도 관계를 이용하여 우리은하의 구조와 규모를 추론할 수 있다.<br><b>[12행우03-02]</b> 성간 소광 자료를 통해 성간 티끌의 존재를 추론하고, 성간 티끌의 특징을 설명할 수 있다.<br><b>[12행우03-03]</b> 은하의 회전 속도 곡선을 이용하여 질량 분포를 이해하고 은하에 빛을 내지 않는 물질의 존재를 추론할 수 있다.<br><b>[12행우03-04]</b> 대규모로 이루어진 외부은하의 적색 편이 탐사의 성과를 이해하고, 은하의 공간 분포를 파악함에 있어서 분광 관측 자료의 중요성을 인식할 수 있다.<br><b>[12행우03-05]</b> 은하의 공간 분포 자료를 통해 은하의 집단을 이해하고, 은하 장성, 보이드 등 우주의 거시적인 구조를 현대 우주론과 관련지어 설명할 수 있다.</div><p class="std-note" style="margin-top:6px">※ 성취기준은 2022 개정 과학과 교육과정 원문입니다. 이 과목은 학생용 교과서만 있어 오개념 지도 상자는 싣지 못했습니다.</p><div class="terms"><b>성단</b><b>성간 물질</b><b>암흑 물질</b><b>우주 거대 구조</b></div>
+        <div class="eyebrow">01 · 성단과 우리은하 · 이야기 한 편</div>
+        <h2 class="display">하늘 한쪽에 몰린 공들</h2>
+        <p>공 모양 성단들은 왜 궁수자리 쪽 하늘에만 잔뜩 모여 있을까요? 1918년 섀플리는 이 쏠림 하나로 태양이 우주의 중심이 아니라는 것을 밝혀냈습니다. 성단의 나이와 거리를 직접 재고, 은하의 중심을 찾아 보세요.</p>
+        <span class="std-chip">12행우03-01</span><div class="std-note"><b>[12행우03-01]</b> 성단의 C-M도를 이용하여 성단의 나이와 거리를 비교하고, 맥동변광성의 주기-광도 관계를 이용하여 우리은하의 구조와 규모를 추론할 수 있다.</div><p class="std-note" style="margin-top:6px">※ 성취기준은 2022 개정 과학과 교육과정 원문입니다. 이 과목은 학생용 교과서만 있어 오개념 지도 상자는 싣지 못했습니다.</p><div class="terms"><b>산개 성단</b><b>구상 성단</b><b>C-M도</b><b>주계열 이탈점</b><b>주기-광도 관계</b><b>헤일로</b></div>
       </div>
-      <div class="stage-card">
-        <div class="canvas-wrap"><canvas id="c0" width="900" height="420"></canvas></div>
-        <div class="info-card" id="c0-info">산개 성단은 젊고 파란 별들의 느슨한 무리이고, 구상 성단은 늙고 붉은 별들이 빽빽하게 뭉친 무리입니다.</div>
-      </div>
-      <p class="foot-note">성단의 색등급도(HR도)에서 주계열이 꺾이는 지점(주계열 맞추기)으로 성단의 나이와 거리를 추정할 수 있습니다.</p>
 
-      <div class="stage-card" style="margin-top:14px;">
-        <div class="stage-head" style="padding:16px 20px 0;">
-          <div class="eyebrow">심화 · 주계열 이탈점으로 성단 나이 구하기</div>
-          <h2 class="display" style="font-size:20px;">성단의 나이와 주계열 이탈</h2>
-        </div>
-        <div class="canvas-wrap"><canvas id="c0c" width="900" height="380"></canvas></div>
-        <div class="controls">
-          <div class="ctrl-group">
-            <div class="ctrl-label">성단 나이(백만 년)<span class="val" id="c0c-age-val">10</span></div>
-            <input type="range" id="c0c-age" min="1" max="13000" step="1" value="10">
+      <div class="episode" id="epA">
+        <section class="scene" data-title="한쪽으로 쏠린 공들">
+          <div class="story narr"><div class="who">🔭</div><div class="say"><span class="name">이야기</span>1918년, 윌슨산 천문대. 하늘 전체에 흩어져 있어야 할 <b>구상 성단</b>이 이상하게도 한쪽으로 쏠려 있었습니다. 알려진 성단의 3분의 1이 궁수자리 한 귀퉁이에 몰려 있었던 것입니다.</div></div>
+          <div class="story"><div class="who">🧑‍🔬</div><div class="say"><span class="name">섀플리</span>“산개 성단은 은하수 띠를 따라 고르게 늘어서 있습니다. 그런데 구상 성단만 유독 한쪽입니다. 우리가 하늘 한가운데에 있다면 이럴 수가 없어요. 관측 조수, 먼저 이 성단들이 <b>어떤 무리이고 얼마나 멀리 있는지</b>부터 재 주십시오.”</div></div>
+          <div class="case-file"><b class="k">1918년의 관측 기록</b> 산개 성단 — 별 수십~수천 개, 느슨하고 푸른 무리, 은하수 띠를 따라 고르게 &nbsp;|&nbsp; 구상 성단 — 별 수만~수백만 개, 공 모양으로 빽빽하고 붉은 무리, 궁수자리 쪽에 크게 치우침 &nbsp;|&nbsp; 성단까지의 거리는 아직 아무도 모른다</div>
+          <div class="gate loose" id="a-gate"></div>
+        </section>
+
+        <section class="scene" data-title="두 무리의 색등급도">
+          <div class="story"><div class="who">🧑‍🔬</div><div class="say"><span class="name">섀플리</span>“성단의 별들을 <b>색(가로)과 밝기(세로)</b>로 찍은 그림을 C-M도라고 합니다. 한 성단의 별들은 같은 때에 함께 태어났으니, 이 그림이 곧 성단의 <b>나이표</b>입니다. 무거운 별부터 먼저 주계열을 떠나거든요. 나이를 바꿔 가며 <b>주계열 이탈점</b>이 어디로 가는지 보십시오.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="a-c-cmd" width="900" height="400"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">성단의 나이<span class="val" id="a-age-val">537백만 년</span></div>
+                <input type="range" id="a-age" min="0" max="98" step="1" value="65">
+              </div>
+            </div>
+            <div class="info-card" id="a-cmd-info"></div>
           </div>
-        </div>
-        <div class="info-card" id="c0c-info"></div>
-      </div>
+          <div class="mission" id="m1-2"><span class="m-tag">미션</span>나이를 바꿔 가며 주계열 이탈점의 질량을 찾아내세요.<ul><li id="m1-2a">이탈점이 태양 질량의 <b>5배 이상</b>인 젊은 성단</li><li id="m1-2b">이탈점이 태양 질량의 <b>약 2배</b>인 중년 성단</li><li id="m1-2c">이탈점이 태양 질량의 <b>1배 이하</b>로 내려간 늙은 성단</li></ul></div>
+        </section>
 
-      <div class="stage-head" style="margin-top:30px;">
-        <div class="eyebrow">🔎 미션 · 주계열 맞추기로 성단 거리 구하기</div>
-        <h2 class="display" style="font-size:20px;">이 성단은 얼마나 멀리 있을까요?</h2>
-        <p>성단의 주계열을 표준 주계열(HR도)에 맞추면, 같은 별의 겉보기 등급(m)과 절대 등급(M) 차이로 거리를 구할 수 있습니다. 거리 지수 공식 m - M = 5log(d/10 pc)를 이용해 거리로 가장 알맞은 값을 선택해 보세요.</p>
+        <section class="scene" data-title="주계열을 겹쳐 거리를 재다">
+          <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“성단의 별들은 모두 같은 거리에 있습니다. 그러니 표준 주계열을 <b>통째로 위아래로 옮겨</b> 관측점과 겹쳐 보면, 얼마나 내려야 맞는지가 곧 <b>거리 지수 m − M</b> 이에요. 이것을 주계열 맞추기라고 합니다. 세 성단의 거리를 구해 보세요.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="a-c-fit" width="900" height="400"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">관측 대상<span class="val" id="a-cl-val">히아데스</span></div>
+                <div class="seg" id="a-cl"><button type="button" class="on" data-s="0">히아데스</button><button type="button" data-s="1">플레이아데스</button><button type="button" data-s="2">M13</button></div>
+              </div>
+              <div class="ctrl-group">
+                <div class="ctrl-label">내가 놓아 본 거리<span class="val" id="a-d-val">10 pc</span></div>
+                <input type="range" id="a-d" min="0" max="100" step="1" value="0">
+              </div>
+            </div>
+            <div class="info-card" id="a-fit-info"></div>
+          </div>
+          <div class="mission" id="m1-3"><span class="m-tag">미션</span>표준 주계열이 관측점과 겹치는 거리를 세 성단 모두 찾아내세요.<ul><li id="m1-3a">히아데스 (산개 성단)</li><li id="m1-3b">플레이아데스 (산개 성단)</li><li id="m1-3c">M13 (구상 성단)</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="심장 박동으로 거리를 재다">
+          <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“주계열 맞추기는 별을 하나하나 찍어야 해서 아주 먼 성단에는 쓰기 어렵습니다. 그때 쓰는 것이 <b>맥동변광성</b>이에요. 세페이드는 <b>주기가 길수록 실제로 더 밝다</b>는 관계가 있어서, 밝기가 오르내리는 <b>주기만 재면 절대 등급을 알 수 있습니다.</b> 관측된 광도곡선에 내 모형 곡선을 포개 보세요.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="a-c-cep" width="900" height="400"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">관측 대상<span class="val" id="a-cep-val">세페이드 가</span></div>
+                <div class="seg" id="a-cep"><button type="button" class="on" data-s="0">세페이드 가</button><button type="button" data-s="1">세페이드 나</button><button type="button" data-s="2">세페이드 다</button></div>
+              </div>
+              <div class="ctrl-group">
+                <div class="ctrl-label">내 모형의 변광 주기<span class="val" id="a-per-val">1.58일</span></div>
+                <input type="range" id="a-per" min="0" max="100" step="1" value="10">
+              </div>
+            </div>
+            <div class="info-card" id="a-cep-info"></div>
+          </div>
+          <div class="mission" id="m1-4"><span class="m-tag">미션</span>세 세페이드의 주기를 모두 맞혀 거리를 알아내세요.<ul><li id="m1-4a">세페이드 가</li><li id="m1-4b">세페이드 나</li><li id="m1-4c">세페이드 다</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="공들의 중심을 찾아서">
+          <div class="story"><div class="who">🧑‍🔬</div><div class="say"><span class="name">섀플리</span>“이제 구상 성단들의 거리를 모두 구했습니다. 이것을 지도 위에 찍고, <b>이 공들이 둘러싸고 있는 한 점</b>을 찾으면 됩니다. 성단들이 그 점을 중심으로 고르게 퍼져 있다면, 그곳이 바로 우리은하의 중심일 겁니다. 태양에서 궁수자리 쪽으로 중심을 밀어 보십시오.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="a-c-cen" width="900" height="420"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">내가 놓아 본 은하 중심 (태양에서 궁수자리 방향)<span class="val" id="a-cen-val">0.0 kpc</span></div>
+                <input type="range" id="a-cen" min="0" max="20" step="0.5" value="0">
+              </div>
+              <div class="ctrl-group">
+                <div class="ctrl-label">나선팔이 감긴 정도(피치각)<span class="val" id="a-pit-val">20°</span></div>
+                <input type="range" id="a-pit" min="5" max="35" step="1" value="20">
+              </div>
+            </div>
+            <div class="info-card" id="a-cen-info"></div>
+          </div>
+          <div class="stage-card" style="margin-top:14px"><div id="a-sort"></div></div>
+          <div class="mission" id="m1-5"><span class="m-tag">미션</span><ul><li id="m1-5a">성단들의 치우침이 사라지는 자리에 중심을 놓으세요.</li><li id="m1-5b">아래에서 우리은하의 각 부분에 무엇이 있는지 나누세요.</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="결말 — 태양은 변두리에 있었다">
+          <div class="ending">
+            <h4>🌌 우리는 중심이 아니라 변두리에 있다</h4>
+            <p>구상 성단이 한쪽에 몰려 보인 것은 그쪽에만 성단이 있어서가 아니라, <b>성단들이 둘러싼 중심이 태양이 아니었기 때문</b>입니다. 섀플리는 성단 속 변광성으로 거리를 재어, 그 중심이 <b>궁수자리 방향으로 아주 멀리</b> 떨어져 있음을 밝혔습니다. 오늘날 측정값은 <b>약 8 kpc(2만 6천 광년)</b> 입니다. 코페르니쿠스가 지구를 태양계의 중심에서 밀어냈다면, 섀플리는 태양계를 은하의 중심에서 밀어낸 셈입니다.</p>
+            <p>같은 조사로 우리은하의 생김새도 드러났습니다. 늙고 붉은 별과 <b>구상 성단</b>은 공 모양의 <b>헤일로</b>와 <b>팽대부</b>에, 젊고 푸른 별·산개 성단·성간 물질은 얇은 <b>원반</b>의 나선팔에 있습니다. C-M도의 주계열 이탈점이 그 나이 차이를 그대로 보여 주었습니다.</p>
+            <div class="vs" id="a-vs"></div>
+            <span class="stamp">사건 파일 ① 해결</span>
+          </div>
+          <div class="info-card" style="margin:0 0 14px">📎 과학자의 눈: 이 화면의 별 수명은 <b>수명(백만 년) ≈ 10,000 × 질량<sup>−2.5</sup></b> 라는 간단한 어림식이고, 성단의 거리도 모형 자료에서 구한 값입니다(플레이아데스는 132 pc 로 나오지만 오늘날 측정값은 약 136 pc 입니다). 또 섀플리 자신이 1918년에 내놓은 은하 중심까지의 거리와 은하 지름(약 30만 광년)은 오늘날 값(8 kpc, 약 10만 광년)보다 두세 배 컸습니다. <b>왜 그렇게 커졌을까요?</b> 그 까닭은 다음 이야기에서 밝혀집니다.</div>
+          <div class="stage-card" style="padding:6px 0 4px"><div id="wkA"></div></div>
+        </section>
       </div>
-      <div class="stage-card">
-        <div class="info-card" id="c0m-data" style="margin:18px 20px 0;"></div>
-        <div class="seg" id="c0m-choices" style="margin:14px 20px 0;"></div>
-        <div class="toggle-row" style="margin:14px 20px 0;">
-          <button class="chip" id="c0m-check">정답 확인</button>
-          <button class="chip" id="c0m-new">새 성단 자료</button>
-        </div>
-        <div class="info-card" id="c0m-info">보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.</div>
-      </div>
+      <p class="teacher-note">교사용: 주소 끝에 <a href="?open=1">?open=1</a> 을 붙이면 모든 장면이 열립니다.</p>
     </section>
 
+    <!-- =====================================================================
+         02 성간 물질 — 이야기 「사라진 빛」
+         ===================================================================== -->
     <section class="tab-panel" data-panel="1" hidden>
       <div class="stage-head">
-        <div class="eyebrow">02 · 태양계는 은하의 어디에 있을까?</div>
-        <h2 class="display">우리은하의 규모와 구조</h2>
-        <p>우리은하 속에서 태양계와 성단들이 어디에 위치하는지 확인해 보세요.</p>
+        <div class="eyebrow">02 · 성간 티끌 · 이야기 한 편</div>
+        <h2 class="display">사라진 빛</h2>
+        <p>1930년, 트럼플러는 산개 성단 100여 개를 두 가지 방법으로 재다가 도저히 말이 안 되는 결과를 얻습니다. 먼 성단일수록 몸집이 커지는 것이었습니다. 어긋난 두 자를 맞추다가 그는 별과 별 사이를 채운 무언가를 찾아냅니다.</p>
+        <span class="std-chip">12행우03-02</span><div class="std-note"><b>[12행우03-02]</b> 성간 소광 자료를 통해 성간 티끌의 존재를 추론하고, 성간 티끌의 특징을 설명할 수 있다.</div><div class="terms"><b>성간 소광</b><b>성간 적색화</b><b>색초과</b><b>방출성운</b><b>반사성운</b><b>암흑성운</b></div>
       </div>
-      <div class="stage-card">
-        <div class="canvas-wrap"><canvas id="c0b" width="900" height="420"></canvas></div>
-        <div class="controls">
-          <div class="ctrl-group">
-            <div class="ctrl-label">나선팔 감김 정도(피치각, °)<span class="val" id="c0b-pitch-val">12</span></div>
-            <input type="range" id="c0b-pitch" min="5" max="35" step="1" value="12">
-          </div>
-        </div>
-        <div class="info-card" id="c0b-info"></div>
-      </div>
-      <p class="foot-note">세페이드 변광성의 분포를 이용해 우리은하 중심의 위치와 은하의 크기를 알아낼 수 있습니다.</p>
 
-      <div class="stage-head" style="margin-top:30px;">
-        <div class="eyebrow">🔎 미션 · 세페이드 변광성으로 거리 구하기</div>
-        <h2 class="display" style="font-size:20px;">이 세페이드까지의 거리는 얼마일까요?</h2>
-        <p>세페이드 변광성은 변광 주기가 길수록 실제 밝기(절대 등급)가 밝아지는 주기-광도 관계를 가집니다(M ≈ -2.4log P - 1.6). 관측된 주기와 겉보기 등급 자료로 거리를 구해 보세요.</p>
+      <div class="episode" id="epB">
+        <section class="scene" data-title="먼 성단일수록 뚱뚱하다">
+          <div class="story narr"><div class="who">📐</div><div class="say"><span class="name">이야기</span>1930년, 릭 천문대의 트럼플러는 산개 성단 100여 개의 거리를 <b>두 가지 방법</b>으로 구하고 있었습니다. 하나는 성단 속 별들의 <b>밝기</b>로 구한 거리, 다른 하나는 성단의 <b>겉보기 각지름</b>으로 구한 거리였습니다.</div></div>
+          <div class="story"><div class="who">🧔‍♂️</div><div class="say"><span class="name">트럼플러</span>“밝기로 구한 거리에 각지름을 곱하면 성단의 <b>실제 지름</b>이 나옵니다. 그런데 이상합니다. <b>먼 성단일수록 지름이 자꾸 커집니다.</b> 우주가 먼 곳에만 큰 성단을 만들어 둘 리는 없지요. 그렇다면 둘 중 하나가 틀렸다는 뜻입니다.”</div></div>
+          <div class="case-file"><b class="k">트럼플러의 자료(1930)</b> 성단의 실제 지름은 대개 서로 비슷하다 &nbsp;|&nbsp; 그런데 밝기로 구한 거리를 쓰면, 3 kpc 성단의 지름이 0.5 kpc 성단보다 두 배 넘게 크다 &nbsp;|&nbsp; 각지름 측정은 단순하고 틀릴 여지가 거의 없다</div>
+          <div class="gate loose" id="b-gate"></div>
+        </section>
+
+        <section class="scene" data-title="빛이 조금씩 갉아먹히고 있었다">
+          <div class="story"><div class="who">🧔‍♂️</div><div class="say"><span class="name">트럼플러</span>“만약 별빛이 오는 길에 <b>조금씩 깎여</b> 어두워진다면, 우리는 그 별을 실제보다 <b>멀다</b>고 잘못 계산하게 됩니다. 멀수록 더 많이 깎일 테니 오차도 멀수록 커지겠지요. 1 kpc 를 지날 때마다 몇 등급씩 깎이는지 넣어 보면서, 네 성단의 지름이 같아지는 값을 찾아 주십시오.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="b-c-tru" width="900" height="400"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">1 kpc 를 지날 때 깎이는 밝기(소광량)<span class="val" id="b-ext-val">0.00 등급/kpc</span></div>
+                <input type="range" id="b-ext" min="0" max="2" step="0.05" value="0">
+              </div>
+            </div>
+            <div class="info-card" id="b-tru-info"></div>
+          </div>
+          <div class="stage-card" style="margin-top:14px"><div id="b-q1"></div></div>
+          <div class="mission" id="m2-2"><span class="m-tag">미션</span><ul><li id="m2-2a">네 성단의 지름이 모두 비슷해지는 소광량을 찾으세요.</li><li id="m2-2b">아래 물음에 답하세요.</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="파란빛이 먼저 사라진다">
+          <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">분광 관측 담당</span>“깎이는 정도가 <b>파장마다 다르다</b>는 것이 결정적인 증거였어요. 짧은 파란빛이 긴 붉은빛보다 훨씬 많이 깎입니다. 그래서 별빛은 어두워질 뿐 아니라 <b>붉어집니다</b>. 스펙트럼형으로 알아낸 <b>원래 색</b>과 실제 <b>관측된 색</b>의 차이가 바로 <b>색초과 E(B−V)</b> 예요. 관측된 색과 맞을 때까지 색초과를 넣어 보세요.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="b-c-red" width="900" height="400"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">관측 대상<span class="val" id="b-star-val">별 가 (B0형)</span></div>
+                <div class="seg" id="b-star"><button type="button" class="on" data-s="0">별 가 (B0형)</button><button type="button" data-s="1">별 나 (A0형)</button></div>
+              </div>
+              <div class="ctrl-group">
+                <div class="ctrl-label">내가 넣어 본 색초과 E(B−V)<span class="val" id="b-e-val">0.00</span></div>
+                <input type="range" id="b-e" min="0" max="1.5" step="0.01" value="0">
+              </div>
+            </div>
+            <div class="info-card" id="b-red-info"></div>
+          </div>
+          <div class="mission" id="m2-3"><span class="m-tag">미션</span>두 별의 색초과를 찾아 소광량과 참거리를 구하세요.<ul><li id="m2-3a">별 가 (B0형 주계열)</li><li id="m2-3b">별 나 (A0형 주계열)</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="티끌과 가스가 만드는 세 얼굴">
+          <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">분광 관측 담당</span>“빛을 깎는 티끌은 눈에 보이기도 합니다. 성운이 바로 그것이에요. 그런데 같은 성간 물질인데도 <b>곁에 있는 별이 얼마나 뜨거운가</b>에 따라 전혀 다르게 보입니다. 별의 온도를 올려 보세요.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="b-c-neb" width="900" height="400"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">성운 곁에 있는 별의 표면 온도<span class="val" id="b-t-val">15,000 K</span></div>
+                <input type="range" id="b-t" min="0" max="100" step="1" value="62">
+              </div>
+            </div>
+            <div class="info-card" id="b-neb-info"></div>
+          </div>
+          <div class="stage-card" style="margin-top:14px"><div id="b-sort"></div></div>
+          <div class="mission" id="m2-4"><span class="m-tag">미션</span><ul><li id="m2-4a">성운이 <b>스스로 붉게 빛나는</b> 온도를 찾으세요.</li><li id="m2-4b">성운이 <b>파랗게 비쳐 보이는</b> 온도를 찾으세요.</li><li id="m2-4c">아래 관측 기록 6개를 세 성운으로 나누세요.</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="결말 — 우주는 비어 있지 않았다">
+          <div class="ending">
+            <h4>🌫️ 별과 별 사이는 텅 빈 곳이 아니었다</h4>
+            <p>어긋난 두 자가 가리킨 것은 <b>성간 티끌</b>이었습니다. 별빛은 오는 길에 티끌에 가로막혀 어두워지고(<b>성간 소광</b>), 파란빛이 더 많이 깎여 붉게 보입니다(<b>성간 적색화</b>). 트럼플러가 얻은 값은 1 kpc 마다 약 <b>0.7등급</b>이었고, 오늘날에도 은하면 방향으로는 1 kpc 마다 1등급 안팎이 깎입니다. 보정하지 않으면 별과 성단을 모두 실제보다 <b>멀다</b>고 잘못 재게 됩니다.</p>
+            <p>이것이 앞 이야기의 수수께끼도 풀어 줍니다. 섀플리가 우리은하를 실제보다 <b>세 배나 크게</b> 본 까닭은, 성간 소광을 몰라 성단들의 거리를 지나치게 멀게 잡았기 때문입니다. 한편 티끌은 방해꾼만은 아닙니다. 별이 태어나는 재료이자, 방출성운·반사성운·암흑성운으로 자기 존재를 드러내는 주인공이기도 합니다.</p>
+            <div class="vs" id="b-vs"></div>
+            <span class="stamp">사건 파일 ② 해결</span>
+          </div>
+          <div class="info-card" style="margin:0 0 14px">📎 과학자의 눈: 소광량은 보는 방향에 따라 크게 다릅니다. 은하면 쪽은 1 kpc 마다 1등급이 넘기도 하고, 은하면과 수직인 방향은 거의 없습니다. 이 화면은 한 방향에서 소광이 고르게 쌓인다고 단순화했습니다. 또 소광 곡선은 정확히 1/파장에 비례하지는 않아서, 실제로는 <b>A(V) ≈ 3.1 × E(B−V)</b> 라는 관측값을 씁니다.</div>
+          <div class="stage-card" style="padding:6px 0 4px"><div id="wkB"></div></div>
+        </section>
       </div>
-      <div class="stage-card">
-        <div class="info-card" id="c1m-data" style="margin:18px 20px 0;"></div>
-        <div class="seg" id="c1m-choices" style="margin:14px 20px 0;"></div>
-        <div class="toggle-row" style="margin:14px 20px 0;">
-          <button class="chip" id="c1m-check">정답 확인</button>
-          <button class="chip" id="c1m-new">새 변광성 자료</button>
-        </div>
-        <div class="info-card" id="c1m-info">보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.</div>
-      </div>
+      <p class="teacher-note">교사용: 주소 끝에 <a href="?open=1">?open=1</a> 을 붙이면 모든 장면이 열립니다.</p>
     </section>
 
+    <!-- =====================================================================
+         03 은하의 질량과 암흑 물질 — 이야기 「보이지 않는 것의 무게」
+         ===================================================================== -->
     <section class="tab-panel" data-panel="2" hidden>
       <div class="stage-head">
-        <div class="eyebrow">03 · 별과 별 사이를 채우는 가스와 티끌</div>
-        <h2 class="display">성간 물질</h2>
-        <p>성운의 세 종류를 카드에서 확인하고, 슬라이더로 성간 티끌의 양에 따라 별빛의 색이 어떻게 붉어지는지(성간 적색화) 관찰해 보세요.</p>
+        <div class="eyebrow">03 · 은하의 질량과 암흑 물질 · 이야기 한 편</div>
+        <h2 class="display">보이지 않는 것의 무게</h2>
+        <p>1970년대, 베라 루빈은 안드로메다 은하 바깥쪽 별들의 속도를 재다가 아무도 예상하지 못한 그래프를 얻습니다. 태양계의 규칙을 먼저 확인하고, 관측 곡선을 맞춰 보이지 않는 물질의 무게를 달아 보세요.</p>
+        <span class="std-chip">12행우03-03</span><div class="std-note"><b>[12행우03-03]</b> 은하의 회전 속도 곡선을 이용하여 질량 분포를 이해하고 은하에 빛을 내지 않는 물질의 존재를 추론할 수 있다.</div><div class="terms"><b>회전 속도 곡선</b><b>케플러 운동</b><b>암흑 물질</b><b>헤일로</b></div>
       </div>
-      <div class="stage-card">
-        <div class="card-grid" id="c1-grid" style="padding:18px 20px 0;"></div>
-        <div class="detail-panel" id="c1-detail"><span class="hint">위에서 성운 카드를 하나 선택해 보세요.</span></div>
-      </div>
-      <div class="stage-card" style="margin-top:14px;">
-        <div class="canvas-wrap"><canvas id="c1" width="900" height="200"></canvas></div>
-        <div class="controls">
-          <div class="ctrl-group">
-            <div class="ctrl-label">성간 티끌의 양<span class="val" id="c1-dust-val">0</span></div>
-            <input type="range" id="c1-dust" min="0" max="100" step="1" value="0">
+
+      <div class="episode" id="epC">
+        <section class="scene" data-title="바깥으로 갈수록 느려져야 한다">
+          <div class="story narr"><div class="who">🌀</div><div class="say"><span class="name">이야기</span>1970년대, 베라 루빈과 켄트 포드는 안드로메다 은하의 스펙트럼을 은하 바깥쪽까지 끈질기게 찍고 있었습니다. 별빛의 도플러 이동을 재면, 그 별이 은하 중심을 <b>얼마나 빠르게 도는지</b> 알 수 있습니다.</div></div>
+          <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">루빈</span>“은하의 빛은 대부분 중심 가까이에서 나옵니다. 질량도 거기 몰려 있을 테니, 바깥쪽 별은 태양계의 바깥 행성처럼 <b>느리게</b> 돌아야 합니다. 그런데… 우리가 얻은 그래프는 그렇지 않았습니다.”</div></div>
+          <div class="case-file"><b class="k">두 가지 예상</b> 질량이 중심에 몰려 있다면 바깥 속도는 거리의 제곱근에 반비례해 줄어든다 &nbsp;|&nbsp; 질량이 바깥까지 계속 더해진다면 속도는 줄지 않는다 &nbsp;|&nbsp; 안드로메다의 별빛은 중심에서 멀어질수록 빠르게 사라진다</div>
+          <div class="gate loose" id="c-gate"></div>
+        </section>
+
+        <section class="scene" data-title="태양계에서 규칙을 확인하다">
+          <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“먼저 규칙을 눈으로 확인합시다. 태양계는 질량이 거의 전부 한가운데(태양)에 있는 계예요. 이때 공전 속도는 <b>v = 29.8 ÷ √(거리/1 AU) km/s</b> 가 됩니다. 세 행성의 공전 속도를 직접 계산해서 넣어 보세요.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="c-c-kep" width="900" height="380"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">관측 대상<span class="val" id="c-pl-val">지구</span></div>
+                <div class="seg" id="c-pl"><button type="button" class="on" data-s="0">지구</button><button type="button" data-s="1">목성</button><button type="button" data-s="2">해왕성</button></div>
+              </div>
+              <div class="ctrl-group">
+                <div class="ctrl-label">내가 계산한 공전 속도<span class="val" id="c-v-val">0.0 km/s</span></div>
+                <input type="range" id="c-v" min="0" max="40" step="0.1" value="0">
+              </div>
+            </div>
+            <div class="info-card" id="c-kep-info"></div>
           </div>
-        </div>
-        <div class="info-card">성간 티끌은 파장이 짧은 파란빛을 파장이 긴 붉은빛보다 더 많이 산란시킵니다. 그 결과 티끌이 많은 성간 공간을 통과한 별빛일수록 실제보다 더 붉게 보이는데, 이를 <b>성간 적색화</b>라고 합니다. 이 효과 때문에 별의 겉보기 색만으로 표면 온도를 판단할 때는 성간 소광을 보정해야 합니다.</div>
+          <div class="mission" id="m3-2"><span class="m-tag">미션</span>세 행성의 공전 속도를 모두 맞히세요.<ul><li id="m3-2a">지구 (1.00 AU)</li><li id="m3-2b">목성 (5.20 AU)</li><li id="m3-2c">해왕성 (30.07 AU)</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="관측 곡선을 맞춰라">
+          <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">루빈</span>“이것이 우리가 얻은 관측점입니다. 중심에서 20 kpc 나 떨어진 곳에서도 속도가 줄지 않아요. 보이는 별과 가스만 넣은 곡선은 한참 아래를 지납니다. 눈에 보이지 않는 물질이 은하를 <b>공처럼 둘러싸고</b> 있다고 가정하고, 그 세기를 조절해 관측점과 맞춰 보세요.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="c-c-rot" width="900" height="400"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">암흑 물질 헤일로의 세기<span class="val" id="c-h-val">0 km/s</span></div>
+                <input type="range" id="c-h" min="0" max="250" step="5" value="0">
+              </div>
+            </div>
+            <div class="info-card" id="c-rot-info"></div>
+          </div>
+          <div class="stage-card" style="margin-top:14px"><div id="c-q1"></div></div>
+          <div class="mission" id="m3-3"><span class="m-tag">미션</span><ul><li id="m3-3a">관측점과 잘 맞는 헤일로의 세기를 찾으세요.</li><li id="m3-3b">아래 물음에 답하세요.</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="질량은 어디에 있나">
+          <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“속도를 알면 질량을 알 수 있습니다. 반지름 r 안쪽의 질량은 <b>M = v²r / G</b> 예요. 관측 속도로 구한 질량에서 보이는 물질의 질량을 빼면 남는 것이 <b>암흑 물질</b>입니다. 거리를 바꿔 가며 둘의 양을 견주어 보세요.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="c-c-mass" width="900" height="400"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">은하 중심에서의 거리<span class="val" id="c-rr-val">3.0 kpc</span></div>
+                <input type="range" id="c-rr" min="1" max="25" step="0.5" value="3">
+              </div>
+            </div>
+            <div class="info-card" id="c-mass-info"></div>
+          </div>
+          <div class="mission" id="m3-4"><span class="m-tag">미션</span><ul><li id="m3-4a">암흑 물질의 양이 보이는 물질과 <b>같아지는</b> 거리를 찾으세요.</li><li id="m3-4b">거리를 20 kpc 바깥까지 넓혀 그곳의 비율을 확인하세요.</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="결말 — 은하의 대부분은 보이지 않는다">
+          <div class="ending">
+            <h4>⚖️ 빛이 없는 곳에도 질량은 있었다</h4>
+            <p>회전 속도 곡선은 <b>그 반지름 안쪽에 얼마나 많은 질량이 있는지</b>를 알려 주는 저울입니다. 바깥으로 갈수록 별빛은 거의 사라지는데도 속도가 줄지 않았다는 것은, 빛을 내지 않는 물질이 <b>바깥까지 계속 더해지고 있다</b>는 뜻입니다. 이것이 <b>암흑 물질</b>이고, 은하를 공처럼 둘러싼 그 분포를 <b>암흑 물질 헤일로</b>라고 부릅니다.</p>
+            <p>중심 가까이에서는 보이는 물질이 우세하지만, 6 kpc 쯤에서 둘이 같아지고, 20 kpc 바깥에서는 암흑 물질이 보이는 물질의 <b>두세 배</b>가 됩니다. 은하의 질량은 대부분 우리가 볼 수 없는 것으로 이루어져 있습니다.</p>
+            <div class="vs" id="c-vs"></div>
+            <span class="stamp">사건 파일 ③ 해결</span>
+          </div>
+          <div class="info-card" style="margin:0 0 14px">📎 과학자의 눈: 이 화면의 보이는 물질 분포와 헤일로 모형은 우리은하와 비슷하게 맞춘 <b>단순한 모형</b>입니다. 실제 회전 곡선은 은하마다 다르고, 원반·팽대부·기체를 따로 계산해야 합니다. 또 암흑 물질의 증거는 회전 곡선 하나만이 아니라 은하단의 운동, 중력 렌즈, 우주 배경 복사에서도 나옵니다. 암흑 물질이 <b>무엇인지</b>는 아직 밝혀지지 않았습니다.</div>
+          <div class="stage-card" style="padding:6px 0 4px"><div id="wkC"></div></div>
+        </section>
       </div>
+      <p class="teacher-note">교사용: 주소 끝에 <a href="?open=1">?open=1</a> 을 붙이면 모든 장면이 열립니다.</p>
     </section>
 
+    <!-- =====================================================================
+         04 적색 편이 탐사와 우주 거대 구조 — 이야기 「막대 인간이 나타났다」
+         ===================================================================== -->
     <section class="tab-panel" data-panel="3" hidden>
       <div class="stage-head">
-        <div class="eyebrow">04 · 보이지 않는데 질량은 있다</div>
-        <h2 class="display">우리은하의 질량과 암흑 물질</h2>
-        <p>은하 중심에서 멀어질수록 회전 속도가 어떻게 관측되는지, 예상과 비교해 암흑 물질의 존재 증거를 확인해 보세요.</p>
-      </div>
-      <div class="stage-card">
-        <div class="canvas-wrap"><canvas id="c2" width="900" height="400"></canvas></div>
-        <div class="controls">
-          <div class="ctrl-group">
-            <div class="ctrl-label">은하 중심으로부터의 거리(임의단위)<span class="val" id="c2-r-val">5</span></div>
-            <input type="range" id="c2-r" min="1" max="20" step="0.5" value="5">
-          </div>
-        </div>
-        <div class="stat-row">
-          <div class="stat-box"><div class="lbl">이 지점의 관측 회전 속도</div><div class="num" id="c2-v">—</div></div>
-          <div class="stat-box"><div class="lbl">필요한 내부 질량(상대값, M∝v²r)</div><div class="num" id="c2-mass">—</div></div>
-        </div>
-        <div class="info-card" id="c2-calc-info">보이는 물질(별과 가스)의 분포만 고려하면, 은하 중심에서 멀어질수록 회전 속도가 <b>감소</b>할 것으로 예상됩니다(케플러 운동과 유사, 그래프의 점선). 하지만 실제 관측된 회전 속도(그래프의 실선)는 먼 거리에서도 <b>거의 일정하게 유지</b>됩니다. 이 차이를 설명하려면 은하 외곽에 우리가 볼 수 없는 추가적인 질량, 즉 <b>암흑 물질</b>이 널리 분포해야 합니다.</div>
+        <div class="eyebrow">04 · 적색 편이 탐사와 우주의 구조 · 이야기 한 편</div>
+        <h2 class="display">막대 인간이 나타났다</h2>
+        <p>하늘 사진만 보면 은하는 아무렇게나 흩어져 있습니다. 그런데 1,100개 은하의 스펙트럼을 하나하나 찍어 깊이를 넣자, 사람 모양을 닮은 뜻밖의 그림이 나타났습니다. 우주는 균일하지 않았습니다.</p>
+        <span class="std-chip">12행우03-04</span><span class="std-chip">12행우03-05</span><div class="std-note"><b>[12행우03-04]</b> 대규모로 이루어진 외부은하의 적색 편이 탐사의 성과를 이해하고, 은하의 공간 분포를 파악함에 있어서 분광 관측 자료의 중요성을 인식할 수 있다.<br><b>[12행우03-05]</b> 은하의 공간 분포 자료를 통해 은하의 집단을 이해하고, 은하 장성, 보이드 등 우주의 거시적인 구조를 현대 우주론과 관련지어 설명할 수 있다.</div><div class="terms"><b>적색 편이</b><b>허블 법칙</b><b>은하군·은하단·초은하단</b><b>필라멘트</b><b>은하 장성</b><b>보이드</b></div>
       </div>
 
-      <div class="stage-head" style="margin-top:30px;">
-        <div class="eyebrow">🔎 미션 · 회전 속도 곡선으로 암흑 물질 판별하기</div>
-        <h2 class="display" style="font-size:20px;">이 관측 자료는 암흑 물질의 강한 증거일까요?</h2>
-        <p>은하 중심에서 특정 거리만큼 떨어진 지점의 케플러 예측 속도와 실제 관측 속도 자료가 주어집니다. 두 값의 차이가 크면 암흑 물질의 강한 증거이고, 두 값이 비슷하면 보이는 물질만으로 설명 가능합니다.</p>
+      <div class="episode" id="epD">
+        <section class="scene" data-title="사진에는 깊이가 없다">
+          <div class="story narr"><div class="who">📷</div><div class="say"><span class="name">이야기</span>하늘 사진 속 은하들은 그저 흩어진 점들입니다. 어떤 점이 가깝고 어떤 점이 먼지, 사진만으로는 알 수 없습니다. 사진은 3차원 우주를 <b>납작하게 눌러 놓은 그림자</b>이기 때문입니다.</div></div>
+          <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">CfA 탐사팀</span>“그래서 우리는 은하를 <b>하나씩</b> 분광기에 걸었습니다. 1,100개가 넘는 은하의 스펙트럼을 찍어 적색 편이를 재고, 허블 법칙으로 거리를 붙였지요. 그렇게 깊이를 넣은 순간 — 아무도 예상하지 못한 것이 나타났습니다.”</div></div>
+          <div class="case-file"><b class="k">CfA 적색 편이 탐사(1986)</b> 좁고 긴 하늘 띠 하나를 골라 그 안의 밝은 은하를 모두 분광 관측 &nbsp;|&nbsp; 사람 모양을 닮은 구조가 나와 ‘막대 인간’이라는 별명이 붙음 &nbsp;|&nbsp; 1989년에는 길이 수억 광년의 <b>은하 장성(Great Wall)</b>이 확인됨</div>
+          <div class="gate loose" id="d-gate"></div>
+        </section>
+
+        <section class="scene" data-title="선이 붉은 쪽으로 밀려 있다">
+          <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">CfA 탐사팀</span>“은하 스펙트럼에는 칼슘이 만든 어두운 선이 있습니다. 실험실에서 이 선의 파장은 <b>393.4 nm</b> 예요. 관측된 스펙트럼에서 같은 선이 어디에 있는지 눈금을 맞춰 보세요. 밀려난 만큼이 <b>적색 편이 z</b> 이고, <b>v = c z</b>, <b>d = v / H₀</b> 로 거리가 나옵니다.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="d-c-spec" width="900" height="400"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">관측 대상<span class="val" id="d-gal-val">은하 가</span></div>
+                <div class="seg" id="d-gal"><button type="button" class="on" data-s="0">은하 가</button><button type="button" data-s="1">은하 나</button><button type="button" data-s="2">은하 다</button></div>
+              </div>
+              <div class="ctrl-group">
+                <div class="ctrl-label">내가 읽은 칼슘 선의 파장<span class="val" id="d-lam-val">393.4 nm</span></div>
+                <input type="range" id="d-lam" min="393.4" max="410" step="0.2" value="393.4">
+              </div>
+            </div>
+            <div class="info-card" id="d-spec-info"></div>
+          </div>
+          <div class="mission" id="m4-2"><span class="m-tag">미션</span>세 은하의 칼슘 선에 눈금을 맞춰 후퇴 속도와 거리를 구하세요.<ul><li id="m4-2a">은하 가</li><li id="m4-2b">은하 나</li><li id="m4-2c">은하 다</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="깊이를 넣자 나타난 것">
+          <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">CfA 탐사팀</span>“이제 같은 하늘 띠를 두 가지로 봅니다. 왼쪽은 <b>사진</b>, 오른쪽은 적색 편이로 깊이를 넣은 <b>쐐기 지도</b> 예요. 얼마나 어두운 은하까지 스펙트럼을 찍을지를 정해 보세요. 어디까지 내려가야 구조가 드러날까요?”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="d-c-wedge" width="900" height="420"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">분광 관측을 하는 한계 등급<span class="val" id="d-lim-val">14.0 등급</span></div>
+                <input type="range" id="d-lim" min="12" max="16" step="0.5" value="14">
+              </div>
+            </div>
+            <div class="info-card" id="d-wedge-info"></div>
+          </div>
+          <div class="mission" id="m4-3"><span class="m-tag">미션</span><ul><li id="m4-3a">한계 등급을 <b>13.0 이하</b>로 낮춰, 자료가 적으면 무엇이 보이지 않는지 확인하세요.</li><li id="m4-3b">한계 등급을 <b>15.5 이상</b>까지 올려 장성과 빈 곳을 드러내세요.</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="규모의 사다리">
+          <div class="story"><div class="who">👨‍🏫</div><div class="say"><span class="name">우주론 선생님</span>“이제 한 걸음 물러나 봅시다. 들여다보는 상자의 크기를 키우면, 은하가 만드는 <b>집단의 계단</b>이 차례로 보입니다. 은하군에서 시작해 거대 구조까지 올라가 보세요.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="d-c-scale" width="900" height="420"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">들여다보는 상자의 한 변<span class="val" id="d-sc-val">6.5 Mpc</span></div>
+                <input type="range" id="d-sc" min="0" max="100" step="1" value="27">
+              </div>
+            </div>
+            <div class="info-card" id="d-scale-info"></div>
+          </div>
+          <div class="stage-card" style="margin-top:14px"><div id="d-sort"></div></div>
+          <div class="mission" id="m4-4"><span class="m-tag">미션</span>네 규모를 모두 거쳐 올라간 뒤, 설명을 알맞은 구조에 나누세요.<ul><li id="m4-4a">은하군 규모 (수 Mpc)</li><li id="m4-4b">은하단 규모 (수십 Mpc)</li><li id="m4-4c">초은하단 규모 (수백 Mpc)</li><li id="m4-4d">설명 8개를 네 구조로 나누기</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="결말 — 우주는 그물처럼 생겼다">
+          <div class="ending">
+            <h4>🕸️ 은하는 벽과 실을 이루고, 그 사이는 비어 있다</h4>
+            <p>은하의 공간 분포를 알아내려면 <b>사진만으로는 안 됩니다.</b> 사진은 방향만 알려 줄 뿐 깊이를 지워 버리기 때문입니다. 은하 하나하나의 <b>스펙트럼</b>을 찍어 적색 편이를 재고 허블 법칙으로 거리를 붙여야 비로소 3차원 지도가 됩니다. 분광 관측 자료가 우주의 지도를 만든 셈입니다.</p>
+            <p>그렇게 그린 지도에서 우주는 고르지 않았습니다. 은하는 <b>은하군 → 은하단 → 초은하단</b>으로 모이고, 더 큰 규모에서는 실처럼 이어진 <b>필라멘트</b>와 벽처럼 펼쳐진 <b>은하 장성</b>, 그리고 은하가 거의 없는 <b>보이드</b>가 그물처럼 얽힙니다. 현대 우주론은 이 그물이 초기 우주의 아주 작은 밀도 차이가 <b>중력으로 자라나</b> 만들어진 것이라고 설명합니다. 그리고 수억 광년보다 더 큰 눈으로 보면, 우주는 다시 어디나 비슷해집니다.</p>
+            <div class="vs" id="d-vs"></div>
+            <span class="stamp">사건 파일 ④ 해결</span>
+          </div>
+          <div class="info-card" style="margin:0 0 14px">📎 과학자의 눈: 적색 편이로 구한 거리에는 은하 자신의 운동(중력에 끌려 움직이는 속도)이 섞여 들어갑니다. 그래서 은하단이 쐐기 지도에서 길쭉하게 늘어나 보이는 ‘신의 손가락’ 현상이 생깁니다. 이 화면은 그 효과를 넣지 않았고, 허블 상수는 H₀ = 70 km/s/Mpc 로 두었습니다. 또 z 가 커지면 v = cz 는 더 이상 맞지 않습니다.</div>
+          <div class="stage-card" style="padding:6px 0 4px"><div id="wkD"></div></div>
+        </section>
       </div>
-      <div class="stage-card">
-        <div class="info-card" id="c2m-data" style="margin:18px 20px 0;"></div>
-        <div class="seg" id="c2m-choices" style="margin:14px 20px 0;">
-          <button data-c="dark">암흑 물질의 강한 증거</button>
-          <button data-c="match">케플러 예측과 대체로 일치</button>
-        </div>
-        <div class="toggle-row" style="margin:14px 20px 0;">
-          <button class="chip" id="c2m-check">정답 확인</button>
-          <button class="chip" id="c2m-new">새 관측 지점</button>
-        </div>
-        <div class="info-card" id="c2m-info">보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.</div>
-      </div>
+      <p class="teacher-note">교사용: 주소 끝에 <a href="?open=1">?open=1</a> 을 붙이면 모든 장면이 열립니다.</p>
     </section>
 
+    <!-- ===================================================================== 05 정리하기 -->
     <section class="tab-panel" data-panel="4" hidden>
       <div class="stage-head">
-        <div class="eyebrow">05 · 멀어지는 은하들</div>
-        <h2 class="display">은하의 적색 이동 탐사</h2>
-        <p>거리 슬라이더로 은하의 후퇴 속도와 적색 이동이 어떻게 커지는지 확인해 보세요.</p>
-      </div>
-      <div class="stage-card">
-        <div class="canvas-wrap"><canvas id="c3" width="900" height="360"></canvas></div>
-        <div class="controls">
-          <div class="ctrl-group">
-            <div class="ctrl-label">은하까지의 거리(Mpc)<span class="val" id="c3-d-val">200</span></div>
-            <input type="range" id="c3-d" min="10" max="1000" step="10" value="200">
-          </div>
-        </div>
-        <div class="info-card" id="c3-info"></div>
-      </div>
-      <p class="foot-note">전천 분광 탐사(예: SDSS)는 수많은 은하의 적색 이동을 측정해 우주의 3차원 지도를 그리는 데 활용됩니다.</p>
-    </section>
-
-    <section class="tab-panel" data-panel="5" hidden>
-      <div class="stage-head">
-        <div class="eyebrow">06 · 은하들이 만드는 그물망</div>
-        <h2 class="display">우주의 구조</h2>
-        <p>은하의 집단 규모(은하군·은하단·초은하단)와 우주의 거대 구조(필라멘트·은하 장성·거대 공동)를 클릭해 확인해 보세요.</p>
-      </div>
-      <div class="stage-card">
-        <div class="canvas-wrap"><canvas id="c5" width="900" height="440"></canvas></div>
-        <div class="controls">
-          <div class="ctrl-group" style="flex:1 1 100%">
-            <div class="ctrl-label">보기</div>
-            <div class="seg" id="c5-view">
-              <button class="on" data-v="hierarchy">은하의 집단(은하군·은하단·초은하단)</button>
-              <button data-v="web">우주 거대 구조(필라멘트·장성·공동)</button>
-            </div>
-          </div>
-        </div>
-        <div class="info-card" id="c5-info"></div>
-      </div>
-      <p class="foot-note">은하군·은하단에 속한 은하들은 중력으로 뭉쳐 있어 우주가 팽창해도 서로 멀어지지 않지만, 초은하단은 중력으로 단단히 묶여 있지 않아 팽창에 따라 흩어질 수 있습니다.</p>
-
-      <div class="stage-head" style="margin-top:30px;">
-        <div class="eyebrow">🔎 미션 · 은하 공간 분포 구조 식별하기</div>
-        <h2 class="display" style="font-size:20px;">이 설명은 어떤 구조를 말하는 것일까요?</h2>
-        <p>전천 탐사로 얻은 은하의 공간 분포 자료에는 규모가 다른 여러 구조가 나타납니다. 설명 카드를 클릭해 선택한 뒤, 알맞은 구조 칸을 클릭해 짝지어 보세요.</p>
-      </div>
-      <div class="stage-card">
-        <div class="mission-cards" id="c5m-cards"></div>
-        <div class="mission-slots" id="c5m-slots"></div>
-        <div class="toggle-row" style="margin:14px 20px 0;">
-          <button class="chip" id="c5m-check">채점하기</button>
-          <button class="chip" id="c5m-new">카드 새로 섞기</button>
-        </div>
-        <div class="info-card" id="c5m-info">카드를 클릭해 선택한 뒤, 놓을 칸을 클릭하세요.</div>
-      </div>
-    </section>
-
-    <section class="tab-panel" data-panel="6" hidden>
-      <div class="stage-head">
-        <div class="eyebrow">07 · 오늘 알아낸 것을 문장으로</div>
+        <div class="eyebrow">05 · 네 사건을 하나로</div>
         <h2 class="display">정리하기</h2>
-        <p>조작한 것을 말이나 글로 옮기지 않으면 남지 않습니다. 아래를 채우고 <b>답안 복사</b>를 눌러 제출하세요. 쓰는 동안 자동으로 저장됩니다.</p>
+        <p>네 이야기의 결과가 아래에 모입니다. 네 사건을 꿰는 한 문장을 쓰고 <b>답안 복사</b>를 눌러 제출하세요. 쓰는 동안 자동으로 저장됩니다.</p>
       </div>
       <div class="stage-card" style="padding:6px 0 4px"><div id="wk"></div></div>
     </section>
+
+    <!-- ===================================================================== 06 우리 반 -->
+    <section class="tab-panel" data-panel="5" hidden>
+      <div class="stage-head">
+        <div class="eyebrow">06 · 같은 반 친구들과 나누기</div>
+        <h2 class="display">우리 반</h2>
+        <p>내가 해결한 사건과 알아낸 값을 우리 반에 올리고, 친구들은 어떻게 풀었는지 살펴보세요. <b>올리기 버튼을 눌렀을 때만</b> 공유됩니다. 실명 대신 별명을 쓰세요.</p>
+      </div>
+      <div class="stage-card"><div id="share"></div></div>
+    </section>
+
   </main>
 </div>
 
 <button class="theme-toggle" id="themeToggle">라이트 모드</button>
 <script src="../assets/theme.js"></script>
-<script>
-(function () {
-"use strict";
-
-/* TAB0 성단 */
-(function () {
-  var canvas = document.getElementById("c0");
-  var ctx = setupCanvas(canvas);
-  var W = canvas._w, H = canvas._h;
-  var seed = 7;
-  function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
-  function render() {
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
-    seed = 7;
-    for (var i = 0; i < 60; i++) {
-      var x = 230 + (rnd() - 0.5) * 240, y = 210 + (rnd() - 0.5) * 180;
-      ctx.fillStyle = cssVar("--teal"); ctx.beginPath(); ctx.arc(x, y, 2.5, 0, 7); ctx.fill();
-    }
-    ctx.font = "700 13px Segoe UI"; ctx.fillStyle = cssVar("--foam"); ctx.textAlign = "center";
-    ctx.fillText("산개 성단", 230, 340);
-    ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist");
-    ctx.fillText("수십~수천 개의 젊은 별, 불규칙한 분포", 230, 360);
-
-    seed = 42;
-    for (var j = 0; j < 200; j++) {
-      var ang = rnd() * Math.PI * 2, r = Math.pow(rnd(), 0.5) * 140;
-      var x2 = 650 + Math.cos(ang) * r, y2 = 210 + Math.sin(ang) * r;
-      ctx.fillStyle = cssVar("--coral"); ctx.beginPath(); ctx.arc(x2, y2, 2, 0, 7); ctx.fill();
-    }
-    ctx.font = "700 13px Segoe UI"; ctx.fillStyle = cssVar("--foam");
-    ctx.fillText("구상 성단", 650, 340);
-    ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist");
-    ctx.fillText("수만~수백만 개의 늙은 별, 공 모양으로 밀집", 650, 360);
-  }
-  render();
-})();
-
-/* TAB0c 성단 나이 - 주계열 이탈 */
-(function () {
-  var canvas = document.getElementById("c0c");
-  if (!canvas) return;
-  var ctx = setupCanvas(canvas);
-  var W = canvas._w, H = canvas._h;
-  var slider = document.getElementById("c0c-age");
-  var val = document.getElementById("c0c-age-val");
-  var info = document.getElementById("c0c-info");
-
-  // main-sequence lifetime(Myr) approx t = 10000 * M^-2.5 (M in solar masses), so turnoff mass:
-  function turnoffMass(ageMyr) { return Math.pow(10000 / ageMyr, 1 / 2.5); }
-
-  // representative stars spanning O~M spectral types with mass(solar), temp(K), luminosity(solar, ~M^3.5)
-  var stars = [
-    { name: "O형", mass: 20, temp: 30000 },
-    { name: "B형", mass: 8, temp: 15000 },
-    { name: "A형", mass: 2.5, temp: 9000 },
-    { name: "F형", mass: 1.5, temp: 7000 },
-    { name: "G형(태양)", mass: 1.0, temp: 5800 },
-    { name: "K형", mass: 0.7, temp: 4500 },
-    { name: "M형", mass: 0.3, temp: 3200 }
-  ];
-
-  function tempToX(t, x0, x1) {
-    var logT = Math.log10(t);
-    var lo = Math.log10(3000), hi = Math.log10(35000);
-    return x1 - ((logT - lo) / (hi - lo)) * (x1 - x0); // hot(left) to cool(right) like real HR diagram
-  }
-  function lumOf(m) { return Math.pow(m, 3.5); }
-  function lumToY(l, y0, y1) {
-    var logL = Math.log10(l);
-    var lo = -3, hi = 5.5;
-    return y1 - ((logL - lo) / (hi - lo)) * (y1 - y0);
-  }
-
-  function render(ageMyr, mTurn) {
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
-    var x0 = 70, x1 = W - 40, y0 = 30, y1 = H - 50;
-    ctx.strokeStyle = cssVar("--line"); ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x0, y1); ctx.lineTo(x1, y1); ctx.stroke();
-    ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center";
-    ctx.fillText("표면 온도(뜨거움 ← → 차가움)", (x0 + x1) / 2, y1 + 26);
-    ctx.save(); ctx.translate(20, (y0 + y1) / 2); ctx.rotate(-Math.PI / 2); ctx.fillText("광도(밝기)", 0, 0); ctx.restore();
-
-    // main sequence line
-    ctx.beginPath();
-    for (var m = 0.2; m <= 25; m += 0.2) {
-      var t = 3000 + (35000 - 3000) * Math.pow((m - 0.2) / 24.8, 0.55);
-      var x = tempToX(t, x0, x1), y = lumToY(lumOf(m), y0, y1);
-      if (m === 0.2) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-    }
-    ctx.strokeStyle = cssVar("--line"); ctx.lineWidth = 2; ctx.stroke();
-
-    stars.forEach(function (s) {
-      var x = tempToX(s.temp, x0, x1), y = lumToY(lumOf(s.mass), y0, y1);
-      var evolved = s.mass > mTurn;
-      if (evolved) {
-        // moved to red giant region: cooler, much brighter
-        var gx = tempToX(3200, x0, x1) + 40, gy = lumToY(lumOf(s.mass) * 25, y0, y1);
-        ctx.fillStyle = cssVar("--coral");
-        ctx.beginPath(); ctx.arc(gx, Math.max(y0 + 10, gy), 9, 0, Math.PI * 2); ctx.fill();
-        ctx.font = "9px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center";
-        ctx.fillText(s.name + " → 적색거성", gx, Math.max(y0 + 10, gy) - 14);
-      } else {
-        ctx.fillStyle = cssVar("--teal");
-        ctx.beginPath(); ctx.arc(x, y, 5, 0, Math.PI * 2); ctx.fill();
-        ctx.font = "9px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center";
-        ctx.fillText(s.name, x, y - 12);
-      }
-    });
-
-    // turnoff marker
-    var turnT = 3000 + (35000 - 3000) * Math.pow(Math.min(24.8, Math.max(0, mTurn - 0.2)) / 24.8, 0.55);
-    var tx = tempToX(turnT, x0, x1);
-    ctx.save(); ctx.strokeStyle = cssVar("--foam"); ctx.setLineDash([4, 4]); ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(tx, y0); ctx.lineTo(tx, y1); ctx.stroke(); ctx.restore();
-    ctx.font = "700 10px Segoe UI"; ctx.fillStyle = cssVar("--foam"); ctx.textAlign = "center";
-    ctx.fillText("주계열 이탈점", tx, y0 - 10);
-  }
-
-  function update() {
-    var age = +slider.value;
-    val.textContent = age.toLocaleString();
-    var mTurn = turnoffMass(age);
-    render(age, mTurn);
-    info.innerHTML = "항성의 수명은 질량이 클수록 훨씬 짧습니다(대략 <b>수명(백만 년) ≈ 10,000 × 질량⁻²·⁵</b>). 성단의 나이가 <b>" + age.toLocaleString() + "백만 년</b>이면, 태양 질량의 약 <b>" + mTurn.toFixed(2) + "배</b>보다 무거운 별은 이미 주계열을 벗어나 적색거성 등으로 진화했습니다. 이 '주계열 이탈점(turnoff point)'의 위치를 관측하면 성단의 나이를 거꾸로 추정할 수 있습니다.";
-  }
-  slider.addEventListener("input", update);
-  update();
-})();
-
-/* TAB0 미션 — 주계열 맞추기로 성단 거리 구하기 */
-(function () {
-  var dataEl = document.getElementById("c0m-data");
-  var choicesEl = document.getElementById("c0m-choices");
-  var checkBtn = document.getElementById("c0m-check");
-  var newBtn = document.getElementById("c0m-new");
-  if (!dataEl) return;
-
-  var m = 12, M = 2, trueD = 1000;
-  var picked = null, choices = [];
-
-  function shuffle(arr) {
-    var a = arr.slice();
-    for (var i = a.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
-    }
-    return a;
-  }
-
-  function newQuestion() {
-    M = Math.round((Math.random() * 4) * 10) / 10;
-    var distIndex = 3 + Math.round(Math.random() * 12) / 2;
-    m = Math.round((M + distIndex) * 10) / 10;
-    trueD = Math.round(Math.pow(10, distIndex / 5 + 1));
-    dataEl.innerHTML = "표준 주계열에 맞춘 결과, 이 성단 별의 겉보기 등급 m = <b>" + m.toFixed(1) + "</b>, 절대 등급 M = <b>" + M.toFixed(1) + "</b>입니다.";
-    var decoys = [];
-    while (decoys.length < 3) {
-      var factor = 0.3 + Math.random() * 3;
-      var d = Math.round(trueD * factor);
-      if (Math.abs(d - trueD) > trueD * 0.3 && decoys.indexOf(d) === -1 && d > 0) decoys.push(d);
-    }
-    choices = shuffle([trueD].concat(decoys));
-    picked = null;
-    renderChoices();
-    var info = document.getElementById("c0m-info");
-    info.style.color = "";
-    info.textContent = "보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.";
-  }
-
-  function renderChoices() {
-    choicesEl.innerHTML = "";
-    choices.forEach(function (d) {
-      var btn = document.createElement("button");
-      btn.className = picked === d ? "on" : "";
-      btn.textContent = d.toLocaleString() + " pc";
-      btn.addEventListener("click", function () { picked = d; renderChoices(); });
-      choicesEl.appendChild(btn);
-    });
-  }
-
-  checkBtn.addEventListener("click", function () {
-    var info = document.getElementById("c0m-info");
-    if (picked === null) {
-      info.style.color = "";
-      info.textContent = "먼저 보기 중 하나를 선택하세요.";
-      return;
-    }
-    if (picked === trueD) {
-      info.style.color = "var(--teal)";
-      info.innerHTML = "<b>정답입니다!</b> m - M = " + (m - M).toFixed(1) + " = 5log(d/10)에서 d ≈ " + trueD.toLocaleString() + " pc입니다.";
-    } else {
-      info.style.color = "var(--coral)";
-      info.innerHTML = "다시 생각해 보세요. 정답은 <b>" + trueD.toLocaleString() + " pc</b>입니다. d = 10^((m-M)/5 + 1) pc 공식을 이용해 보세요.";
-    }
-  });
-
-  newBtn.addEventListener("click", newQuestion);
-  newQuestion();
-})();
-
-/* TAB0b 우리은하 구조 */
-(function () {
-  var canvas = document.getElementById("c0b");
-  if (!canvas) return;
-  var ctx = setupCanvas(canvas);
-  var W = canvas._w, H = canvas._h;
-  var info = document.getElementById("c0b-info");
-  var slider = document.getElementById("c0b-pitch");
-  var pitchVal = document.getElementById("c0b-pitch-val");
-
-  function render(pitchDeg) {
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
-    var cx = W / 2, cy = H / 2;
-    ctx.save(); ctx.fillStyle = cssVar("--mist"); ctx.globalAlpha = .15;
-    ctx.beginPath(); ctx.arc(cx, cy, 190, 0, 7); ctx.fill(); ctx.restore();
-    ctx.font = "10px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center";
-    ctx.fillText("헤일로(구상 성단 분포)", cx, cy - 200);
-
-    // logarithmic spiral r = a * e^(b*theta), b = tan(pitch angle) controls how tightly the arm winds
-    var b = Math.tan(pitchDeg * Math.PI / 180);
-    var a = 8;
-    for (var arm = 0; arm < 2; arm++) {
-      ctx.beginPath();
-      var started = false;
-      for (var theta = 0; theta < 4.6; theta += 0.03) {
-        var r = a * Math.exp(b * theta);
-        if (r > 185) break;
-        var ang = theta + arm * Math.PI;
-        var x = cx + r * Math.cos(ang), y = cy + r * Math.sin(ang) * 0.6;
-        if (!started) { ctx.moveTo(x, y); started = true; } else ctx.lineTo(x, y);
-      }
-      ctx.strokeStyle = cssVar("--teal"); ctx.lineWidth = 8; ctx.globalAlpha = .5; ctx.stroke(); ctx.globalAlpha = 1;
-    }
-    ctx.fillStyle = cssVar("--coral"); ctx.beginPath(); ctx.arc(cx, cy, 22, 0, 7); ctx.fill();
-    ctx.font = "10px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.fillText("은하 중심(팽대부)", cx, cy - 30);
-
-    var sunAng = 2.3, sunR = 130;
-    var sunX = cx + sunR * Math.cos(sunAng), sunY = cy + sunR * Math.sin(sunAng) * 0.6;
-    ctx.fillStyle = cssVar("--violet"); ctx.beginPath(); ctx.arc(sunX, sunY, 6, 0, 7); ctx.fill();
-    ctx.fillText("태양계 위치", sunX, sunY - 14);
-  }
-
-  function update() {
-    var pitch = +slider.value;
-    pitchVal.textContent = pitch;
-    render(pitch);
-    var tight = pitch < 12 ? "촘촘하게 감긴(피치각이 작은)" : pitch > 20 ? "느슨하게 열린(피치각이 큰)" : "우리은하와 비슷한 정도로 감긴";
-    info.innerHTML = "나선팔은 로그 나선(r = a·e^(b&theta;)) 모양을 이루며, 피치각(나선이 감기는 정도를 나타내는 각도)이 <b>" + pitch + "°</b>일 때 " + tight + " 모양이 됩니다. 실제 우리은하의 나선팔 피치각은 대략 12°로 추정됩니다. 우리은하는 지름 약 10만 광년의 막대 나선 은하이며, 태양계는 은하 중심에서 약 2.6만 광년 떨어진 나선팔 부근에 위치합니다. 구상 성단은 주로 <b>헤일로</b>에, 산개 성단은 <b>나선팔</b>에 분포합니다.";
-  }
-  slider.addEventListener("input", update);
-  update();
-})();
-
-/* TAB1 미션 — 세페이드 변광성으로 거리 구하기 */
-(function () {
-  var dataEl = document.getElementById("c1m-data");
-  var choicesEl = document.getElementById("c1m-choices");
-  var checkBtn = document.getElementById("c1m-check");
-  var newBtn = document.getElementById("c1m-new");
-  if (!dataEl) return;
-
-  var P = 10, m = 15, trueD = 1000;
-  var picked = null, choices = [];
-
-  function absMag(period) { return -2.4 * Math.log(period) / Math.LN10 - 1.6; }
-
-  function shuffle(arr) {
-    var a = arr.slice();
-    for (var i = a.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
-    }
-    return a;
-  }
-
-  function newQuestion() {
-    P = 3 + Math.round(Math.random() * 47);
-    var M = absMag(P);
-    var distIndex = 3 + Math.round(Math.random() * 12) / 2;
-    m = Math.round((M + distIndex) * 10) / 10;
-    trueD = Math.round(Math.pow(10, distIndex / 5 + 1));
-    dataEl.innerHTML = "관측된 변광 주기 P = <b>" + P + "일</b>, 겉보기 등급 m = <b>" + m.toFixed(1) + "</b>입니다. (주기-광도 관계: M ≈ -2.4log P - 1.6)";
-    var decoys = [];
-    while (decoys.length < 3) {
-      var factor = 0.3 + Math.random() * 3;
-      var d = Math.round(trueD * factor);
-      if (Math.abs(d - trueD) > trueD * 0.3 && decoys.indexOf(d) === -1 && d > 0) decoys.push(d);
-    }
-    choices = shuffle([trueD].concat(decoys));
-    picked = null;
-    renderChoices();
-    var info = document.getElementById("c1m-info");
-    info.style.color = "";
-    info.textContent = "보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.";
-  }
-
-  function renderChoices() {
-    choicesEl.innerHTML = "";
-    choices.forEach(function (d) {
-      var btn = document.createElement("button");
-      btn.className = picked === d ? "on" : "";
-      btn.textContent = d.toLocaleString() + " pc";
-      btn.addEventListener("click", function () { picked = d; renderChoices(); });
-      choicesEl.appendChild(btn);
-    });
-  }
-
-  checkBtn.addEventListener("click", function () {
-    var info = document.getElementById("c1m-info");
-    if (picked === null) {
-      info.style.color = "";
-      info.textContent = "먼저 보기 중 하나를 선택하세요.";
-      return;
-    }
-    if (picked === trueD) {
-      info.style.color = "var(--teal)";
-      info.innerHTML = "<b>정답입니다!</b> 주기-광도 관계로 절대 등급을 구하고, 거리 지수 공식에 대입하면 d ≈ " + trueD.toLocaleString() + " pc입니다.";
-    } else {
-      info.style.color = "var(--coral)";
-      info.innerHTML = "다시 생각해 보세요. 정답은 <b>" + trueD.toLocaleString() + " pc</b>입니다. 주기가 길수록 절대 등급이 밝아진다(M이 작아진다)는 점을 이용해 보세요.";
-    }
-  });
-
-  newBtn.addEventListener("click", newQuestion);
-  newQuestion();
-})();
-
-/* TAB2 성간 물질: 성운 카드 */
-(function () {
-  var items = [
-    { ico: "🔴", name: "방출성운", desc: "근처의 뜨거운 별이 내뿜는 자외선에 의해 성운 속 수소 가스가 전리되면서 스스로 빛을 내는 성운입니다. 오리온 대성운이 대표적이며, 수소 원자의 방출선 때문에 붉은색을 띱니다." },
-    { ico: "🔵", name: "반사성운", desc: "자체적으로 빛을 내지 못하지만, 근처의 별빛이 성운을 이루는 미세한 티끌에 산란되면서 파란빛을 띠어 보이는 성운입니다. 파장이 짧은 파란빛이 티끌에 더 잘 산란되기 때문입니다(하늘이 파랗게 보이는 것과 같은 원리)." },
-    { ico: "⚫", name: "암흑성운", desc: "성운 자체가 빛을 내지 않으며, 높은 밀도의 가스와 티끌이 배경의 별빛을 가려 어두운 실루엣처럼 검게 보이는 성운입니다. 말머리성운이 대표적인 예입니다." }
-  ];
-  var grid = document.getElementById("c1-grid");
-  var detail = document.getElementById("c1-detail");
-  items.forEach(function (it) {
-    var btn = document.createElement("button");
-    btn.className = "pick-card";
-    btn.innerHTML = "<span class=\"ico\">" + it.ico + "</span><div class=\"t\">" + it.name + "</div>";
-    btn.addEventListener("click", function () {
-      grid.querySelectorAll(".pick-card").forEach(function (c) { c.classList.remove("on"); });
-      btn.classList.add("on");
-      detail.innerHTML = "<h4>" + it.ico + " " + it.name + "</h4>" + it.desc;
-    });
-    grid.appendChild(btn);
-  });
-})();
-
-/* TAB2 성간 적색화 */
-(function () {
-  var cv = document.getElementById("c1");
-  var ctx = setupCanvas(cv);
-  var W = cv._w, H = cv._h;
-  var slider = document.getElementById("c1-dust");
-  var val = document.getElementById("c1-dust-val");
-
-  function render() {
-    var d = +slider.value;
-    val.textContent = d;
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
-
-    var t = d / 100;
-    var col = [
-      Math.round(150 + t * 105),
-      Math.round(180 - t * 140),
-      Math.round(255 - t * 220)
-    ];
-    var cx = 160, cy = H / 2;
-    ctx.beginPath(); ctx.arc(cx, cy, 30, 0, Math.PI * 2);
-    ctx.fillStyle = "rgb(" + col.join(",") + ")"; ctx.fill();
-    ctx.font = "12px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center";
-    ctx.fillText("관측되는 별빛의 색", cx, cy + 55);
-
-    for (var i = 0; i < d; i += 3) {
-      var x = 220 + (i / 100) * 550;
-      var y = cy + (Math.sin(i * 12.9) * 40);
-      ctx.beginPath();
-      ctx.arc(x, y, 1.6, 0, Math.PI * 2);
-      ctx.fillStyle = cssVar("--mist");
-      ctx.fill();
-    }
-    ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center";
-    ctx.fillText("성간 티끌", (220 + W - 40) / 2, cy - 70);
-
-    ctx.beginPath(); ctx.arc(W - 60, cy, 8, 0, Math.PI * 2);
-    ctx.fillStyle = cssVar("--foam"); ctx.fill();
-    ctx.fillText("관측자", W - 60, cy + 30);
-  }
-  slider.addEventListener("input", render);
-  render();
-})();
-
-/* TAB3 암흑물질 */
-(function () {
-  var canvas = document.getElementById("c2");
-  var ctx = setupCanvas(canvas);
-  var W = canvas._w, H = canvas._h;
-  var slider = document.getElementById("c2-r");
-  var rVal = document.getElementById("c2-r-val");
-  var vEl = document.getElementById("c2-v");
-  var massEl = document.getElementById("c2-mass");
-
-  var RMAX = 20;
-  function vObsOf(r) {
-    // flat rotation curve model in arbitrary units: rises then plateaus
-    var frac = Math.min(1, r / (0.15 * RMAX));
-    return frac < 1 ? frac : 1;
-  }
-
-  function render(rSel) {
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
-    var x0 = 80, x1 = W - 80, y0 = 40, y1 = H - 60;
-    ctx.strokeStyle = cssVar("--line"); ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x0, y1); ctx.lineTo(x1, y1); ctx.stroke();
-    ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center";
-    ctx.fillText("은하 중심으로부터의 거리 →", (x0 + x1) / 2, y1 + 26);
-    ctx.save(); ctx.translate(24, (y0 + y1) / 2); ctx.rotate(-Math.PI / 2); ctx.fillText("회전 속도", 0, 0); ctx.restore();
-
-    ctx.beginPath();
-    for (var px = 0; px <= 200; px++) {
-      var xx = x0 + px / 200 * (x1 - x0);
-      var frac = px / 200;
-      var v = frac < 0.15 ? frac / 0.15 : 1 / Math.sqrt(frac / 0.15);
-      var yy = y1 - v * 0.55 * (y1 - y0);
-      if (px === 0) ctx.moveTo(xx, yy); else ctx.lineTo(xx, yy);
-    }
-    ctx.strokeStyle = cssVar("--mist"); ctx.setLineDash([5, 4]); ctx.lineWidth = 2; ctx.stroke(); ctx.setLineDash([]);
-    ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "left";
-    ctx.fillText("예상(보이는 물질만 고려)", x1 - 220, y0 + 90);
-
-    ctx.beginPath();
-    for (var px2 = 0; px2 <= 200; px2++) {
-      var xx2 = x0 + px2 / 200 * (x1 - x0);
-      var frac2 = px2 / 200;
-      var v2 = frac2 < 0.15 ? frac2 / 0.15 : 1;
-      var yy2 = y1 - v2 * 0.7 * (y1 - y0);
-      if (px2 === 0) ctx.moveTo(xx2, yy2); else ctx.lineTo(xx2, yy2);
-    }
-    ctx.strokeStyle = cssVar("--teal"); ctx.lineWidth = 2.5; ctx.stroke();
-    ctx.fillStyle = cssVar("--teal"); ctx.fillText("실제 관측된 회전 속도", x0 + 20, y0 + 30);
-
-    // marker at selected radius on the observed curve
-    var selFrac = rSel / RMAX;
-    var selX = x0 + selFrac * (x1 - x0);
-    var selV = vObsOf(rSel);
-    var selY = y1 - selV * 0.7 * (y1 - y0);
-    ctx.fillStyle = cssVar("--coral");
-    ctx.beginPath(); ctx.arc(selX, selY, 7, 0, Math.PI * 2); ctx.fill();
-    ctx.strokeStyle = cssVar("--panel"); ctx.lineWidth = 2; ctx.stroke();
-  }
-
-  function update() {
-    var r = +slider.value;
-    rVal.textContent = r;
-    var v = vObsOf(r);
-    vEl.textContent = v.toFixed(2) + " (상대값)";
-    // M ∝ v^2 * r (from v^2 = GM/r → M = v^2 r / G); using arbitrary consistent units
-    var massNeeded = (v * v * r).toFixed(2);
-    massEl.textContent = massNeeded;
-    render(r);
-    document.getElementById("c2-calc-info").innerHTML = "뉴턴 역학의 원운동 공식(v² = GM/r)을 뒤집으면 <b>M = v²r / G</b>, 즉 그 지점까지 은하 내부에 있어야 할 질량은 (속도)²×(거리)에 비례합니다. 거리 " + r.toFixed(1) + "(임의단위) 지점에서 실제 관측된 회전 속도가 " + v.toFixed(2) + "이므로, 필요한 내부 질량(상대값)은 <b>" + massNeeded + "</b>입니다. 거리가 멀어질수록 보이는 물질만으로 예상한 질량보다 훨씬 큰 질량이 필요해지는데, 이 '보이지 않는 초과 질량'이 바로 <b>암흑 물질</b>의 증거입니다.";
-  }
-  slider.addEventListener("input", update);
-  update();
-})();
-
-/* TAB3 미션 — 회전 속도 곡선으로 암흑 물질 판별하기 */
-(function () {
-  var dataEl = document.getElementById("c2m-data");
-  var choicesEl = document.getElementById("c2m-choices");
-  var checkBtn = document.getElementById("c2m-check");
-  var newBtn = document.getElementById("c2m-new");
-  if (!dataEl) return;
-
-  var RMAX = 20;
-  function vExpOf(r) {
-    var frac = r / RMAX;
-    return frac < 0.15 ? frac / 0.15 : 1 / Math.sqrt(frac / 0.15);
-  }
-  function vObsOf(r) {
-    var frac = r / RMAX;
-    return frac < 0.15 ? frac / 0.15 : 1;
-  }
-
-  var r = 5, trueKey = "dark";
-  var picked = null;
-  var seg = choicesEl.querySelectorAll("button");
-
-  seg.forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      picked = btn.dataset.c;
-      seg.forEach(function (b) { b.classList.toggle("on", b === btn); });
-    });
-  });
-
-  function newQuestion() {
-    r = 1 + Math.round(Math.random() * 38) / 2;
-    var vExp = (vExpOf(r) * 220).toFixed(0);
-    var vObs = (vObsOf(r) * 220).toFixed(0);
-    trueKey = (vObs / vExp > 1.15) ? "dark" : "match";
-    dataEl.innerHTML = "은하 중심으로부터 <b>" + r.toFixed(1) + "</b>(임의단위) 떨어진 지점: 케플러 예측 속도 <b>" + vExp + " km/s</b>, 실제 관측 속도 <b>" + vObs + " km/s</b>";
-    picked = null;
-    seg.forEach(function (b) { b.classList.remove("on"); });
-    var info = document.getElementById("c2m-info");
-    info.style.color = "";
-    info.textContent = "보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.";
-  }
-
-  var labels = { dark: "암흑 물질의 강한 증거", match: "케플러 예측과 대체로 일치" };
-
-  checkBtn.addEventListener("click", function () {
-    var info = document.getElementById("c2m-info");
-    if (picked === null) {
-      info.style.color = "";
-      info.textContent = "먼저 보기 중 하나를 선택하세요.";
-      return;
-    }
-    if (picked === trueKey) {
-      info.style.color = "var(--teal)";
-      info.innerHTML = "<b>정답입니다!</b> 이 자료는 <b>" + labels[trueKey] + "</b>에 해당합니다.";
-    } else {
-      info.style.color = "var(--coral)";
-      info.innerHTML = "다시 생각해 보세요. 정답은 <b>" + labels[trueKey] + "</b>입니다. 관측 속도가 예측보다 훨씬 크면 암흑 물질의 증거입니다.";
-    }
-  });
-
-  newBtn.addEventListener("click", newQuestion);
-  newQuestion();
-})();
-
-/* TAB4 적색이동 */
-(function () {
-  var canvas = document.getElementById("c3");
-  var ctx = setupCanvas(canvas);
-  var W = canvas._w, H = canvas._h;
-  var dist = 200;
-  var H0 = 70;
-  var info = document.getElementById("c3-info");
-  document.getElementById("c3-d").addEventListener("input", function (e) { dist = +e.target.value; document.getElementById("c3-d-val").textContent = dist; render(); });
-
-  function render() {
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
-    var v = H0 * dist;
-    var x0 = 60, x1 = 480, y0 = 40, y1 = 220;
-    ctx.strokeStyle = cssVar("--line"); ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x0, y1); ctx.lineTo(x1, y1); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(x0, y1); ctx.lineTo(x1, y1 - (H0 * 1000) / (H0 * 1000) * (y1 - y0)); ctx.strokeStyle = cssVar("--teal"); ctx.lineWidth = 2; ctx.stroke();
-    var px = x0 + dist / 1000 * (x1 - x0), py = y1 - v / (H0 * 1000) * (y1 - y0);
-    ctx.fillStyle = cssVar("--coral"); ctx.beginPath(); ctx.arc(px, py, 6, 0, 7); ctx.fill();
-    ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center"; ctx.fillText("거리(Mpc) →", (x0 + x1) / 2, y1 + 26);
-
-    var waveLen = 6 + dist / 60;
-    ctx.save(); ctx.strokeStyle = cssVar("--coral"); ctx.lineWidth = 2; ctx.beginPath();
-    for (var i = 0; i < 300; i++) {
-      var xx = 560 + i * 1.1;
-      var yy = 120 + Math.sin(i / waveLen) * 30;
-      if (i === 0) ctx.moveTo(xx, yy); else ctx.lineTo(xx, yy);
-    }
-    ctx.stroke(); ctx.restore();
-    ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "left";
-    ctx.fillText("멀어지는 은하의 빛 → 적색 이동(파장이 늘어남)", 560, 90);
-
-    info.innerHTML = "거리 " + dist + " Mpc인 은하의 후퇴 속도는 허블 법칙(v = H₀ × d)에 따라 약 <b>" + Math.round(v).toLocaleString() + " km/s</b>입니다. 멀어지는 은하의 빛은 파장이 길어지는 <b>적색 이동</b>을 보이며, 후퇴 속도가 빠를수록 적색 이동이 큽니다. 이러한 적색 이동을 대규모로 측정하는 것을 <b>전천 분광 탐사</b>라고 하며, 은하까지의 거리를 알아내 우주의 3차원 지도를 그리는 데 활용됩니다.";
-  }
-  render();
-})();
-
-/* TAB5 우주의 구조 */
-(function () {
-  var canvas = document.getElementById("c5");
-  if (!canvas) return;
-  var ctx = setupCanvas(canvas);
-  var W = canvas._w, H = canvas._h;
-  var view = "hierarchy";
-  var info = document.getElementById("c5-info");
-  document.querySelectorAll("#c5-view button").forEach(function (b) {
-    b.addEventListener("click", function () {
-      view = b.getAttribute("data-v");
-      document.querySelectorAll("#c5-view button").forEach(function (x) { x.classList.toggle("on", x === b); });
-      render();
-    });
-  });
-
-  var seed = 3;
-  function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
-
-  function render() {
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
-
-    if (view === "hierarchy") {
-      var groups = [
-        { name: "은하군", r: 60, n: 8, desc: "수십 개 이하의 은하로 이루어진 작은 규모의 집단입니다. 우리은하는 안드로메다은하 등과 함께 '국부 은하군'을 이룹니다." },
-        { name: "은하단", r: 110, n: 40, desc: "수백~수천 개의 은하가 중력으로 뭉쳐 있는 더 큰 집단입니다. 은하단에 속한 은하들은 우주가 팽창해도 서로 멀어지지 않습니다." },
-        { name: "초은하단", r: 170, n: 90, desc: "수십 개의 은하군·은하단이 모인 가장 큰 규모의 집단입니다. 중력으로 단단히 묶여 있지 않아 경계가 뚜렷하지 않으며, 우주 팽창에 따라 서로 흩어질 수 있습니다. 우리은하는 '국부 초은하단(라니아케아)'에 속합니다." }
-      ];
-      var cx = W / 2, cy = H / 2 + 10;
-      seed = 3;
-      groups.slice().reverse().forEach(function (g) {
-        ctx.save(); ctx.strokeStyle = cssVar("--line"); ctx.setLineDash([4, 4]);
-        ctx.beginPath(); ctx.arc(cx, cy, g.r, 0, 7); ctx.stroke(); ctx.setLineDash([]); ctx.restore();
-      });
-      groups.forEach(function (g) {
-        for (var i = 0; i < g.n; i++) {
-          var ang = rnd() * Math.PI * 2, r = rnd() * g.r * 0.92;
-          var x = cx + r * Math.cos(ang), y = cy + r * Math.sin(ang);
-          ctx.fillStyle = cssVar("--teal"); ctx.beginPath(); ctx.arc(x, y, 3, 0, 7); ctx.fill();
-        }
-      });
-      groups.forEach(function (g, i) {
-        ctx.font = "700 12px Segoe UI"; ctx.fillStyle = cssVar("--foam"); ctx.textAlign = "left";
-        ctx.fillText(g.name, cx + g.r * 0.7, cy - g.r * 0.7 - i * 4);
-      });
-      info.innerHTML = "규모가 커지는 순서: <b>은하군 → 은하단 → 초은하단</b>. " + groups[2].desc;
-    } else {
-      seed = 11;
-      // filaments as random walk lines connecting cluster nodes, with void gaps
-      var nodes = [];
-      for (var i = 0; i < 9; i++) nodes.push([60 + rnd() * (W - 120), 60 + rnd() * (H - 160)]);
-      ctx.strokeStyle = cssVar("--teal"); ctx.lineWidth = 2; ctx.globalAlpha = .8;
-      var edges = [[0,1],[1,2],[2,3],[3,4],[1,4],[4,5],[5,6],[6,7],[7,8],[3,7],[0,5]];
-      edges.forEach(function (e) {
-        ctx.beginPath(); ctx.moveTo(nodes[e[0]][0], nodes[e[0]][1]); ctx.lineTo(nodes[e[1]][0], nodes[e[1]][1]); ctx.stroke();
-      });
-      ctx.globalAlpha = 1;
-      nodes.forEach(function (n, i) {
-        ctx.fillStyle = cssVar("--coral"); ctx.beginPath(); ctx.arc(n[0], n[1], i === 4 ? 10 : 6, 0, 7); ctx.fill();
-      });
-      ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--foam"); ctx.textAlign = "left";
-      ctx.fillText("은하단(점)과 필라멘트(선)", nodes[4][0] + 16, nodes[4][1] - 12);
-
-      // void label in a gap area
-      ctx.font = "700 12px Segoe UI"; ctx.fillStyle = cssVar("--violet");
-      ctx.fillText("거대 공동(보이드) — 은하가 거의 없는 영역", 90, H - 40);
-      ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist");
-      ctx.fillText("선처럼 이어지면 필라멘트, 면처럼 넓게 이어지면 은하 장성이라고 합니다.", 90, H - 20);
-
-      info.innerHTML = "우주에는 은하가 실처럼 길게 이어진 <b>필라멘트</b>, 벽처럼 넓게 뭉친 <b>은하 장성</b>, 그리고 은하가 거의 발견되지 않는 <b>거대 공동(보이드)</b>이 그물처럼 얽힌 <b>우주 거대 구조</b>가 있습니다. 전천 탐사로 얻은 은하의 3차원 공간 분포 자료에서 이러한 구조를 식별할 수 있습니다.";
-    }
-  }
-  render();
-})();
-
-/* TAB5 미션 — 은하 공간 분포 구조 식별하기 */
-(function () {
-  var cardsEl = document.getElementById("c5m-cards");
-  var slotsEl = document.getElementById("c5m-slots");
-  var checkBtn = document.getElementById("c5m-check");
-  var newBtn = document.getElementById("c5m-new");
-  if (!cardsEl) return;
-
-  var slotNames = { group: "은하군", cluster: "은하단", filament: "필라멘트", void: "거대 공동" };
-  var slotOrder = ["group", "cluster", "filament", "void"];
-  var clues = {
-    group: "은하 수십 개 정도가 중력으로 모여 있는 비교적 작은 집단으로, 우리은하가 속한 국부 은하군이 대표적인 예입니다.",
-    cluster: "은하 수백~수천 개가 중력으로 강하게 묶여 지름 수백만~수천만 광년에 걸쳐 있는 큰 집단입니다.",
-    filament: "은하와 은하단이 수억 광년에 걸쳐 실처럼 길게 이어져 늘어선 구조입니다.",
-    void: "은하가 거의 존재하지 않아 텅 비어 보이는, 지름이 수억 광년에 이르는 공간입니다."
-  };
-
-  var pool = [];
-  var slots = {};
-  var selected = null;
-
-  function shuffle(arr) {
-    var a = arr.slice();
-    for (var i = a.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
-    }
-    return a;
-  }
-
-  function reset() {
-    pool = shuffle(slotOrder.slice());
-    slots = { group: null, cluster: null, filament: null, void: null };
-    selected = null;
-    var info = document.getElementById("c5m-info");
-    info.style.color = "";
-    info.textContent = "카드를 클릭해 선택한 뒤, 놓을 칸을 클릭하세요.";
-    render();
-  }
-
-  function render() {
-    cardsEl.innerHTML = "";
-    pool.forEach(function (key) {
-      var card = document.createElement("div");
-      card.className = "mission-card" + (selected === key ? " selected" : "");
-      card.textContent = clues[key];
-      card.addEventListener("click", function () {
-        selected = (selected === key) ? null : key;
-        render();
-      });
-      cardsEl.appendChild(card);
-    });
-
-    slotsEl.innerHTML = "";
-    slotOrder.forEach(function (targetKey) {
-      var slot = document.createElement("div");
-      var filledKey = slots[targetKey];
-      slot.className = "mission-slot" + (filledKey ? " filled" : "");
-      var title = document.createElement("div");
-      title.className = "slot-title";
-      title.textContent = slotNames[targetKey];
-      slot.appendChild(title);
-      var body = document.createElement("div");
-      body.className = "slot-body";
-      body.textContent = filledKey ? clues[filledKey] : "여기를 클릭해 선택한 카드를 놓으세요.";
-      slot.appendChild(body);
-      slot.addEventListener("click", function () {
-        if (filledKey) {
-          pool.push(filledKey);
-          slots[targetKey] = null;
-          render();
-        } else if (selected) {
-          slots[targetKey] = selected;
-          pool = pool.filter(function (k) { return k !== selected; });
-          selected = null;
-          render();
-        }
-      });
-      slotsEl.appendChild(slot);
-    });
-  }
-
-  checkBtn.addEventListener("click", function () {
-    var info = document.getElementById("c5m-info");
-    if (pool.length > 0) {
-      info.style.color = "";
-      info.textContent = "아직 배치하지 않은 카드가 있습니다. 4장을 모두 알맞은 칸에 놓아 주세요.";
-      return;
-    }
-    var correctCount = 0;
-    slotsEl.querySelectorAll(".mission-slot").forEach(function (slotEl, i) {
-      var targetKey = slotOrder[i];
-      var ok = slots[targetKey] === targetKey;
-      slotEl.classList.remove("correct", "wrong");
-      slotEl.classList.add(ok ? "correct" : "wrong");
-      if (ok) correctCount++;
-    });
-    if (correctCount === 4) {
-      info.style.color = "var(--teal)";
-      info.innerHTML = "<b>4장 모두 정답입니다!</b> 은하는 은하군·은하단처럼 중력으로 묶인 집단을 이루고, 더 큰 규모에서는 필라멘트와 거대 공동이 그물망 같은 우주의 거대 구조를 만듭니다.";
-    } else {
-      info.style.color = "var(--coral)";
-      info.innerHTML = correctCount + " / 4 칸이 맞았습니다. 빨간 테두리 칸을 다시 살펴보고 카드를 옮겨 보세요.";
-    }
-  });
-
-  newBtn.addEventListener("click", reset);
-  reset();
-})();
-
-})();
-</script>
-
-<script>
-(function () {
-  window.sthUnit("psp-2-2");
-  window.sthWork({
-    mount: "wk",
-    unitLabel: "[행성우주과학] 은하와 우주",
-    items: [
-      {
-            "id": "w1",
-            "label": "회전 속도 곡선이 이상한 이유",
-            "hint": "바깥쪽 별의 회전 속도가 예상보다 느려지지 않는다는 관측이, 왜 보이지 않는 질량의 증거가 되는지 쓰세요.",
-            "ph": ""
-      },
-      {
-            "id": "w2",
-            "label": "성간 물질이 있다는 증거",
-            "hint": "성간 소광과 적색화를 근거로 쓰세요.",
-            "ph": ""
-      },
-      {
-            "id": "w3",
-            "label": "아직 헷갈리는 것",
-            "hint": "다음 시간에 여기서부터 시작합니다.",
-            "ph": ""
-      }
-]
-  });
-})();
-</script>
+<script src="../assets/story.js"></script>
+<script src="../assets/share-config.js"></script>
+<script src="../assets/share.js"></script>
+<script src="episodes.js"></script>
 </body>
 </html>
