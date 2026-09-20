@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>태양과 별의 관측 — 관측 스테이션</title>
 <link rel="stylesheet" href="../assets/theme.css">
+<link rel="stylesheet" href="../assets/story.css">
 <style>
   .data-mini-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 4px 0 0; }
   .data-mini-table th, .data-mini-table td { border: 1px solid var(--line); padding: 6px 8px; text-align: center; }
-  .data-mini-table th { background: var(--panel-2); color: var(--mist); font-weight: 600; }
+  .data-mini-table th { background: var(--card-2); color: var(--mist); font-weight: 700; }
 </style>
 </head>
 <body>
@@ -20,637 +21,401 @@
       <div class="eyebrow" style="margin-top:8px">Ⅱ-1 · 태양과 별의 관측</div>
       <h1 class="display">별의 거리와<br>운동, 밝기</h1>
     </div>
-    <button class="tab-btn active" data-tab="0"><span class="num">01</span> 태양 관측</button>
-    <button class="tab-btn" data-tab="1"><span class="num">02</span> 연주 시차와 거리</button>
-    <button class="tab-btn" data-tab="2"><span class="num">03</span> 별의 공간 운동</button>
-    <button class="tab-btn" data-tab="3"><span class="num">04</span> 별의 질량</button>
-    <button class="tab-btn" data-tab="4"><span class="num">05</span> 변광성</button>
-    <button class="tab-btn" data-tab="5"><span class="num">06</span> 정리하기</button>
+    <button class="tab-btn active" data-tab="0"><span class="num">01</span> 망원경에 비친 얼룩</button>
+    <button class="tab-btn" data-tab="1"><span class="num">02</span> 8년 동안 잰 각도</button>
+    <button class="tab-btn" data-tab="2"><span class="num">03</span> 흔들리며 가는 별</button>
+    <button class="tab-btn" data-tab="3"><span class="num">04</span> 심장이 뛰는 별</button>
+    <button class="tab-btn" data-tab="4"><span class="num">05</span> 정리하기</button>
+    <button class="tab-btn" data-tab="5"><span class="num">06</span> 우리 반</button>
   </nav>
 
   <main>
+
+    <!-- =====================================================================
+         01 태양 관측 — 이야기 「망원경에 비친 얼룩」
+         ===================================================================== -->
     <section class="tab-panel" data-panel="0">
       <div class="stage-head">
-        <div class="eyebrow">01 · 흑점의 이동으로 알아내는 자전 주기</div>
-        <h2 class="display">태양 관측</h2>
-        <p>관측 경과일 슬라이더를 움직여, 태양면의 흑점이 날마다 어떻게 이동하는지 관찰하고 태양의 자전 주기를 구해 보세요.</p>
-      
-        <span class="std-chip">12행우02-01</span><span class="std-chip">12행우02-02</span><span class="std-chip">12행우02-03</span><span class="std-chip">12행우02-04</span><span class="std-chip">12행우02-05</span><div class="std-note"><b>[12행우02-01]</b> 태양의 광구와 대기에서 나타나는 현상을 설명하고, 이러한 현상이 다양한 파장의 관측 자료에서 어떻게 나타나는지 비교·분석할 수 있다.<br><b>[12행우02-02]</b> 별의 시차와 밝기를 이용하여 거리를 측정하는 다양한 방법을 비교·평가할 수 있다.<br><b>[12행우02-03]</b> 별의 시선속도와 접선속도의 합으로 공간 운동이 나타남을 이해하고, 별자리를 구성하는 별들의 장시간에 걸친 형태 변화를 추론할 수 있다.<br><b>[12행우02-04]</b> 쌍성의 관측 자료를 이용하여 항성의 질량을 직접적으로 구할 수 있음을 이해하고, 질량-광도 관계를 이용하여 쌍성이 아닌 별의 질량을 구할 수 있다.<br><b>[12행우02-05]</b> 광도곡선의 특징을 비교하여 맥동변광성과 폭발 변광성을 구분하고, 폭발 변광성 중 초신성 관측 자료를 통해 알 수 있는 과학적 사실을 추론할 수 있다.</div><div class="terms"><b>연주 시차</b><b>시선속도</b><b>접선속도</b><b>변광성</b></div>
-      </div>
-      <div class="stage-card">
-        <div class="canvas-wrap"><canvas id="c0" width="900" height="420"></canvas></div>
-        <div class="controls">
-          <div class="ctrl-group">
-            <div class="ctrl-label">관측 경과일<span class="val" id="c0-day-val">0</span> 일</div>
-            <input type="range" id="c0-day" min="0" max="27" step="1" value="0">
-          </div>
-        </div>
-        <div class="stat-row">
-          <div class="stat-box"><div class="lbl">흑점의 태양면 위치(중심각)</div><div class="num" id="c0-angle">0°</div></div>
-          <div class="stat-box"><div class="lbl">추정 자전 주기</div><div class="num">약 27일</div></div>
-        </div>
-        <div class="info-card">태양 표면의 흑점을 매일 같은 시각에 관측하면, 흑점이 태양면을 가로질러 서서히 이동하는 것을 볼 수 있습니다. 같은 흑점이 태양면을 한 바퀴 도는 데 걸린 시간을 재면 태양의 <b>자전 주기(약 27일)</b>를 구할 수 있습니다. 또한 태양 스펙트럼의 <b>도플러 효과</b>(태양 양쪽 끝에서 오는 빛의 파장 차이)를 이용해서도 자전 속도를 구할 수 있습니다.</div>
+        <div class="eyebrow">01 · 태양 관측 · 이야기 한 편</div>
+        <h2 class="display">망원경에 비친 얼룩</h2>
+        <p>1612년, 태양 위의 검은 얼룩을 두고 두 사람이 다툽니다. 얼룩이 어디에 있는지 직접 재고, 층마다 다른 파장으로 태양을 다시 보세요.</p>
+        <span class="std-chip">12행우02-01</span><div class="std-note"><b>[12행우02-01]</b> 태양의 광구와 대기에서 나타나는 현상을 설명하고, 이러한 현상이 다양한 파장의 관측 자료에서 어떻게 나타나는지 비교·분석할 수 있다.</div><div class="terms"><b>광구</b><b>채층</b><b>코로나</b><b>차등 자전</b></div>
       </div>
 
-      <div class="stage-head" style="margin-top:30px;">
-        <div class="eyebrow">🔎 미션 · 흑점 자료로 자전 주기 구하기</div>
-        <h2 class="display" style="font-size:20px;">이 별의 자전 주기는 며칠일까요?</h2>
-        <p>어느 관측소에서 흑점의 위치각을 이틀에 걸쳐 측정했습니다. 흑점은 보이는 반구(180°)를 자전 주기의 절반 동안 가로지릅니다. 관측 자료를 보고 자전 주기로 가장 알맞은 값을 선택해 보세요.</p>
+      <div class="episode" id="epA">
+        <section class="scene" data-title="태양에 흠이 있다는 말">
+          <div class="story narr"><div class="who">🔭</div><div class="say"><span class="name">이야기</span>1612년, 갈릴레이는 망원경으로 비춘 태양 그림 위에 날마다 검은 얼룩을 그려 넣고 있었습니다. 얼룩은 하루하루 자리를 옮겼고, 가장자리에 다다르면 가늘게 찌그러졌다가 사라졌습니다.</div></div>
+          <div class="story"><div class="who">🧔</div><div class="say"><span class="name">샤이너 신부</span>“태양은 하늘의 천체요. 흠이 있을 리 없습니다. 저 얼룩은 태양 앞을 지나가는 <b>작은 천체들의 그림자</b>일 겁니다. 태양에서 멀찍이 떨어진 곳에 있는 것이지요.”</div></div>
+          <div class="story"><div class="who">👨‍🔬</div><div class="say"><span class="name">갈릴레이</span>“그렇다면 얼룩이 왜 가장자리에서만 납작해집니까? 관측 조수, 자네가 직접 재어 보게. 얼룩이 <b>태양 표면에 붙어 있는지</b> 아닌지.”</div></div>
+          <div class="case-file"><b class="k">관측 기록</b> 얼룩은 약 2주에 걸쳐 원반을 가로지른다 &nbsp;|&nbsp; 가운데에서는 둥글고, 가장자리에서는 가늘고 길쭉하다 &nbsp;|&nbsp; 사라졌던 얼룩이 약 4주 뒤 반대쪽에서 다시 나타나기도 한다</div>
+          <div class="gate loose" id="a-gate"></div>
+        </section>
+
+        <section class="scene" data-title="흑점을 쫓아 — 태양은 몇 날에 한 바퀴 도나">
+          <div class="story"><div class="who">👨‍🔬</div><div class="say"><span class="name">갈릴레이</span>“얼룩 하나를 골라 사라질 때까지 쫓은 뒤, 반대쪽에 다시 나타날 때까지 기다리게. 그러면 태양이 한 바퀴 도는 데 걸리는 날수가 나오지. <b>위도를 바꿔 가며</b> 여러 개를 재 보게.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="a-c-spot" width="900" height="380"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">흑점이 있는 위도<span class="val" id="a-lat-val">0°</span></div>
+                <input type="range" id="a-lat" min="0" max="75" step="5" value="0">
+              </div>
+              <div class="ctrl-group">
+                <div class="ctrl-label">관측을 시작한 뒤 지난 날수<span class="val" id="a-day-val">0일</span></div>
+                <input type="range" id="a-day" min="0" max="40" step="1" value="0">
+              </div>
+            </div>
+            <div class="toggle-row" style="margin:0 20px 14px;"><button class="btn primary" id="a-log" type="button">📋 이 위도의 자전 주기를 기록하기</button></div>
+            <div class="info-card" id="a-spot-info"></div>
+          </div>
+          <div class="mission" id="m1-2"><span class="m-tag">미션</span>서로 다른 위도에서 흑점을 쫓아 주기를 기록하세요.<ul><li id="m1-2a">적도 근처(위도 15° 이하)의 자전 주기</li><li id="m1-2b">고위도(위도 55° 이상)의 자전 주기</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="온도가 파장을 정한다">
+          <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">현대의 태양 관측자</span>“400년이 지나 우리는 태양을 여러 파장으로 봅니다. 그런데 <b>왜 층마다 다른 파장으로 봐야</b> 할까요? 온도가 답입니다. 뜨거울수록 가장 세게 내는 빛의 파장이 짧아집니다. 온도를 넣어 확인해 보세요.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="a-c-wien" width="900" height="360"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">기체의 온도<span class="val" id="a-temp-val">3,000 K</span></div>
+                <input type="range" id="a-temp" min="0" max="100" step="1" value="0">
+              </div>
+            </div>
+            <div class="info-card" id="a-wien-info"></div>
+          </div>
+          <div class="mission" id="m1-3"><span class="m-tag">미션</span>세 층의 온도를 차례로 넣어, 어느 파장으로 봐야 하는지 알아내세요.<ul><li id="m1-3a">광구 — 약 5,800 K</li><li id="m1-3b">채층 — 약 10,000 K</li><li id="m1-3c">코로나 — 100만 K 가까이</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="층마다 다른 얼굴">
+          <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">현대의 태양 관측자</span>“파장을 바꾸면 보이는 층이 바뀌고, 층이 바뀌면 보이는 현상도 바뀝니다. 관측 목록에 있는 현상들을 어느 층의 것인지 나눠 보세요.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="a-c-layer" width="900" height="330"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">망원경에 끼운 필터<span class="val" id="a-band-val">가시광</span></div>
+                <input type="range" id="a-band" min="0" max="3" step="1" value="0">
+              </div>
+            </div>
+            <div class="info-card" id="a-layer-info"></div>
+          </div>
+          <div class="stage-card" style="margin-top:14px"><div id="a-sort"></div></div>
+          <div class="mission" id="m1-4"><span class="m-tag">미션</span>관측 현상 8가지를 광구·채층·코로나로 나누세요.</div>
+        </section>
+
+        <section class="scene" data-title="결말 — 흠은 태양의 것이었다">
+          <div class="ending">
+            <h4>☀️ 얼룩은 태양 표면에 붙어 있었다</h4>
+            <p>흑점이 가장자리에서 납작해지는 것은 <b>구면 위에 놓인 것을 비스듬히 보기 때문</b>입니다. 태양 앞을 지나가는 다른 천체라면 그럴 이유가 없습니다. 더구나 흑점은 위도마다 도는 속도가 달랐습니다. 단단한 공이라면 있을 수 없는 일이고, 태양이 <b>기체 덩어리</b>라는 뜻입니다. 이것을 <b>차등 자전</b>이라고 합니다.</p>
+            <p>태양은 하나의 얼굴이 아닙니다. 가시광으로는 <b>광구</b>가, Hα(붉은빛)로는 <b>채층</b>이, X선으로는 <b>코로나</b>가 보입니다. 층마다 온도가 다르고, 온도가 그 층이 가장 세게 내는 빛의 파장을 정하기 때문입니다.</p>
+            <div class="vs" id="a-vs"></div>
+            <span class="stamp">사건 파일 ① 해결</span>
+          </div>
+          <div class="info-card" style="margin:0 0 14px">📎 과학자의 눈: 흑점을 쫓아 구한 주기는 지구에서 본 <b>겉보기 주기(회합 주기)</b>입니다. 지구도 같은 방향으로 공전하므로 태양의 진짜 자전 주기는 이보다 이틀쯤 짧습니다. 이 화면의 위도별 주기는 실제 관측을 따른 값이지만, 매끈한 식 하나로 단순화했습니다.</div>
+          <div class="stage-card" style="padding:6px 0 4px"><div id="wkA"></div></div>
+        </section>
       </div>
-      <div class="stage-card">
-        <div id="c0m-data" style="margin:18px 20px 0;"></div>
-        <div class="seg" id="c0m-choices" style="margin:14px 20px 0;"></div>
-        <div class="toggle-row" style="margin:14px 20px 0;">
-          <button class="chip" id="c0m-check">정답 확인</button>
-          <button class="chip" id="c0m-new">새 관측 자료</button>
-        </div>
-        <div class="info-card" id="c0m-info">보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.</div>
-      </div>
+      <p class="teacher-note">교사용: 주소 끝에 <a href="?open=1">?open=1</a> 을 붙이면 모든 장면이 열립니다.</p>
     </section>
 
+    <!-- =====================================================================
+         02 연주 시차와 거리 — 이야기 「8년 동안 잰 각도」
+         ===================================================================== -->
     <section class="tab-panel" data-panel="1" hidden>
       <div class="stage-head">
-        <div class="eyebrow">02 · 지구의 공전을 이용한 거리 측정</div>
-        <h2 class="display">연주 시차로 별까지의 거리 재기</h2>
-        <p>연주 시차각 슬라이더를 조절해, 시차가 클수록(가까운 별) 거리가 어떻게 짧아지는지 확인해 보세요.</p>
+        <div class="eyebrow">02 · 별까지의 거리 · 이야기 한 편</div>
+        <h2 class="display">8년 동안 잰 각도</h2>
+        <p>코페르니쿠스 이후 300년 동안 아무도 재지 못한 각도가 있었습니다. 1838년 베셀이 마침내 그것을 잡아냅니다. 두 가지 자로 별까지의 거리를 재고, 각자의 한계를 확인하세요.</p>
+        <span class="std-chip">12행우02-02</span><div class="std-note"><b>[12행우02-02]</b> 별의 시차와 밝기를 이용하여 거리를 측정하는 다양한 방법을 비교·평가할 수 있다.</div><div class="terms"><b>연주 시차</b><b>파섹</b><b>겉보기 등급</b><b>절대 등급</b></div>
       </div>
-      <div class="stage-card">
-        <div class="canvas-wrap"><canvas id="c1" width="900" height="400"></canvas></div>
-        <div class="controls">
-          <div class="ctrl-group">
-            <div class="ctrl-label">연주 시차각(″, 각초)<span class="val" id="c1-p-val">0.5</span></div>
-            <input type="range" id="c1-p" min="0.05" max="1" step="0.01" value="0.5">
+
+      <div class="episode" id="epB">
+        <section class="scene" data-title="지구가 돈다면 별도 흔들려야 한다">
+          <div class="story narr"><div class="who">🌍</div><div class="say"><span class="name">이야기</span>지구가 태양 둘레를 돈다면, 반년 뒤 우리는 3억 km 떨어진 자리에서 같은 별을 보게 됩니다. 그러면 가까운 별은 먼 별들에 견주어 조금 옮겨 보여야 합니다. 그런데 300년 동안 아무도 그 움직임을 잡지 못했습니다.</div></div>
+          <div class="story"><div class="who">🧑‍🔬</div><div class="say"><span class="name">베셀</span>“못 잡은 게 아니라 <b>너무 작아서</b> 못 잰 겁니다. 나는 하늘에서 가장 빨리 움직이는 별 하나를 골랐습니다. 빨리 움직인다는 건 가깝다는 뜻일 테니까요. 백조자리 61번 별입니다. 8년을 쟀습니다.”</div></div>
+          <div class="case-file"><b class="k">베셀의 결과(1838)</b> 백조자리 61의 연주 시차 <b>0.314초각</b> &nbsp;|&nbsp; 1초각은 1도의 3600분의 1 &nbsp;|&nbsp; 3 km 밖에 세운 100원짜리 동전이 이루는 각도쯤 됩니다</div>
+          <div class="gate loose" id="b-gate"></div>
+        </section>
+
+        <section class="scene" data-title="첫 번째 자 — 연주 시차">
+          <div class="story"><div class="who">🧑‍🔬</div><div class="say"><span class="name">베셀</span>“시차는 거리에 반비례합니다. 시차가 <b>1초각</b>인 거리를 <b>1파섹(pc)</b>이라 부르기로 하지요. 별을 이리저리 옮겨 보며, 시차가 어떻게 달라지는지 직접 보십시오.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="b-c-para" width="900" height="380"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">별까지의 거리<span class="val" id="b-d-val">5 pc</span></div>
+                <input type="range" id="b-d" min="1" max="200" step="1" value="5">
+              </div>
+            </div>
+            <div class="info-card" id="b-para-info"></div>
           </div>
-        </div>
-        <div class="info-card" id="c1-info"></div>
+          <div class="mission" id="m2-2"><span class="m-tag">미션</span>시차와 거리의 관계를 직접 확인하세요.<ul><li id="m2-2a">시차가 정확히 1.00초각이 되는 거리</li><li id="m2-2b">시차가 0.10초각이 되는 거리</li><li id="m2-2c">시차가 측정 오차(±0.005초각)의 두 배에도 못 미치게 되는 거리</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="두 번째 자 — 밝기로 재는 거리">
+          <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“시차로는 가까운 별밖에 못 잽니다. 그래서 두 번째 자를 씁니다. 별이 <b>10 pc에 있다면 얼마나 밝을지(절대 등급 M)</b>를 알아낼 수 있다면, <b>실제로 보이는 밝기(겉보기 등급 m)</b>와 견주어 거리를 알 수 있어요. 거리를 옮겨 가며 관측값과 맞춰 보세요.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="b-c-mod" width="900" height="360"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">관측 대상<span class="val" id="b-star-val">별 A</span></div>
+                <div class="seg" id="b-star"><button type="button" class="on" data-s="0">별 A</button><button type="button" data-s="1">별 B</button><button type="button" data-s="2">별 C</button></div>
+              </div>
+              <div class="ctrl-group">
+                <div class="ctrl-label">내가 놓아 본 거리<span class="val" id="b-dm-val">1 pc</span></div>
+                <input type="range" id="b-dm" min="0" max="100" step="1" value="0">
+              </div>
+            </div>
+            <div class="info-card" id="b-mod-info"></div>
+          </div>
+          <div class="mission" id="m2-3"><span class="m-tag">미션</span>세 별의 거리를 모두 알아내세요. 계산된 겉보기 등급이 관측값과 맞으면 기록됩니다.<ul><li id="m2-3a">별 A</li><li id="m2-3b">별 B</li><li id="m2-3c">별 C</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="자에는 저마다 한계가 있다">
+          <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“두 자 모두 한계가 있습니다. 시차는 <b>장비의 정밀도</b>가 정하지요. 별 다섯 개를 놓고, 장비를 바꿔 가며 몇 개까지 믿을 만하게 잴 수 있는지 보세요. 시차가 오차의 세 배는 되어야 쓸 만하다고 봅니다.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="b-c-lim" width="900" height="360"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">측정 오차<span class="val" id="b-err-val">±0.0166초각</span></div>
+                <input type="range" id="b-err" min="0" max="50" step="1" value="12">
+              </div>
+            </div>
+            <div class="info-card" id="b-lim-info"></div>
+          </div>
+          <div class="mission" id="m2-4"><span class="m-tag">미션</span><ul><li id="m2-4a">19세기 망원경(±0.05초각)으로는 몇 개나 잴 수 있는지 확인하세요.</li><li id="m2-4b">장비를 좋게 만들어 다섯 개를 모두 잴 수 있게 하세요.</li><li id="m2-4c">아래에서 별마다 알맞은 자를 고르세요.</li></ul></div>
+          <div class="stage-card" style="margin-top:14px"><div id="b-sort"></div></div>
+        </section>
+
+        <section class="scene" data-title="결말 — 두 자를 이어 붙이다">
+          <div class="ending">
+            <h4>📏 가까운 곳은 시차로, 먼 곳은 밝기로</h4>
+            <p>연주 시차는 <b>기하학만으로</b> 거리를 줍니다. 가정이 거의 없어 가장 믿을 만하지만, 시차가 작아질수록 오차에 묻혀 버립니다. 베셀의 장비로는 몇 pc가 한계였고, 오늘날 가이아 위성도 수천 pc를 넘기면 힘들어집니다.</p>
+            <p>그래서 그 너머는 <b>밝기</b>로 잽니다. 다만 이 자는 "이 별의 절대 등급이 얼마인지 안다"는 <b>가정</b> 위에 서 있습니다. 그 가정은 시차로 거리를 아는 가까운 별들에서 얻습니다. 즉 두 자는 경쟁하는 것이 아니라 <b>이어 붙여 쓰는 사다리</b>입니다.</p>
+            <div class="vs" id="b-vs"></div>
+            <span class="stamp">사건 파일 ② 해결</span>
+          </div>
+          <div class="info-card" style="margin:0 0 14px">📎 과학자의 눈: 실제로는 성간 티끌이 별빛을 가려 별이 더 어둡게 보이므로, 밝기로 잰 거리는 보정하지 않으면 실제보다 멀게 나옵니다. 이 화면에서는 그 효과를 넣지 않았습니다. 백조자리 61의 현대 측정값은 0.286초각(약 3.5 pc)으로, 베셀의 값과 10% 안쪽에서 맞습니다.</div>
+          <div class="stage-card" style="padding:6px 0 4px"><div id="wkB"></div></div>
+        </section>
       </div>
+      <p class="teacher-note">교사용: 주소 끝에 <a href="?open=1">?open=1</a> 을 붙이면 모든 장면이 열립니다.</p>
     </section>
 
+    <!-- =====================================================================
+         03 공간 운동과 질량 — 이야기 「흔들리며 가는 별」
+         ===================================================================== -->
     <section class="tab-panel" data-panel="2" hidden>
       <div class="stage-head">
-        <div class="eyebrow">03 · 별은 가만히 있지 않는다</div>
-        <h2 class="display">별의 공간 운동</h2>
-        <p>별의 실제 이동(공간 속도)은 시선 방향 속도(시선 속도)와 하늘 면에 대한 속도(고유 운동)로 나눌 수 있습니다.</p>
-      </div>
-      <div class="stage-card">
-        <div class="canvas-wrap"><canvas id="c2" width="900" height="380"></canvas></div>
-        <div class="controls">
-          <div class="ctrl-group">
-            <div class="ctrl-label">시선 속도(관측자 기준, km/s)<span class="val" id="c2-rv-val">10</span></div>
-            <input type="range" id="c2-rv" min="-30" max="30" step="1" value="10">
-          </div>
-          <div class="ctrl-group">
-            <div class="ctrl-label">고유 운동(하늘 면, km/s)<span class="val" id="c2-pm-val">20</span></div>
-            <input type="range" id="c2-pm" min="0" max="30" step="1" value="20">
-          </div>
-        </div>
-        <div class="info-card" id="c2-info"></div>
+        <div class="eyebrow">03 · 별의 운동과 질량 · 이야기 한 편</div>
+        <h2 class="display">흔들리며 가는 별</h2>
+        <p>가장 밝은 별 시리우스가 곧게 가지 않고 구불구불 흔들립니다. 베셀은 보이지 않는 무언가가 있다고 했습니다. 운동을 재고, 그 무언가의 무게까지 달아 보세요.</p>
+        <span class="std-chip">12행우02-03</span><span class="std-chip">12행우02-04</span><div class="std-note"><b>[12행우02-03]</b> 별의 시선속도와 접선속도의 합으로 공간 운동이 나타남을 이해하고, 별자리를 구성하는 별들의 장시간에 걸친 형태 변화를 추론할 수 있다.<br><b>[12행우02-04]</b> 쌍성의 관측 자료를 이용하여 항성의 질량을 직접적으로 구할 수 있음을 이해하고, 질량-광도 관계를 이용하여 쌍성이 아닌 별의 질량을 구할 수 있다.</div><div class="terms"><b>고유 운동</b><b>시선속도</b><b>접선속도</b><b>쌍성</b><b>질량-광도 관계</b></div>
       </div>
 
-      <div class="stage-head" style="margin-top:30px;">
-        <div class="eyebrow">🔎 미션 · 별자리의 실제 공간 분포 추론하기</div>
-        <h2 class="display" style="font-size:20px;">이 중 지구에서 가장 가까운 별은 어느 것일까요?</h2>
-        <p>같은 별자리를 이루는 별들은 하늘에서는 가까워 보이지만, 실제 거리는 서로 크게 다를 수 있습니다. 아래 별들의 거리 자료를 보고 지구에서 가장 가까운 별을 선택해 보세요.</p>
+      <div class="episode" id="epC">
+        <section class="scene" data-title="곧게 가지 않는 별">
+          <div class="story narr"><div class="who">✨</div><div class="say"><span class="name">이야기</span>1844년, 베셀은 시리우스의 위치 기록을 수십 년 치 펼쳐 놓고 있었습니다. 별은 분명 한 방향으로 나아가고 있었지만, 그 길이 <b>곧지 않고 물결처럼 굽이쳤습니다</b>. 주기는 약 50년이었습니다.</div></div>
+          <div class="story"><div class="who">🧑‍🔬</div><div class="say"><span class="name">베셀</span>“별 하나가 혼자 가면서 흔들릴 까닭이 없습니다. 무언가가 <b>같이 돌고 있습니다.</b> 보이지 않을 뿐입니다. 관측 조수, 먼저 이 별이 <b>얼마나 빨리, 어느 쪽으로</b> 가는지부터 재 주세요.”</div></div>
+          <div class="case-file"><b class="k">시리우스의 흔들림</b> 주기 약 50년 &nbsp;|&nbsp; 1862년, 망원경 제작자 클라크가 시리우스 곁에서 <b>1만 배나 어두운 별</b>을 발견합니다 — 시리우스 B</div>
+          <div class="gate loose" id="c-gate"></div>
+        </section>
+
+        <section class="scene" data-title="단서 ① — 별은 어느 쪽으로 얼마나 빨리 가나">
+          <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“별의 운동은 두 조각입니다. 우리 쪽으로 오거나 멀어지는 <b>시선속도</b>는 스펙트럼선의 치우침(도플러)으로 잽니다. 하늘을 가로지르는 <b>접선속도</b>는 고유 운동과 거리로 구합니다. <b>v<sub>t</sub> = 4.74 × 고유 운동(″/년) × 거리(pc)</b> 예요. 접선속도를 맞혀 보세요.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="c-c-motion" width="900" height="380"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">관측 대상<span class="val" id="c-star-val">바너드별</span></div>
+                <div class="seg" id="c-star"><button type="button" class="on" data-s="0">바너드별</button><button type="button" data-s="1">시리우스</button><button type="button" data-s="2">알데바란</button></div>
+              </div>
+              <div class="ctrl-group">
+                <div class="ctrl-label">내가 계산한 접선속도<span class="val" id="c-vt-val">0.0 km/s</span></div>
+                <input type="range" id="c-vt" min="0" max="150" step="0.5" value="0">
+              </div>
+            </div>
+            <div class="info-card" id="c-motion-info"></div>
+          </div>
+          <div class="mission" id="m3-2"><span class="m-tag">미션</span>세 별의 접선속도를 모두 맞히세요. 맞히면 공간 운동 속도가 함께 계산됩니다.<ul><li id="m3-2a">바너드별</li><li id="m3-2b">시리우스</li><li id="m3-2c">알데바란</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="단서 ② — 10만 년 뒤의 북두칠성">
+          <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“별들이 저마다 다른 방향으로 간다면, <b>별자리 모양도 영원하지 않겠지요.</b> 시간을 앞뒤로 돌려 북두칠성을 보세요.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="c-c-dipper" width="900" height="360"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">지금으로부터<span class="val" id="c-yr-val">0년</span></div>
+                <input type="range" id="c-yr" min="-100" max="100" step="5" value="0">
+              </div>
+            </div>
+            <div class="info-card" id="c-dipper-info"></div>
+          </div>
+          <div class="stage-card" style="margin-top:14px"><div id="c-q1"></div></div>
+          <div class="mission" id="m3-3"><span class="m-tag">미션</span><ul><li id="m3-3a">10만 년 전의 모습을 보세요.</li><li id="m3-3b">10만 년 뒤의 모습을 보세요.</li><li id="m3-3c">아래 물음에 답하세요.</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="보이지 않던 동반성의 무게를 달다">
+          <div class="story"><div class="who">🧑‍🔬</div><div class="say"><span class="name">베셀</span>“이제 본론입니다. 두 별이 서로 도는 <b>쌍성</b>이라면, 궤도의 크기와 주기만으로 <b>두 별의 질량 합</b>을 구할 수 있습니다. 케플러 제3법칙을 태양계 밖으로 넓히면 <b>M₁ + M₂ = a³ / P²</b> 이지요. 그리고 두 별이 도는 중심(질량 중심)이 어디냐가 <b>질량의 비</b>를 알려 줍니다.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="c-c-binary" width="900" height="400"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">내가 구한 두 별의 질량 합<span class="val" id="c-msum-val">1.0 M☉</span></div>
+                <input type="range" id="c-msum" min="0.2" max="8" step="0.1" value="1">
+              </div>
+              <div class="ctrl-group">
+                <div class="ctrl-label">질량 중심의 자리 (A에서 B쪽으로)<span class="val" id="c-cm-val">50%</span></div>
+                <input type="range" id="c-cm" min="5" max="95" step="1" value="50">
+              </div>
+            </div>
+            <div class="info-card" id="c-binary-info"></div>
+          </div>
+          <div class="mission" id="m3-4"><span class="m-tag">미션</span>관측 자료로 시리우스 두 별의 질량을 구하세요.<ul><li id="m3-4a">질량 합 (a = 19.8 AU, P = 50.1년)</li><li id="m3-4b">질량 중심의 자리 (A가 B보다 훨씬 덜 흔들립니다)</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="쌍성이 아닌 별은 어떻게 다나">
+          <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“질량을 직접 잴 수 있는 별은 <b>쌍성뿐</b>입니다. 그렇게 모은 쌍성 자료에서 규칙 하나가 나왔어요. 주계열성은 <b>무거울수록 훨씬 밝다</b>는 것. 대략 <b>L ∝ M<sup>3.5</sup></b> 입니다. 이 다리를 놓으면 혼자 있는 별의 질량도 어림할 수 있지요.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="c-c-ml" width="900" height="380"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">주계열성의 질량<span class="val" id="c-m-val">1.0 M☉</span></div>
+                <input type="range" id="c-m" min="0.1" max="20" step="0.1" value="1">
+              </div>
+            </div>
+            <div class="toggle-row" style="margin:0 20px 14px;"><button class="btn primary" id="c-cmp" type="button">🔭 시리우스 B를 이 관계와 견주기</button></div>
+            <div class="info-card" id="c-ml-info"></div>
+          </div>
+          <div class="mission" id="m3-5"><span class="m-tag">미션</span><ul><li id="m3-5a">광도가 태양의 약 100배인 주계열성의 질량을 찾으세요.</li><li id="m3-5b">광도가 태양의 0.1배도 안 되는 주계열성의 질량을 찾으세요.</li><li id="m3-5c">질량을 1.0 M☉ 근처에 두고 시리우스 B와 견주어 보세요.</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="결말 — 흔들림이 알려 준 것">
+          <div class="ending">
+            <h4>⚖️ 보이지 않아도 무게는 잴 수 있다</h4>
+            <p>시리우스의 흔들림은 <b>동반성의 중력</b>이 만든 것이었습니다. 베셀은 보이지 않는 별의 존재를 <b>운동만으로</b> 예언했고, 18년 뒤 실제로 발견되었습니다. 쌍성의 궤도 크기와 주기는 두 별의 <b>질량 합</b>을, 질량 중심의 자리는 <b>질량의 비</b>를 줍니다. 별의 질량을 직접 잴 수 있는 길은 이것뿐입니다.</p>
+            <p>그런데 시리우스 B는 이상했습니다. 질량은 태양만 한데 광도는 태양의 수백분의 일. 질량-광도 관계에서 한참 벗어납니다. 주계열성이 아니라는 뜻이고, 실제로 시리우스 B는 지구만 한 크기에 태양만 한 질량이 눌려 담긴 <b>백색왜성</b>입니다.</p>
+            <div class="vs" id="c-vs"></div>
+            <span class="stamp">사건 파일 ③ 해결</span>
+          </div>
+          <div class="info-card" style="margin:0 0 14px">📎 과학자의 눈: <b>M₁+M₂ = a³/P²</b> 는 질량을 태양질량, 거리를 AU, 주기를 년으로 쓸 때만 성립하는 편한 꼴입니다. 또 실제 관측에서는 궤도가 기울어 보이므로 기울기를 따로 구해야 합니다. 질량-광도 관계의 지수 3.5도 질량 구간마다 달라지는 어림값입니다.</div>
+          <div class="stage-card" style="padding:6px 0 4px"><div id="wkC"></div></div>
+        </section>
       </div>
-      <div class="stage-card">
-        <div id="c2m-data" style="margin:18px 20px 0;"></div>
-        <div class="seg" id="c2m-choices" style="margin:14px 20px 0;"></div>
-        <div class="toggle-row" style="margin:14px 20px 0;">
-          <button class="chip" id="c2m-check">정답 확인</button>
-          <button class="chip" id="c2m-new">새 별자리 자료</button>
-        </div>
-        <div class="info-card" id="c2m-info">보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.</div>
-      </div>
+      <p class="teacher-note">교사용: 주소 끝에 <a href="?open=1">?open=1</a> 을 붙이면 모든 장면이 열립니다.</p>
     </section>
 
+    <!-- =====================================================================
+         04 변광성 — 이야기 「심장이 뛰는 별」
+         ===================================================================== -->
     <section class="tab-panel" data-panel="3" hidden>
       <div class="stage-head">
-        <div class="eyebrow">04 · 쌍성으로 별의 질량 구하기</div>
-        <h2 class="display">별의 질량</h2>
-        <p>쌍성의 공통 질량 중심 위치로 두 별의 질량비를 확인해 보세요.</p>
-      </div>
-      <div class="stage-card">
-        <div class="canvas-wrap"><canvas id="c3" width="900" height="420"></canvas></div>
-        <div class="controls">
-          <div class="ctrl-group">
-            <div class="ctrl-label">쌍성 질량비 (A:B)<span class="val" id="c3-r-val">1 : 2</span></div>
-            <input type="range" id="c3-r" min="0.3" max="3" step="0.1" value="2">
-          </div>
-        </div>
-        <div class="info-card" id="c3-info"></div>
+        <div class="eyebrow">04 · 변광성 · 이야기 한 편</div>
+        <h2 class="display">심장이 뛰는 별</h2>
+        <p>사라졌다 다시 나타나는 별이 있습니다. 밝기가 변하는 까닭은 하나가 아닙니다. 광도곡선의 모양을 읽어 무슨 일이 일어났는지 알아내고, 마지막에는 그 별로 먼 은하의 거리까지 재세요.</p>
+        <span class="std-chip">12행우02-05</span><div class="std-note"><b>[12행우02-05]</b> 광도곡선의 특징을 비교하여 맥동변광성과 폭발 변광성을 구분하고, 폭발 변광성 중 초신성 관측 자료를 통해 알 수 있는 과학적 사실을 추론할 수 있다.</div><div class="terms"><b>광도곡선</b><b>맥동변광성</b><b>폭발 변광성</b><b>초신성</b><b>표준 촛불</b></div>
       </div>
 
-      <div class="stage-head" style="margin-top:30px;">
-        <div class="eyebrow">🔎 미션 · 쌍성 자료로 질량 비교하기</div>
-        <h2 class="display" style="font-size:20px;">어느 별이 더 무거울까요?</h2>
-        <p>쌍성계에서는 두 별이 공통 질량 중심을 사이에 두고 서로 반대편에서 공전합니다. 질량 중심으로부터 각 별까지의 거리는 질량에 반비례합니다(m_A × d_A = m_B × d_B). 자료를 보고 질량이 더 큰 별을 선택해 보세요.</p>
+      <div class="episode" id="epD">
+        <section class="scene" data-title="놀라운 별">
+          <div class="story narr"><div class="who">🌟</div><div class="say"><span class="name">이야기</span>1596년, 파브리치우스는 고래자리에서 밝은 별 하나를 기록했습니다. 몇 달 뒤 그 별은 <b>사라져 있었습니다</b>. 다시 몇 달이 지나자 같은 자리에 또 나타났습니다. 사람들은 그 별을 라틴어로 ‘놀라운 것’, <b>미라</b>라고 불렀습니다.</div></div>
+          <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">변광성 관측 동아리장</span>“밝기가 변하는 별을 변광성이라고 해요. 그런데 <b>변하는 까닭이 다 다릅니다.</b> 우리가 가진 건 시간에 따른 밝기 기록, 즉 <b>광도곡선</b>뿐이에요. 이 곡선의 모양만으로 무슨 일이 일어났는지 알아낼 수 있을까요?”</div></div>
+          <div class="gate loose" id="d-gate"></div>
+        </section>
+
+        <section class="scene" data-title="스스로 부풀었다 줄어드는 별">
+          <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">동아리장</span>“첫 번째 무리는 <b>맥동변광성</b>이에요. 별이 실제로 부풀었다 줄어들기를 되풀이합니다. 규칙적으로요. 주기를 바꿔 가며 어떤 무리가 나오는지 보세요.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="d-c-puls" width="900" height="380"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">변광 주기<span class="val" id="d-p-val">1.68일</span></div>
+                <input type="range" id="d-p" min="0" max="100" step="1" value="25">
+              </div>
+            </div>
+            <div class="info-card" id="d-puls-info"></div>
+          </div>
+          <div class="mission" id="m4-2"><span class="m-tag">미션</span>맥동변광성 세 무리를 모두 만들어 보세요.<ul><li id="m4-2a">거문고자리 RR형 (하루가 안 되는 주기)</li><li id="m4-2b">세페이드 (며칠에서 몇십 일)</li><li id="m4-2c">미라형 (백 일이 넘는 긴 주기)</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="한 번에 터지는 별">
+          <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">동아리장</span>“두 번째 무리는 <b>폭발 변광성</b>이에요. 갑자기 확 밝아졌다가 천천히 어두워지고, 되풀이하지 않거나 아주 드물게만 되풀이합니다. 등급이 5만큼 차이 나면 밝기는 100배 차이예요. 밝아진 정도를 조절해 보세요.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="d-c-burst" width="900" height="380"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">최대일 때 밝아진 등급 차<span class="val" id="d-dm-val">0.0등급</span></div>
+                <input type="range" id="d-dm" min="0" max="25" step="0.5" value="0">
+              </div>
+            </div>
+            <div class="info-card" id="d-burst-info"></div>
+          </div>
+          <div class="mission" id="m4-3"><span class="m-tag">미션</span><ul><li id="m4-3a">밝기가 약 1만 배가 되는 등급 차를 찾으세요 (신성 수준).</li><li id="m4-3b">밝기가 약 1억 배가 되는 등급 차를 찾으세요 (초신성 수준).</li><li id="m4-3c">아래 관측 기록 6개를 맥동변광성과 폭발 변광성으로 나누세요.</li></ul></div>
+          <div class="stage-card" style="margin-top:14px"><div id="d-sort"></div></div>
+        </section>
+
+        <section class="scene" data-title="터지는 밝기가 늘 같다면">
+          <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">동아리장</span>“Ia형 초신성은 특별해요. 백색왜성이 한계 질량을 넘는 순간 터지기 때문에 <b>최대 밝기가 거의 늘 같습니다.</b> 절대 등급 약 −19.3이에요. 밝기가 정해진 등불이니, 어둡게 보이면 그만큼 멀다는 뜻이지요. 이걸 <b>표준 촛불</b>이라고 합니다.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="d-c-candle" width="900" height="360"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">관측한 은하<span class="val" id="d-gal-val">은하 가</span></div>
+                <div class="seg" id="d-gal"><button type="button" class="on" data-g="0">은하 가</button><button type="button" data-g="1">은하 나</button></div>
+              </div>
+              <div class="ctrl-group">
+                <div class="ctrl-label">내가 놓아 본 거리<span class="val" id="d-dist-val">1 Mpc</span></div>
+                <input type="range" id="d-dist" min="0" max="100" step="1" value="0">
+              </div>
+            </div>
+            <div class="info-card" id="d-candle-info"></div>
+          </div>
+          <div class="mission" id="m4-4"><span class="m-tag">미션</span>두 은하까지의 거리를 알아내세요.<ul><li id="m4-4a">은하 가 (최대 겉보기 등급 13.95)</li><li id="m4-4b">은하 나 (최대 겉보기 등급 19.50)</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="결말 — 곡선 하나로 읽어 낸 것">
+          <div class="ending">
+            <h4>💡 밝기의 변화가 우주의 자가 되었다</h4>
+            <p>광도곡선의 <b>모양</b>이 원인을 알려 줍니다. 규칙적으로 오르내리면 별이 스스로 부풀었다 줄어드는 <b>맥동변광성</b>이고, 한 번 치솟았다 서서히 사그라들면 <b>폭발 변광성</b>입니다. 신성은 백색왜성 표면에서 일어난 폭발이라 별이 살아남아 다시 일어날 수 있지만, 초신성은 별 자체가 끝나는 사건입니다.</p>
+            <p>그리고 Ia형 초신성은 <b>최대 밝기가 거의 일정</b>하다는 성질 덕분에, 시차도 닿지 않고 세페이드도 보이지 않는 아주 먼 은하까지 거리를 재는 자가 되었습니다. 1998년 이 자로 먼 은하들을 재던 천문학자들은 우주의 팽창이 느려지는 게 아니라 <b>빨라지고 있다</b>는 사실을 발견했습니다.</p>
+            <div class="vs" id="d-vs"></div>
+            <span class="stamp">사건 파일 ④ 해결</span>
+          </div>
+          <div class="info-card" style="margin:0 0 14px">📎 과학자의 눈: Ia형 초신성의 최대 밝기도 완전히 같지는 않아, 실제로는 광도곡선이 사그라드는 속도로 보정합니다(밝을수록 천천히 어두워집니다). 이 화면의 거리 계산에는 성간 티끌에 의한 어두워짐과 우주 팽창에 따른 보정을 넣지 않았습니다.</div>
+          <div class="stage-card" style="padding:6px 0 4px"><div id="wkD"></div></div>
+        </section>
       </div>
-      <div class="stage-card">
-        <div id="c3m-data" style="margin:18px 20px 0;"></div>
-        <div class="seg" id="c3m-choices" style="margin:14px 20px 0;">
-          <button data-c="a">별 A</button>
-          <button data-c="b">별 B</button>
-        </div>
-        <div class="toggle-row" style="margin:14px 20px 0;">
-          <button class="chip" id="c3m-check">정답 확인</button>
-          <button class="chip" id="c3m-new">새 쌍성 자료</button>
-        </div>
-        <div class="info-card" id="c3m-info">보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.</div>
-      </div>
+      <p class="teacher-note">교사용: 주소 끝에 <a href="?open=1">?open=1</a> 을 붙이면 모든 장면이 열립니다.</p>
     </section>
 
+    <!-- ===================================================================== 05 정리하기 -->
     <section class="tab-panel" data-panel="4" hidden>
       <div class="stage-head">
-        <div class="eyebrow">05 · 밝기가 변하는 별</div>
-        <h2 class="display">변광성</h2>
-        <p>변광의 원인에 따라 광도 곡선의 모양이 다릅니다. 세 가지 변광성의 광도 곡선을 비교해 보세요.</p>
-      </div>
-      <div class="stage-card">
-        <div class="canvas-wrap"><canvas id="c4" width="900" height="380"></canvas></div>
-        <div class="controls">
-          <div class="ctrl-group" style="flex:1 1 100%">
-            <div class="ctrl-label">변광성의 종류</div>
-            <div class="seg" id="c4-type">
-              <button class="on" data-t="eclipsing">식변광성</button>
-              <button data-t="pulsating">맥동 변광성</button>
-              <button data-t="explosive">폭발 변광성</button>
-            </div>
-          </div>
-        </div>
-        <div class="info-card" id="c4-info"></div>
-      </div>
-      <p class="foot-note">알골(식변광성)·세페이드(맥동변광성)·신성과 초신성(폭발변광성)이 대표적인 예입니다. 광도 곡선의 모양과 변광 주기의 유무로 변광 천체를 구분할 수 있습니다.</p>
-    </section>
-
-    <section class="tab-panel" data-panel="5" hidden>
-      <div class="stage-head">
-        <div class="eyebrow">06 · 오늘 알아낸 것을 문장으로</div>
+        <div class="eyebrow">05 · 네 사건을 하나로</div>
         <h2 class="display">정리하기</h2>
-        <p>조작한 것을 말이나 글로 옮기지 않으면 남지 않습니다. 아래를 채우고 <b>답안 복사</b>를 눌러 제출하세요. 쓰는 동안 자동으로 저장됩니다.</p>
+        <p>네 이야기의 결과가 아래에 모입니다. 네 사건을 꿰는 한 문장을 쓰고 <b>답안 복사</b>를 눌러 제출하세요. 쓰는 동안 자동으로 저장됩니다.</p>
       </div>
       <div class="stage-card" style="padding:6px 0 4px"><div id="wk"></div></div>
     </section>
+
+    <!-- ===================================================================== 06 우리 반 -->
+    <section class="tab-panel" data-panel="5" hidden>
+      <div class="stage-head">
+        <div class="eyebrow">06 · 같은 반 친구들과 나누기</div>
+        <h2 class="display">우리 반</h2>
+        <p>내가 해결한 사건과 알아낸 값을 우리 반에 올리고, 친구들은 어떻게 풀었는지 살펴보세요. <b>올리기 버튼을 눌렀을 때만</b> 공유됩니다. 실명 대신 별명을 쓰세요.</p>
+      </div>
+      <div class="stage-card"><div id="share"></div></div>
+    </section>
+
   </main>
 </div>
 
 <button class="theme-toggle" id="themeToggle">라이트 모드</button>
 <script src="../assets/theme.js"></script>
-<script>
-(function () {
-"use strict";
-
-/* TAB0 태양 관측 - 흑점 이동 */
-(function () {
-  var canvas = document.getElementById("c0");
-  var ctx = setupCanvas(canvas);
-  var W = canvas._w, H = canvas._h;
-  var slider = document.getElementById("c0-day");
-  var dayVal = document.getElementById("c0-day-val");
-  var angleVal = document.getElementById("c0-angle");
-  var period = 27;
-
-  function render() {
-    var day = +slider.value;
-    dayVal.textContent = day;
-    var angleDeg = (day / period) * 180 - 90;
-    angleVal.textContent = Math.round(angleDeg + 90) + "°";
-
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
-
-    var cx = W / 2, cy = H / 2, r = 160;
-    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
-    ctx.fillStyle = cssVar("--coral"); ctx.globalAlpha = 0.18; ctx.fill(); ctx.globalAlpha = 1;
-    ctx.strokeStyle = cssVar("--coral"); ctx.lineWidth = 2; ctx.stroke();
-
-    ctx.strokeStyle = cssVar("--line");
-    for (var i = -60; i <= 60; i += 30) {
-      ctx.beginPath();
-      var rr = r * Math.cos(i * Math.PI / 180);
-      ctx.ellipse(cx, cy, rr, r, 0, 0, Math.PI * 2);
-      ctx.stroke();
-    }
-
-    var rad = angleDeg * Math.PI / 180;
-    var spotX = cx + r * Math.sin(rad);
-    var spotY = cy + 40 * Math.sin(day * 0.3);
-    var visible = Math.cos(rad) > -0.05;
-    if (visible) {
-      ctx.beginPath();
-      ctx.arc(spotX, spotY, 10, 0, Math.PI * 2);
-      ctx.fillStyle = cssVar("--ink");
-      ctx.fill();
-      ctx.strokeStyle = cssVar("--foam"); ctx.lineWidth = 1.5; ctx.stroke();
-    }
-
-    ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center";
-    ctx.fillText("태양면(지구에서 본 모습)", cx, cy + r + 30);
-    ctx.fillText(day === 0 ? "관측 시작 위치" : (visible ? "" : "반대쪽 면(관측 불가)"), cx, cy - r - 15);
-  }
-  slider.addEventListener("input", render);
-  render();
-})();
-
-/* TAB0 미션 — 흑점 자료로 자전 주기 구하기 */
-(function () {
-  var dataEl = document.getElementById("c0m-data");
-  var choicesEl = document.getElementById("c0m-choices");
-  var checkBtn = document.getElementById("c0m-check");
-  var newBtn = document.getElementById("c0m-new");
-  if (!dataEl) return;
-
-  var trueP = 27, day2 = 10, angle2 = 60;
-  var picked = null, choices = [];
-
-  function shuffle(arr) {
-    var a = arr.slice();
-    for (var i = a.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
-    }
-    return a;
-  }
-
-  function newQuestion() {
-    trueP = 22 + Math.round(Math.random() * 10);
-    day2 = 2 + Math.round(Math.random() * (trueP / 2 - 3));
-    angle2 = Math.round((day2 / trueP) * 360);
-    dataEl.innerHTML = '<table class="data-mini-table"><tr><th>관측일</th><th>흑점 위치각(자전 시작 기준)</th></tr>' +
-      "<tr><td>0일</td><td>0°</td></tr><tr><td>" + day2 + "일</td><td>" + angle2 + "°</td></tr></table>";
-    var decoys = [];
-    while (decoys.length < 3) {
-      var d = trueP + Math.round((Math.random() - 0.5) * 16);
-      if (Math.abs(d - trueP) > 2 && decoys.indexOf(d) === -1 && d > 0) decoys.push(d);
-    }
-    choices = shuffle([trueP].concat(decoys));
-    picked = null;
-    renderChoices();
-    var info = document.getElementById("c0m-info");
-    info.style.color = "";
-    info.textContent = "보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.";
-  }
-
-  function renderChoices() {
-    choicesEl.innerHTML = "";
-    choices.forEach(function (p) {
-      var btn = document.createElement("button");
-      btn.className = picked === p ? "on" : "";
-      btn.textContent = p + "일";
-      btn.addEventListener("click", function () { picked = p; renderChoices(); });
-      choicesEl.appendChild(btn);
-    });
-  }
-
-  checkBtn.addEventListener("click", function () {
-    var info = document.getElementById("c0m-info");
-    if (picked === null) {
-      info.style.color = "";
-      info.textContent = "먼저 보기 중 하나를 선택하세요.";
-      return;
-    }
-    if (picked === trueP) {
-      info.style.color = "var(--teal)";
-      info.innerHTML = "<b>정답입니다!</b> " + day2 + "일 동안 " + angle2 + "° 이동했으므로, 360° 회전하는 데 걸리는 시간은 360 × " + day2 + " / " + angle2 + " ≈ " + trueP + "일입니다.";
-    } else {
-      info.style.color = "var(--coral)";
-      info.innerHTML = "다시 생각해 보세요. 정답은 <b>" + trueP + "일</b>입니다. (경과일 ÷ 이동각) × 360°로 계산해 보세요.";
-    }
-  });
-
-  newBtn.addEventListener("click", newQuestion);
-  newQuestion();
-})();
-
-/* TAB1 연주시차 */
-(function () {
-  var canvas = document.getElementById("c1");
-  var ctx = setupCanvas(canvas);
-  var W = canvas._w, H = canvas._h;
-  var p = 0.5;
-  var info = document.getElementById("c1-info");
-  document.getElementById("c1-p").addEventListener("input", function (e) { p = +e.target.value; document.getElementById("c1-p-val").textContent = p.toFixed(2); render(); });
-
-  function render() {
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
-    var earthX = 150, earthY = H / 2;
-    var dist = Math.min(650, 60 / p);
-    var starX = 150 + dist, starY = H / 2;
-
-    ctx.strokeStyle = cssVar("--line"); ctx.beginPath(); ctx.ellipse(earthX, earthY, 6, 24, 0, 0, 7); ctx.stroke();
-    ctx.fillStyle = cssVar("--teal"); ctx.beginPath(); ctx.arc(earthX, earthY - 24, 6, 0, 7); ctx.fill();
-    ctx.beginPath(); ctx.arc(earthX, earthY + 24, 6, 0, 7); ctx.fill();
-    ctx.font = "10px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center";
-    ctx.fillText("지구(6개월 간격 위치)", earthX, earthY - 40);
-
-    ctx.fillStyle = cssVar("--coral"); ctx.beginPath(); ctx.arc(Math.min(starX, W - 60), starY, 8, 0, 7); ctx.fill();
-    ctx.fillText("별", Math.min(starX, W - 60), starY - 18);
-
-    ctx.save(); ctx.strokeStyle = cssVar("--violet"); ctx.setLineDash([3, 3]);
-    ctx.beginPath(); ctx.moveTo(earthX, earthY - 24); ctx.lineTo(Math.min(starX, W - 60), starY); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(earthX, earthY + 24); ctx.lineTo(Math.min(starX, W - 60), starY); ctx.stroke();
-    ctx.setLineDash([]); ctx.restore();
-
-    var distPc = 1 / p;
-    info.innerHTML = "연주 시차각이 <b>" + p.toFixed(2) + "″</b>일 때, 거리 = 1 / 시차각(″) 공식에 따라 별까지의 거리는 <b>" + distPc.toFixed(2) + " pc(파섹)</b> ≈ " + (distPc * 3.26).toFixed(1) + " 광년입니다. 시차각이 <b>클수록 가까운 별</b>입니다.";
-  }
-  render();
-})();
-
-/* TAB2 공간운동 */
-(function () {
-  var canvas = document.getElementById("c2");
-  var ctx = setupCanvas(canvas);
-  var W = canvas._w, H = canvas._h;
-  var rv = 10, pm = 20;
-  var info = document.getElementById("c2-info");
-  document.getElementById("c2-rv").addEventListener("input", function (e) { rv = +e.target.value; document.getElementById("c2-rv-val").textContent = rv; render(); });
-  document.getElementById("c2-pm").addEventListener("input", function (e) { pm = +e.target.value; document.getElementById("c2-pm-val").textContent = pm; render(); });
-
-  function render() {
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
-    var ox = W / 2, oy = H / 2;
-    ctx.fillStyle = cssVar("--teal"); ctx.beginPath(); ctx.arc(ox, oy, 8, 0, 7); ctx.fill();
-    ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center"; ctx.fillText("관측자(지구)", ox, oy + 24);
-
-    var scale = 6;
-    ctx.save(); ctx.strokeStyle = cssVar("--coral"); ctx.fillStyle = cssVar("--coral"); ctx.lineWidth = 3;
-    drawArrow(ctx, ox, oy, ox + rv * scale, oy, 9);
-    ctx.font = "700 11px Segoe UI"; ctx.textAlign = "left"; ctx.fillText("시선 속도(RV)", ox + rv * scale + 10, oy + 4);
-    ctx.restore();
-
-    ctx.save(); ctx.strokeStyle = cssVar("--cold"); ctx.fillStyle = cssVar("--cold"); ctx.lineWidth = 3;
-    drawArrow(ctx, ox + rv * scale, oy, ox + rv * scale, oy - pm * scale, 9);
-    ctx.font = "700 11px Segoe UI"; ctx.fillText("고유 운동", ox + rv * scale + 10, oy - pm * scale);
-    ctx.restore();
-
-    ctx.save(); ctx.strokeStyle = cssVar("--teal"); ctx.fillStyle = cssVar("--teal"); ctx.lineWidth = 4;
-    drawArrow(ctx, ox, oy, ox + rv * scale, oy - pm * scale, 11);
-    ctx.restore();
-
-    var totalV = Math.hypot(rv, pm);
-    info.innerHTML = "별의 실제 이동(<b>공간 속도</b>)은 관측자에게서 멀어지거나 가까워지는 <b>시선 속도(도플러 효과로 측정, " + rv + " km/s)</b>와, 하늘 면을 가로지르는 <b>고유 운동(" + pm + " km/s)</b>을 합성한 것입니다. 공간 속도 크기 ≈ " + totalV.toFixed(1) + " km/s.";
-  }
-  render();
-})();
-
-/* TAB2 미션 — 별자리의 실제 공간 분포 추론하기 */
-(function () {
-  var dataEl = document.getElementById("c2m-data");
-  var choicesEl = document.getElementById("c2m-choices");
-  var checkBtn = document.getElementById("c2m-check");
-  var newBtn = document.getElementById("c2m-new");
-  if (!dataEl) return;
-
-  var names = ["별 A", "별 B", "별 C", "별 D"];
-  var dists = [];
-  var trueIdx = 0;
-  var picked = null;
-
-  function shuffle(arr) {
-    var a = arr.slice();
-    for (var i = a.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
-    }
-    return a;
-  }
-
-  function newQuestion() {
-    var pool = [];
-    while (pool.length < 4) {
-      var d = 10 + Math.round(Math.random() * 490);
-      if (pool.indexOf(d) === -1) pool.push(d);
-    }
-    dists = pool;
-    trueIdx = dists.indexOf(Math.min.apply(null, dists));
-    var rows = names.map(function (n, i) { return "<tr><td>" + n + "</td><td>" + dists[i] + " 광년</td></tr>"; }).join("");
-    dataEl.innerHTML = '<table class="data-mini-table"><tr><th>별</th><th>지구로부터의 거리</th></tr>' + rows + "</table>";
-    picked = null;
-    renderChoices();
-    var info = document.getElementById("c2m-info");
-    info.style.color = "";
-    info.textContent = "보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.";
-  }
-
-  function renderChoices() {
-    choicesEl.innerHTML = "";
-    names.forEach(function (n, i) {
-      var btn = document.createElement("button");
-      btn.className = picked === i ? "on" : "";
-      btn.textContent = n;
-      btn.addEventListener("click", function () { picked = i; renderChoices(); });
-      choicesEl.appendChild(btn);
-    });
-  }
-
-  checkBtn.addEventListener("click", function () {
-    var info = document.getElementById("c2m-info");
-    if (picked === null) {
-      info.style.color = "";
-      info.textContent = "먼저 보기 중 하나를 선택하세요.";
-      return;
-    }
-    if (picked === trueIdx) {
-      info.style.color = "var(--teal)";
-      info.innerHTML = "<b>정답입니다!</b> " + names[trueIdx] + "이(가) " + dists[trueIdx] + " 광년으로 가장 가깝습니다. 같은 별자리라도 실제 거리는 서로 다르므로, 겉보기 배열과 실제 공간 배치는 다릅니다.";
-    } else {
-      info.style.color = "var(--coral)";
-      info.innerHTML = "다시 생각해 보세요. 정답은 <b>" + names[trueIdx] + "</b>입니다. 거리 값이 가장 작은 별을 찾아보세요.";
-    }
-  });
-
-  newBtn.addEventListener("click", newQuestion);
-  newQuestion();
-})();
-
-/* TAB3 쌍성과 변광성 */
-(function () {
-  var canvas = document.getElementById("c3");
-  var ctx = setupCanvas(canvas);
-  var W = canvas._w, H = canvas._h;
-  var ratio = 2;
-  var info = document.getElementById("c3-info");
-  document.getElementById("c3-r").addEventListener("input", function (e) {
-    ratio = +e.target.value;
-    document.getElementById("c3-r-val").textContent = "1 : " + ratio.toFixed(1);
-    render();
-  });
-
-  function render() {
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
-    var cx = W / 2, cy = 150, sep = 220;
-    var fracB = ratio / (1 + ratio);
-    var comX = cx - sep / 2 + sep * fracB;
-    ctx.strokeStyle = cssVar("--line"); ctx.setLineDash([3, 3]);
-    ctx.beginPath(); ctx.moveTo(cx - sep / 2 - 30, cy); ctx.lineTo(cx + sep / 2 + 30, cy); ctx.stroke(); ctx.setLineDash([]);
-
-    var rA = 18, rB = 18 * Math.sqrt(ratio);
-    ctx.fillStyle = cssVar("--teal"); ctx.beginPath(); ctx.arc(cx - sep / 2, cy, rA, 0, 7); ctx.fill();
-    ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center"; ctx.fillText("A (질량 1)", cx - sep / 2, cy - rA - 10);
-    ctx.fillStyle = cssVar("--coral"); ctx.beginPath(); ctx.arc(cx + sep / 2, cy, rB, 0, 7); ctx.fill();
-    ctx.fillText("B (질량 " + ratio.toFixed(1) + ")", cx + sep / 2, cy - rB - 10);
-
-    ctx.fillStyle = cssVar("--foam"); ctx.beginPath(); ctx.arc(comX, cy, 4, 0, 7); ctx.fill();
-    ctx.font = "10px Segoe UI"; ctx.fillText("공통 질량 중심", comX, cy + 20);
-
-    info.innerHTML = "쌍성계에서 두 별은 <b>공통 질량 중심</b>을 사이에 두고 공전하며, 질량이 클수록 중심에서 가까이 공전합니다(질량이 " + ratio.toFixed(1) + "배인 B가 A보다 " + ratio.toFixed(1) + "배 가깝게 공전). 이처럼 <b>쌍성</b>의 공전을 관측하면 두 별의 <b>질량비</b>를 구할 수 있고, 분광 관측 등을 더하면 각 별의 실제 질량까지 구할 수 있습니다.";
-  }
-  render();
-})();
-
-/* TAB3 미션 — 쌍성 자료로 질량 비교하기 */
-(function () {
-  var dataEl = document.getElementById("c3m-data");
-  var choicesEl = document.getElementById("c3m-choices");
-  var checkBtn = document.getElementById("c3m-check");
-  var newBtn = document.getElementById("c3m-new");
-  if (!dataEl) return;
-
-  var dA = 3, dB = 6;
-  var trueKey = "b";
-  var picked = null;
-  var seg = choicesEl.querySelectorAll("button");
-
-  seg.forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      picked = btn.dataset.c;
-      seg.forEach(function (b) { b.classList.toggle("on", b === btn); });
-    });
-  });
-
-  function newQuestion() {
-    dA = 1 + Math.round(Math.random() * 90) / 10;
-    do {
-      dB = 1 + Math.round(Math.random() * 90) / 10;
-    } while (Math.abs(dA - dB) < 0.5);
-    trueKey = dA < dB ? "a" : "b";
-    dataEl.innerHTML = "질량 중심으로부터 별 A까지의 거리는 <b>" + dA.toFixed(1) + " AU</b>, 별 B까지의 거리는 <b>" + dB.toFixed(1) + " AU</b>입니다.";
-    picked = null;
-    seg.forEach(function (b) { b.classList.remove("on"); });
-    var info = document.getElementById("c3m-info");
-    info.style.color = "";
-    info.textContent = "보기 중 하나를 선택한 뒤 [정답 확인]을 눌러 보세요.";
-  }
-
-  checkBtn.addEventListener("click", function () {
-    var info = document.getElementById("c3m-info");
-    if (picked === null) {
-      info.style.color = "";
-      info.textContent = "먼저 보기 중 하나를 선택하세요.";
-      return;
-    }
-    var ratio = trueKey === "a" ? (dB / dA) : (dA / dB);
-    var heavier = trueKey === "a" ? "A" : "B";
-    if (picked === trueKey) {
-      info.style.color = "var(--teal)";
-      info.innerHTML = "<b>정답입니다!</b> 질량 중심에 더 가까운 별 " + heavier + "이(가) 약 " + ratio.toFixed(1) + "배 더 무겁습니다(m×d가 같으므로 거리가 가까울수록 질량이 큽니다).";
-    } else {
-      info.style.color = "var(--coral)";
-      info.innerHTML = "다시 생각해 보세요. 질량 중심으로부터의 거리가 <b>더 가까운 별</b>이 더 무겁습니다.";
-    }
-  });
-
-  newBtn.addEventListener("click", newQuestion);
-  newQuestion();
-})();
-
-/* TAB4 변광성 */
-(function () {
-  var canvas = document.getElementById("c4");
-  if (!canvas) return;
-  var ctx = setupCanvas(canvas);
-  var W = canvas._w, H = canvas._h;
-  var type = "eclipsing";
-  var info = document.getElementById("c4-info");
-  document.querySelectorAll("#c4-type button").forEach(function (b) {
-    b.addEventListener("click", function () {
-      type = b.getAttribute("data-t");
-      document.querySelectorAll("#c4-type button").forEach(function (x) { x.classList.toggle("on", x === b); });
-      render();
-    });
-  });
-
-  var texts = {
-    eclipsing: "<b>식변광성</b>(예: 알골) — 쌍성계의 두 별이 서로를 가리는 <b>식 현상</b>으로 겉보기 밝기가 변합니다. 별 자체의 광도는 변하지 않으며, 공전 주기마다 반복되는 광도 곡선에는 <b>깊이가 다른 두 개의 극소(주식·부식)</b>가 나타납니다.",
-    pulsating: "<b>맥동 변광성</b>(예: 세페이드 변광성) — 별이 주기적으로 <b>팽창과 수축</b>을 반복하면서 반지름과 표면 온도가 변해 광도가 매끄럽게 오르내립니다. 세페이드 변광성은 이 변광 주기와 실제 광도 사이의 관계(주기-광도 관계)를 이용해 먼 거리를 측정하는 데 쓰입니다.",
-    explosive: "<b>폭발 변광성</b>(신성·초신성) — 별 표면이나 중심핵에서 폭발적으로 에너지가 방출되어 밝기가 아주 짧은 시간에 급격히 증가했다가 서서히 어두워집니다. 초신성은 최대 밝기가 태양의 수천만~100억 배에 달해, 우리은하 바깥 먼 은하에서도 관측할 수 있습니다."
-  };
-
-  function render() {
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
-    var x0 = 70, x1 = W - 40, y0 = 40, ymid = H / 2, y1 = H - 60;
-    ctx.strokeStyle = cssVar("--line"); ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x0, y1); ctx.lineTo(x1, y1); ctx.stroke();
-    ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center";
-    ctx.fillText("시간 →", (x0 + x1) / 2, y1 + 26);
-    ctx.save(); ctx.translate(24, (y0 + y1) / 2); ctx.rotate(-Math.PI / 2); ctx.fillText("밝기(겉보기 등급, 위로 갈수록 밝음)", 0, 0); ctx.restore();
-
-    ctx.beginPath();
-    for (var px = 0; px <= 300; px++) {
-      var t = px / 300;
-      var yy;
-      if (type === "eclipsing") {
-        var phase = (t * 3) % 1;
-        var dip = 0;
-        if (phase < 0.08) dip = 0.85 * Math.exp(-Math.pow((phase - 0.04) / 0.02, 2));
-        if (phase > 0.48 && phase < 0.6) dip = 0.4 * Math.exp(-Math.pow((phase - 0.54) / 0.02, 2));
-        yy = ymid - (0.9 - dip) * (y1 - ymid) * 0.9;
-      } else if (type === "pulsating") {
-        yy = ymid - Math.sin(t * Math.PI * 2 * 4) * (y1 - y0) * 0.32 - (y1 - ymid) * 0.2;
-      } else {
-        var peak = 0.12;
-        if (t < peak) yy = y1 - (t / peak) * (y1 - y0) * 0.95;
-        else yy = y0 + (y1 - y0) * 0.05 + (y1 - y0) * 0.8 * (1 - Math.exp(-(t - peak) * 2.2));
-      }
-      var xx = x0 + t * (x1 - x0);
-      if (px === 0) ctx.moveTo(xx, yy); else ctx.lineTo(xx, yy);
-    }
-    ctx.strokeStyle = cssVar(type === "eclipsing" ? "--coral" : type === "pulsating" ? "--violet" : "--teal");
-    ctx.lineWidth = 2.5; ctx.stroke();
-
-    var labels = { eclipsing: "식변광성의 광도 곡선(깊이가 다른 두 극소)", pulsating: "맥동 변광성의 광도 곡선(매끄러운 주기 변화)", explosive: "폭발 변광성의 광도 곡선(급상승 후 서서히 감소)" };
-    ctx.font = "700 12px Segoe UI"; ctx.fillStyle = cssVar("--foam"); ctx.textAlign = "left";
-    ctx.fillText(labels[type], x0, y0 - 10);
-
-    info.innerHTML = texts[type];
-  }
-  render();
-})();
-
-})();
-</script>
-
-<script>
-(function () {
-  window.sthUnit("psp-2-1");
-  window.sthWork({
-    mount: "wk",
-    unitLabel: "[행성우주과학] 태양과 별의 관측",
-    items: [
-      {
-            "id": "w1",
-            "label": "연주 시차로 거리를 재는 한계",
-            "hint": "시차가 작아질수록 왜 오차가 커지는지, 어느 거리까지 쓸 수 있는지 쓰세요.",
-            "ph": ""
-      },
-      {
-            "id": "w2",
-            "label": "광도곡선 읽기",
-            "hint": "맥동변광성과 폭발 변광성의 광도곡선이 어떻게 다른지, 모양으로 구분하는 법을 쓰세요.",
-            "ph": ""
-      },
-      {
-            "id": "w3",
-            "label": "아직 헷갈리는 것",
-            "hint": "다음 시간에 여기서부터 시작합니다.",
-            "ph": ""
-      }
-]
-  });
-})();
-</script>
+<script src="../assets/story.js"></script>
+<script src="../assets/share-config.js"></script>
+<script src="../assets/share.js"></script>
+<script src="episodes.js"></script>
 </body>
 </html>
