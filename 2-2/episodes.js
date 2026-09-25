@@ -90,7 +90,7 @@ function msAt(mass) {
     function draw() {
       paper(ctx, W, H);
       var t = age(i0), Mto = turnoff(t), to = msAt(Mto);
-      var x0 = 90, x1 = 560, y0 = 50, y1 = 330;
+      var x0 = 90, x1 = 560, y0 = 64, y1 = 330;
       function X(bv) { return x0 + (bv + 0.4) / 2.1 * (x1 - x0); }
       function Y(mv) { return y0 + (mv + 7) / 17 * (y1 - y0); }
       axes(ctx, x0, y0, x1, y1);
@@ -980,7 +980,7 @@ function msAt(mass) {
     function draw() {
       paper(ctx, W, H);
       var e = rms(Vh), ok = e <= 5.0;
-      var x0 = 90, x1 = 620, y0 = 50, y1 = 300;
+      var x0 = 90, x1 = 620, y0 = 66, y1 = 300;
       axes(ctx, x0, y0, x1, y1);
       function X(r) { return x0 + r / 22 * (x1 - x0); }
       function Y(vq) { return y1 - clamp(vq / 280, 0, 1) * (y1 - y0); }
@@ -1088,7 +1088,7 @@ function msAt(mass) {
       paper(ctx, W, H);
       var mv = Mvis(r0), mo = Mobs(r0), md = mo - mv, ratio = md / mv;
       var okA = ratio >= 0.9 && ratio <= 1.1, okB = r0 >= 19.5;
-      var x0 = 90, x1 = 560, y0 = 50, y1 = 300;
+      var x0 = 90, x1 = 560, y0 = 66, y1 = 300;
       axes(ctx, x0, y0, x1, y1);
       text(ctx, "반지름 안쪽에 쌓인 질량", x0, 34, { s: 13, w: "900" });
       function X(r) { return x0 + r / 25 * (x1 - x0); }
@@ -1324,7 +1324,7 @@ function msAt(mass) {
       text(ctx, "한계 등급 " + lim.toFixed(1), 40, 406, { s: 14, w: "900" });
       text(ctx, "분광 관측한 은하 " + shown.length + "개 · " + Math.round(dmax) + " Mpc 까지", 200, 406, { s: 13, w: "800", c: v("--brand-700") });
       text(ctx, lim <= 13 ? "자료가 너무 적어 구조를 알 수 없습니다" : (lim >= 15.5 ? "벽처럼 늘어선 은하와 텅 빈 곳이 뚜렷합니다" : "무언가 무늬가 보이기 시작합니다"),
-        560, 406, { s: 13, w: "900", c: lim >= 15.5 ? v("--teal-700") : v("--mist") });
+        560, 396, { s: 13, w: "900", c: lim >= 15.5 ? v("--teal-700") : v("--mist") });
 
       var ch = false;
       if (lim <= 13 && !got.a) { got.a = ch = true; }

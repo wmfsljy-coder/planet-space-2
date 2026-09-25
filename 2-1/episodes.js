@@ -470,7 +470,7 @@ function axes(ctx, x0, y0, x1, y1) {
       paper(ctx, W, H);
       var e = err(i0), th = 3 * e, n = 0;
       text(ctx, "다섯 별의 연주 시차와 측정 한계", 60, 40, { s: 14, w: "900" });
-      var x0 = 130, x1 = W - 150, y0 = 70;
+      var x0 = 130, x1 = W - 150, y0 = 88;
       function X(p) { return x0 + (Math.log(p) / Math.LN10 + 3) / 3.2 * (x1 - x0); }   /* 0.001 ~ 1.58″ */
       FIVE.forEach(function (s, k) {
         var y = y0 + k * 44, ok = s.p >= th;
