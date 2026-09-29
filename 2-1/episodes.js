@@ -1099,7 +1099,9 @@ window.sthWork({
     { key: "r1", label: "① 망원경에 비친 얼룩" },
     { key: "r2", label: "② 8년 동안 잰 각도" },
     { key: "r3", label: "③ 흔들리며 가는 별" },
-    { key: "r4", label: "④ 심장이 뛰는 별" }
+    { key: "r4", label: "④ 심장이 뛰는 별" },
+    { key: "rQuiz", label: "수준별 문제" },
+    { key: "rLab", label: "응용 실험실" }
   ],
   items: [
     { id: "all", label: "네 사건을 꿰는 한 문장", hint: "우리가 별에서 받는 것은 빛뿐입니다. 그 빛에서 온도·거리·운동·질량을 어떻게 끌어냈는지, 네 이야기를 아우르는 한 문장으로 쓰세요." },
@@ -1114,7 +1116,9 @@ window.sthShare({
     { key: "r1", label: "① 망원경에 비친 얼룩" },
     { key: "r2", label: "② 8년 동안 잰 각도" },
     { key: "r3", label: "③ 흔들리며 가는 별" },
-    { key: "r4", label: "④ 심장이 뛰는 별" }
+    { key: "r4", label: "④ 심장이 뛰는 별" },
+    { key: "rQuiz", label: "수준별 문제" },
+    { key: "rLab", label: "응용 실험실" }
   ],
   line: { id: "all", label: "네 사건을 꿰는 한 문장" }
 });
