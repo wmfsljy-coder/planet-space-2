@@ -1529,7 +1529,8 @@ window.sthWork({
     { key: "r3", label: "③ 보이지 않는 것의 무게" },
     { key: "r4", label: "④ 막대 인간이 나타났다" },
     { key: "rQuiz", label: "수준별 문제" },
-    { key: "rLab", label: "응용 실험실" }
+    { key: "rLab", label: "응용 실험실" },
+    { key: "rReal", label: "실제 자료" }
   ],
   items: [
     { id: "all", label: "네 사건을 꿰는 한 문장", hint: "성단에서 우주 거대 구조까지, 우리는 모두 <b>빛</b> 하나로 알아냈습니다. 빛에서 나이·거리·질량·깊이를 어떻게 끌어냈는지 네 이야기를 아우르는 한 문장으로 쓰세요." },
@@ -1546,7 +1547,8 @@ window.sthShare({
     { key: "r3", label: "③ 보이지 않는 것의 무게" },
     { key: "r4", label: "④ 막대 인간이 나타났다" },
     { key: "rQuiz", label: "수준별 문제" },
-    { key: "rLab", label: "응용 실험실" }
+    { key: "rLab", label: "응용 실험실" },
+    { key: "rReal", label: "실제 자료" }
   ],
   line: { id: "all", label: "네 사건을 꿰는 한 문장" }
 });
