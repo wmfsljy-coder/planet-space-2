@@ -104,7 +104,7 @@ function axes(ctx, x0, y0, x1, y1) {
     canvas._redraw = draw;
 
     function say() {
-      $("a-spot-info").innerHTML = "위도 <b>" + lat + "°</b> 의 흑점은 태양을 한 바퀴 도는 데 <b>" + period(lat).toFixed(1) + "일</b>이 걸립니다. " +
+      $("a-spot-info").innerHTML = "위도 <b>" + lat + "°</b>의 흑점은 태양을 한 바퀴 도는 데 <b>" + period(lat).toFixed(1) + "일</b>이 걸립니다. " +
         (LOG.length >= 2 ? "기록을 견주어 보세요. 위도에 따라 날수가 <b>다릅니다</b>." : "위도를 바꿔 여러 번 기록해 보세요.");
     }
     function mission() {
@@ -137,7 +137,7 @@ function axes(ctx, x0, y0, x1, y1) {
       paper(ctx, W, H);
       var T = temp(i0), lm = lamMax(T);
       var x0 = 70, x1 = W - 40, y0 = 60, y1 = 250;
-      /* 가로축: log λ 0.1 ~ 10000 nm */
+      /* 가로축: log λ 0.1~10000 nm */
       function X(lam) { return x0 + (Math.log(lam) / Math.LN10 + 1) / 6 * (x1 - x0); }
       axes(ctx, x0, y0, x1, y1);
       [[0.1, "0.1"], [1, "1"], [10, "10"], [100, "100"], [1000, "1,000"], [10000, "10,000"]].forEach(function (g) {
@@ -350,7 +350,7 @@ function axes(ctx, x0, y0, x1, y1) {
         ctx.beginPath(); ctx.arc(bx + q[0], by + q[1], 2.5, 0, Math.PI * 2); ctx.fill();
       });
       ctx.globalAlpha = 1;
-      var sep = clamp(p * 100, 0.6, 105);                    /* 0.01″ 당 1 px 로 과장 */
+      var sep = clamp(p * 100, 0.6, 105);                    /* 0.01″ 당 1 px로 과장 */
       var mx = bx + bw / 2, my = by + bh / 2;
       ctx.fillStyle = v("--violet");
       ctx.beginPath(); ctx.arc(mx - sep / 2, my, 6, 0, Math.PI * 2); ctx.fill();
@@ -375,7 +375,7 @@ function axes(ctx, x0, y0, x1, y1) {
       if (d === 10 && !got.b) { got.b = ch = true; }
       if (p <= 0.010 && !got.c) { got.c = ch = true; }
       if (ch) { window.sthState("bPara", got); mission(); }
-      $("b-para-info").innerHTML = "거리가 <b>" + d + " pc</b> 이면 연주 시차는 <b>" + p.toFixed(3) + "초각</b>입니다. " +
+      $("b-para-info").innerHTML = "거리가 <b>" + d + " pc</b>이면 연주 시차는 <b>" + p.toFixed(3) + "초각</b>입니다. " +
         (d === 1 ? "시차가 1초각이 되는 거리를 <b>1 파섹(pc)</b>이라 부릅니다. 약 3.26 광년입니다." :
           (p < 0.01 ? "흔들림이 측정 오차와 비슷해져, 이 자로는 더 이상 잴 수 없습니다." : "거리가 멀어질수록 흔들림이 작아집니다."));
     }
@@ -407,7 +407,7 @@ function axes(ctx, x0, y0, x1, y1) {
       paper(ctx, W, H);
       var S = STARS[s], d = dist(i0), mc = mCalc(S.M, d), diff = mc - S.m;
       text(ctx, S.n + " — " + S.note, 60, 40, { s: 14, w: "900" });
-      text(ctx, "절대 등급 M = " + S.M.toFixed(1) + "  (10 pc 에 두었을 때의 밝기)", 60, 66, { s: 12.5, c: v("--mist") });
+      text(ctx, "절대 등급 M = " + S.M.toFixed(1) + "  (10 pc에 두었을 때의 밝기)", 60, 66, { s: 12.5, c: v("--mist") });
       text(ctx, "관측한 겉보기 등급 m = " + S.m.toFixed(2), 60, 88, { s: 12.5, c: v("--mist") });
 
       /* 등급 눈금자 */
@@ -471,7 +471,7 @@ function axes(ctx, x0, y0, x1, y1) {
       var e = err(i0), th = 3 * e, n = 0;
       text(ctx, "다섯 별의 연주 시차와 측정 한계", 60, 40, { s: 14, w: "900" });
       var x0 = 130, x1 = W - 150, y0 = 88;
-      function X(p) { return x0 + (Math.log(p) / Math.LN10 + 3) / 3.2 * (x1 - x0); }   /* 0.001 ~ 1.58″ */
+      function X(p) { return x0 + (Math.log(p) / Math.LN10 + 3) / 3.2 * (x1 - x0); }   /* 0.001~1.58″ */
       FIVE.forEach(function (s, k) {
         var y = y0 + k * 44, ok = s.p >= th;
         if (ok) n++;
@@ -611,7 +611,7 @@ function axes(ctx, x0, y0, x1, y1) {
 
       if (ok && !got[s]) { got[s] = true; window.sthState("cMove", got); mission(); }
       $("c-motion-info").innerHTML = "고유 운동은 <b>하늘에서 옮겨 간 각도</b>일 뿐이라, 같은 각도라도 멀리 있으면 실제로는 훨씬 빠르게 움직인 것입니다. 그래서 거리를 곱합니다." +
-        (ok ? " <b>" + S.n + "</b> 의 공간 운동 속도는 약 <b>" + space.toFixed(0) + " km/s</b> 입니다." : "");
+        (ok ? " <b>" + S.n + "</b>의 공간 운동 속도는 약 <b>" + space.toFixed(0) + " km/s</b>입니다." : "");
     }
     function mission() {
       ["m3-2a", "m3-2b", "m3-2c"].forEach(function (id, k) { if (got[k]) done(id); });
@@ -743,7 +743,7 @@ function axes(ctx, x0, y0, x1, y1) {
       text(ctx, "질량 합 " + msum.toFixed(1) + " M☉", 60, 250, { s: 15, w: "900", c: okA ? v("--teal-700") : v("--ink") });
       text(ctx, okA ? "✅ 관측과 맞습니다" : "아직 맞지 않습니다", 260, 250, { s: 12.5, w: "800", c: okA ? v("--teal-700") : v("--rose-700") });
       text(ctx, "질량 중심 " + cm + "%", 60, 284, { s: 15, w: "900", c: okB ? v("--teal-700") : v("--ink") });
-      text(ctx, okB ? "✅ A 가 B 의 약 2배 무겁습니다" : "관측된 흔들림 폭과 맞춰 보세요", 260, 284, { s: 12.5, w: "800", c: okB ? v("--teal-700") : v("--rose-700") });
+      text(ctx, okB ? "✅ A가 B의 약 2배 무겁습니다" : "관측된 흔들림 폭과 맞춰 보세요", 260, 284, { s: 12.5, w: "800", c: okB ? v("--teal-700") : v("--rose-700") });
       if (okA && okB) {
         text(ctx, "시리우스 A = " + mA.toFixed(2) + " M☉     시리우스 B = " + mB.toFixed(2) + " M☉", 60, 330, { s: 17, w: "900", c: v("--violet-700") });
       } else {
@@ -780,8 +780,8 @@ function axes(ctx, x0, y0, x1, y1) {
       paper(ctx, W, H);
       var L = Math.pow(m, 3.5);
       var x0 = 90, x1 = W - 60, y0 = 50, y1 = 290;
-      function X(mm) { return x0 + (Math.log(mm) / Math.LN10 + 1) / 2.3 * (x1 - x0); }   /* 0.1 ~ 20 */
-      function Y(ll) { return y1 - (Math.log(ll) / Math.LN10 + 3) / 8 * (y1 - y0); }     /* 1e-3 ~ 1e5 */
+      function X(mm) { return x0 + (Math.log(mm) / Math.LN10 + 1) / 2.3 * (x1 - x0); }   /* 0.1~20 */
+      function Y(ll) { return y1 - (Math.log(ll) / Math.LN10 + 3) / 8 * (y1 - y0); }     /* 1e-3~1e5 */
       axes(ctx, x0, y0, x1, y1);
       [0.1, 1, 10].forEach(function (g) { text(ctx, String(g), X(g), y1 + 18, { s: 10.5, c: v("--mist"), a: "center" }); });
       text(ctx, "질량 (태양 = 1) →", x1, y1 + 36, { s: 11, c: v("--mist"), a: "right" });
@@ -819,7 +819,7 @@ function axes(ctx, x0, y0, x1, y1) {
       if (Math.abs(L - 100) <= 5 && !got.a) { got.a = ch = true; }
       if (L <= 0.1 && !got.b) { got.b = ch = true; }
       if (ch) { window.sthState("cML", got); mission(); }
-      $("c-ml-info").innerHTML = "주계열성은 무거울수록 훨씬 밝습니다. 이 관계가 있으면 <b>광도만 알아도 질량을 어림</b>할 수 있습니다. 쌍성이 아니어도 말이지요." +
+      $("c-ml-info").innerHTML = "주계열성은 무거울수록 훨씬 밝습니다. 이 관계가 있으면 <b>광도만 알아도 질량을 어림</b>할 수 있습니다. 쌍성이 아니어도 말입니다." +
         (got.c ? "<br><b>그런데 시리우스 B는 이 선에서 한참 벗어나 있습니다.</b> 질량은 태양만 한데 광도는 태양의 " + Math.round(1 / SB_L) + "분의 1입니다." : "");
     }
     function mission() {
@@ -833,7 +833,7 @@ function axes(ctx, x0, y0, x1, y1) {
     $("c-m").addEventListener("input", function (e) { m = +e.target.value; $("c-m-val").textContent = m.toFixed(1) + " M☉"; draw(); });
     $("c-cmp").addEventListener("click", function () {
       if (m < 0.95 || m > 1.05) {
-        $("c-ml-info").innerHTML = "먼저 질량을 <b>1.0 M☉ 근처</b>에 맞춰 주세요. 시리우스 B 의 질량이 그쯤이기 때문입니다.";
+        $("c-ml-info").innerHTML = "먼저 질량을 <b>1.0 M☉ 근처</b>에 맞춰 주세요. 시리우스 B의 질량이 그쯤이기 때문입니다.";
         return;
       }
       if (!got.c) { got.c = true; window.sthState("cML", got); }

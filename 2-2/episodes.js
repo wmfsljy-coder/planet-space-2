@@ -155,7 +155,7 @@ function msAt(mass) {
       if (Mto <= 1.0 && !got.c) { got.c = ch = true; }
       if (ch) { window.sthState("aCmd", got); mission(); }
       $("a-cmd-info").innerHTML = "이 성단의 나이가 <b>" + (t >= 1000 ? (t / 1000).toFixed(1) + "십억 년" : Math.round(t).toLocaleString() + "백만 년") +
-        "</b> 이면, 태양 질량의 <b>" + Mto.toFixed(2) + "배</b> 보다 무거운 별은 이미 주계열을 떠났습니다. " +
+        "</b>이면, 태양 질량의 <b>" + Mto.toFixed(2) + "배</b>보다 무거운 별은 이미 주계열을 떠났습니다. " +
         (Mto >= 5 ? "이탈점이 아직 파란 쪽 높은 곳에 있습니다 — <b>젊은 성단</b>입니다."
           : (Mto <= 1.0 ? "이탈점이 태양보다 아래까지 내려왔습니다 — <b>아주 늙은 성단</b>이고, 구상 성단이 이렇습니다."
             : "이탈점이 주계열 중간쯤에 있습니다. 이탈점의 자리가 곧 <b>나이</b>입니다."));
@@ -382,7 +382,7 @@ function msAt(mass) {
     var canvas = $("a-c-cen"), ctx = window.setupCanvas(canvas), W = canvas._w, H = canvas._h;
     var c0 = 0, pit = 20, got = window.sthState("aCen") || { a: false, b: false };
     var TRUE_C = 8.0;
-    /* 구상 성단 34개 — (8, 0) kpc 를 중심으로 퍼진 헤일로 */
+    /* 구상 성단 34개 — (8, 0) kpc를 중심으로 퍼진 헤일로 */
     var CLU = (function () {
       var rnd = lcg(20180501), out = [], sx = 0, sy = 0;
       for (var k = 0; k < 34; k++) {
@@ -617,15 +617,15 @@ function msAt(mass) {
       text(ctx, "보정 전 거리 = 보정 후 거리 × 10^(소광량 × 거리 ÷ 5)", 80, 366, { s: 11, c: v("--mist") });
 
       if (ok && !got.a) { got.a = true; window.sthState("bTru", got); mission(); }
-      $("b-tru-info").innerHTML = "별빛이 1 kpc 를 지날 때마다 <b>" + a0.toFixed(2) + "등급</b> 씩 깎인다고 보고 거리를 다시 계산했습니다. " +
+      $("b-tru-info").innerHTML = "별빛이 1 kpc를 지날 때마다 <b>" + a0.toFixed(2) + "등급</b>씩 깎인다고 보고 거리를 다시 계산했습니다. " +
         (a0 === 0 ? "소광을 넣지 않으면 먼 성단일수록 지름이 걷잡을 수 없이 커집니다."
-          : (ok ? "네 성단의 지름이 <b>약 4 pc</b> 로 거의 같아졌습니다. 성단의 크기가 비슷하다는 상식과 맞습니다."
+          : (ok ? "네 성단의 지름이 <b>약 4 pc</b>로 거의 같아졌습니다. 성단의 크기가 비슷하다는 상식과 맞습니다."
             : "아직 기울기가 남아 있습니다. 너무 적게 넣으면 먼 성단이 크게, 너무 많이 넣으면 먼 성단이 작게 나옵니다."));
     }
     function mission() {
       if (got.a) done("m2-2a"); if (got.b) done("m2-2b");
       if (got.a && got.b) {
-        window.sthMission("m2-2", true, "<span class='m-tag'>미션 완료</span>1 kpc 마다 약 <b>0.7등급</b>. 별빛은 오는 길에 <b>깎이고 있었습니다.</b> 그것을 몰랐기에 모든 거리가 실제보다 멀게 나왔던 것입니다.");
+        window.sthMission("m2-2", true, "<span class='m-tag'>미션 완료</span>1 kpc마다 약 <b>0.7등급</b>. 별빛은 오는 길에 <b>깎이고 있었습니다.</b> 그것을 몰랐기에 모든 거리가 실제보다 멀게 나왔던 것입니다.");
         ep.clear(1);
       }
     }
@@ -722,7 +722,7 @@ function msAt(mass) {
       }
 
       if (ok && !got[s]) { got[s] = true; window.sthState("bRed", got); mission(); }
-      $("b-red-info").innerHTML = "스펙트럼형을 보면 그 별이 <b>원래 어떤 색</b>이어야 하는지 알 수 있습니다. 관측된 색이 그보다 붉다면, 그 차이가 티끌이 만든 <b>색초과 E(B−V)</b> 입니다. 관측에서 소광량은 색초과의 약 <b>3.1배</b> 로 알려져 있어, 색만 재면 얼마나 어두워졌는지도 알 수 있습니다.";
+      $("b-red-info").innerHTML = "스펙트럼형을 보면 그 별이 <b>원래 어떤 색</b>이어야 하는지 알 수 있습니다. 관측된 색이 그보다 붉다면, 그 차이가 티끌이 만든 <b>색초과 E(B−V)</b>입니다. 관측에서 소광량은 색초과의 약 <b>3.1배</b>로 알려져 있어, 색만 재면 얼마나 어두워졌는지도 알 수 있습니다.";
     }
     function mission() {
       ["m2-3a", "m2-3b"].forEach(function (id, k) { if (got[k]) done(id); });
@@ -807,7 +807,7 @@ function msAt(mass) {
       ctx.fillStyle = v("--card-2"); ctx.beginPath(); ctx.roundRect(rx, 252, 300, 16, 8); ctx.fill();
       ctx.fillStyle = f > 0.1 ? v("--rose") : v("--brand");
       ctx.fillRect(rx, 252, clamp(f * 600, 1, 300), 16);
-      text(ctx, "파장 91.2 nm 보다 짧은 자외선만 수소를 이온화합니다", rx, 288, { s: 11, c: v("--mist") });
+      text(ctx, "파장 91.2 nm보다 짧은 자외선만 수소를 이온화합니다", rx, 288, { s: 11, c: v("--mist") });
       text(ctx, emit ? "이온화된 수소가 스스로 붉은빛을 냅니다" : (refl ? "이온화는 거의 없고, 티끌이 별빛을 산란시킵니다" : "온도를 더 올리거나 내려 보세요"),
         rx, 320, { s: 12.5, w: "800", c: emit ? v("--rose-700") : (refl ? v("--brand-700") : v("--mist")) });
       text(ctx, "파란빛이 더 잘 산란되므로 반사성운은 푸릅니다", rx, 348, { s: 11, c: v("--mist") });
@@ -816,7 +816,7 @@ function msAt(mass) {
       if (emit && !got.a) { got.a = ch = true; }
       if (refl && !got.b) { got.b = ch = true; }
       if (ch) { window.sthState("bNeb", got); mission(); }
-      $("b-neb-info").innerHTML = "성운의 얼굴을 정하는 것은 <b>곁에 있는 별의 온도</b>입니다. 온도가 2만 5천 K 가 넘는 O·B형 별은 수소를 이온화할 만큼 짧은 자외선을 많이 내놓아 성운이 <b>스스로 붉게</b> 빛나게 하고(방출성운), 그보다 차가운 별 곁에서는 티끌이 별빛을 <b>산란</b>시켜 파랗게 보입니다(반사성운). 뒤쪽 별빛을 가리기만 하면 <b>암흑성운</b>입니다.";
+      $("b-neb-info").innerHTML = "성운의 얼굴을 정하는 것은 <b>곁에 있는 별의 온도</b>입니다. 온도가 2만 5천 K가 넘는 O·B형 별은 수소를 이온화할 만큼 짧은 자외선을 많이 내놓아 성운이 <b>스스로 붉게</b> 빛나게 하고(방출성운), 그보다 차가운 별 곁에서는 티끌이 별빛을 <b>산란</b>시켜 파랗게 보입니다(반사성운). 뒤쪽 별빛을 가리기만 하면 <b>암흑성운</b>입니다.";
     }
     function mission() {
       if (got.a) done("m2-4a"); if (got.b) done("m2-4b"); if (got.c) done("m2-4c");
@@ -856,7 +856,7 @@ function msAt(mass) {
     var p = window.sthState("b-pred") || "";
     $("b-vs").innerHTML = "<b>나의 첫 추리</b> " + (p || "기록 없음") + "<br>" +
       (p.indexOf("㉡") === 0 ? "정확했습니다. 틀린 것은 자가 아니라 ‘우주는 비어 있다’는 믿음이었습니다."
-        : "각지름은 단순해서 틀릴 여지가 거의 없었습니다. 어긋난 쪽은 밝기로 잰 거리였지요.");
+        : "각지름은 단순해서 틀릴 여지가 거의 없었습니다. 어긋난 쪽은 밝기로 잰 거리였습니다.");
   }
   vsB();
   ep.onShow(vsB);
@@ -948,10 +948,10 @@ function msAt(mass) {
       text(ctx, P.n + " (" + P.a.toFixed(2) + " AU)", 470, 300, { s: 14, w: "900" });
       text(ctx, "내가 계산한 속도 " + vv.toFixed(1) + " km/s", 470, 326, { s: 15, w: "900" });
       text(ctx, ok ? "✅ 맞습니다" : (vv > tv ? "너무 빠릅니다" : "아직 느립니다"), 740, 326, { s: 15, w: "900", c: ok ? v("--teal-700") : v("--rose-700") });
-      text(ctx, "질량이 가운데 몰려 있으면 v 는 거리의 제곱근에 반비례합니다", 470, 356, { s: 11, c: v("--mist") });
+      text(ctx, "질량이 가운데 몰려 있으면 v는 거리의 제곱근에 반비례합니다", 470, 356, { s: 11, c: v("--mist") });
 
       if (ok && !got[s]) { got[s] = true; window.sthState("cKep", got); mission(); }
-      $("c-kep-info").innerHTML = "태양계는 질량의 <b>99.8%</b> 가 태양 하나에 몰려 있습니다. 이런 계에서는 바깥으로 갈수록 중력이 약해져 <b>공전 속도가 느려집니다</b>. 은하의 빛도 중심에 몰려 있으니, 루빈도 같은 모양의 그래프를 예상했습니다." +
+      $("c-kep-info").innerHTML = "태양계는 질량의 <b>99.8%</b>가 태양 하나에 몰려 있습니다. 이런 계에서는 바깥으로 갈수록 중력이 약해져 <b>공전 속도가 느려집니다</b>. 은하의 빛도 중심에 몰려 있으니, 루빈도 같은 모양의 그래프를 예상했습니다." +
         (ok ? " — <b>" + P.n + " : " + tv.toFixed(1) + " km/s</b>" : "");
     }
     function mission() {
@@ -1048,8 +1048,8 @@ function msAt(mass) {
       text(ctx, "질량이 계속 더해진다는 뜻입니다", rx, 368, { s: 11.5, c: v("--mist") });
 
       if (ok && !got.a) { got.a = true; window.sthState("cRot", got); mission(); }
-      $("c-rot-info").innerHTML = "보이는 별과 가스만 넣으면 곡선은 <b>케플러처럼 처집니다</b>. 관측점은 20 kpc 에서도 220 km/s 가까이 유지되지요. 은하를 공처럼 둘러싼 보이지 않는 물질을 더하면 두 곡선이 겹칩니다." +
-        (got.a ? " <b>필요한 헤일로의 세기는 약 190 km/s</b> 입니다." : "");
+      $("c-rot-info").innerHTML = "보이는 별과 가스만 넣으면 곡선은 <b>케플러처럼 처집니다</b>. 관측점은 20 kpc 에서도 220 km/s 가까이 유지됩니다. 은하를 공처럼 둘러싼 보이지 않는 물질을 더하면 두 곡선이 겹칩니다." +
+        (got.a ? " <b>필요한 헤일로의 세기는 약 190 km/s</b>입니다." : "");
     }
     function mission() {
       if (got.a) done("m3-3a"); if (got.b) done("m3-3b");
@@ -1064,12 +1064,12 @@ function msAt(mass) {
 
     window.sthPick({
       mount: "c-q1",
-      q: "v² = GM(r)/r 에서, 바깥에서도 회전 속도 v 가 거의 일정하다는 것은 무슨 뜻일까요?",
-      options: ["반지름이 커지는 만큼 안쪽 질량 M(r) 도 계속 늘어난다", "바깥에는 질량이 거의 없다", "바깥 별들은 중력을 받지 않는다", "은하가 통째로 팽창하고 있다"],
+      q: "v² = GM(r)/r에서, 바깥에서도 회전 속도 v가 거의 일정하다는 것은 무슨 뜻일까요?",
+      options: ["반지름이 커지는 만큼 안쪽 질량 M(r)도 계속 늘어난다", "바깥에는 질량이 거의 없다", "바깥 별들은 중력을 받지 않는다", "은하가 통째로 팽창하고 있다"],
       answer: 0,
       why: [
-        "맞습니다. v 가 일정하려면 M(r) 이 r 에 비례해 계속 늘어나야 합니다. 그런데 그 바깥에는 빛을 내는 것이 거의 없습니다.",
-        "질량이 없다면 v 는 거리의 제곱근에 반비례해 줄어들어야 합니다. 관측은 그렇지 않았습니다.",
+        "맞습니다. v가 일정하려면 M(r)이 r에 비례해 계속 늘어나야 합니다. 그런데 그 바깥에는 빛을 내는 것이 거의 없습니다.",
+        "질량이 없다면 v는 거리의 제곱근에 반비례해 줄어들어야 합니다. 관측은 그렇지 않았습니다.",
         "중력은 어디서나 작용합니다. 문제는 그 중력을 만드는 질량이 보이지 않는다는 것입니다.",
         "회전 속도는 은하 안에서 도는 운동이지 팽창과는 다릅니다."
       ],
@@ -1134,7 +1134,7 @@ function msAt(mass) {
       text(ctx, ratio.toFixed(2) + " 배", rx, 324, { s: 22, w: "900", c: ratio >= 1 ? v("--violet-700") : v("--teal-700") });
       text(ctx, ratio < 0.9 ? "아직 보이는 물질이 더 많습니다" : (ratio <= 1.1 ? "✅ 둘이 같아지는 자리입니다" : "암흑 물질이 더 많습니다"),
         rx, 352, { s: 12.5, w: "800", c: ratio >= 0.9 && ratio <= 1.1 ? v("--teal-700") : v("--mist") });
-      text(ctx, "M = v² r / G 로 구한 값입니다", rx, 378, { s: 11, c: v("--mist") });
+      text(ctx, "M = v² r / G로 구한 값입니다", rx, 378, { s: 11, c: v("--mist") });
 
       var ch = false;
       if (okA && !got.a) { got.a = ch = true; }
@@ -1145,7 +1145,7 @@ function msAt(mass) {
     function mission() {
       if (got.a) done("m3-4a"); if (got.b) done("m3-4b");
       if (got.a && got.b) {
-        window.sthMission("m3-4", true, "<span class='m-tag'>미션 완료</span>약 <b>6 kpc</b> 에서 둘이 같아지고, 20 kpc 바깥에서는 암흑 물질이 보이는 물질의 <b>2.7배</b> 가 됩니다. 은하는 보이는 것보다 훨씬 무겁습니다.");
+        window.sthMission("m3-4", true, "<span class='m-tag'>미션 완료</span>약 <b>6 kpc</b>에서 둘이 같아지고, 20 kpc 바깥에서는 암흑 물질이 보이는 물질의 <b>2.7배</b>가 됩니다. 은하는 보이는 것보다 훨씬 무겁습니다.");
         ep.clear(3); ep.clear(4);
       }
     }
@@ -1247,7 +1247,7 @@ function msAt(mass) {
       }
 
       if (ok && !got[s]) { got[s] = true; window.sthState("dSpec", got); mission(); }
-      $("d-spec-info").innerHTML = "은하가 멀어지면 스펙트럼선의 파장이 <b>길어진 쪽(붉은 쪽)</b> 으로 밀립니다. 밀린 비율이 <b>적색 편이 z</b> 이고, 여기에 빛의 속도를 곱하면 후퇴 속도, 허블 법칙으로 나누면 거리가 됩니다. <b>사진으로는 결코 알 수 없는 깊이</b>를 분광 관측이 알려 주는 것입니다." +
+      $("d-spec-info").innerHTML = "은하가 멀어지면 스펙트럼선의 파장이 <b>길어진 쪽(붉은 쪽)</b>으로 밀립니다. 밀린 비율이 <b>적색 편이 z</b>이고, 여기에 빛의 속도를 곱하면 후퇴 속도, 허블 법칙으로 나누면 거리가 됩니다. <b>사진으로는 결코 알 수 없는 깊이</b>를 분광 관측이 알려 주는 것입니다." +
         (ok ? " — <b>" + G.n + " 까지 약 " + d.toFixed(1) + " Mpc</b>" : "");
     }
     function mission() {
@@ -1322,7 +1322,7 @@ function msAt(mass) {
 
       /* 값 */
       text(ctx, "한계 등급 " + lim.toFixed(1), 40, 406, { s: 14, w: "900" });
-      text(ctx, "분광 관측한 은하 " + shown.length + "개 · " + Math.round(dmax) + " Mpc 까지", 200, 406, { s: 13, w: "800", c: v("--brand-700") });
+      text(ctx, "분광 관측한 은하 " + shown.length + "개 · " + Math.round(dmax) + " Mpc까지", 200, 406, { s: 13, w: "800", c: v("--brand-700") });
       text(ctx, lim <= 13 ? "자료가 너무 적어 구조를 알 수 없습니다" : (lim >= 15.5 ? "벽처럼 늘어선 은하와 텅 빈 곳이 뚜렷합니다" : "무언가 무늬가 보이기 시작합니다"),
         560, 396, { s: 13, w: "900", c: lim >= 15.5 ? v("--teal-700") : v("--mist") });
 
@@ -1330,7 +1330,7 @@ function msAt(mass) {
       if (lim <= 13 && !got.a) { got.a = ch = true; }
       if (lim >= 15.5 && !got.b) { got.b = ch = true; }
       if (ch) { window.sthState("dWedge", got); mission(); }
-      $("d-wedge-info").innerHTML = "왼쪽과 오른쪽은 <b>똑같은 은하들</b>입니다. 다른 것은 깊이가 있느냐뿐이에요. 사진에서는 고르게 흩어져 보이던 은하들이, 적색 편이를 넣는 순간 <b>벽처럼 늘어선 줄</b>과 <b>은하가 거의 없는 빈 공간</b>으로 갈립니다. " +
+      $("d-wedge-info").innerHTML = "왼쪽과 오른쪽은 <b>똑같은 은하들</b>입니다. 다른 것은 깊이가 있느냐뿐입니다. 사진에서는 고르게 흩어져 보이던 은하들이, 적색 편이를 넣는 순간 <b>벽처럼 늘어선 줄</b>과 <b>은하가 거의 없는 빈 공간</b>으로 갈립니다. " +
         (lim <= 13 ? "지금은 자료가 너무 적습니다. 더 어두운 은하까지 내려가 보세요."
           : (lim >= 15.5 ? "1986년 CfA 탐사가 바로 이 그림을 처음 내놓았습니다." : "조금 더 내려가면 구조가 또렷해집니다."));
     }
