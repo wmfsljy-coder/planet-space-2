@@ -75,6 +75,7 @@ function msAt(mass) {
     var canvas = $("a-c-cmd"), ctx = window.setupCanvas(canvas), W = canvas._w, H = canvas._h;
     var i0 = 65, got = window.sthState("aCmd") || { a: false, b: false, c: false };
     function age(i) { return Math.pow(10, 0.042 * i); }                 /* 백만 년 */
+    function ageTxt(t) { var y = Math.round(t), e = Math.floor(y / 100), m = (y % 100) * 100; return (e ? e.toLocaleString() + "억 " : "") + (m ? m.toLocaleString() + "만 " : "") + "년"; }
     function turnoff(t) { return Math.pow(10000 / t, 0.4); }            /* 태양질량 */
     var jr = lcg(7788);
     var JIT = [];
@@ -138,7 +139,7 @@ function msAt(mass) {
       /* 오른쪽 값 */
       var rx = 600;
       text(ctx, "나이", rx, 70, { s: 11.5, c: v("--mist"), w: "800" });
-      text(ctx, t >= 1000 ? (t / 1000).toFixed(1) + " 십억 년" : Math.round(t).toLocaleString() + " 백만 년", rx, 98, { s: 19, w: "900" });
+      text(ctx, ageTxt(t), rx, 98, { s: 19, w: "900" });
       text(ctx, "이탈점의 질량", rx, 138, { s: 11.5, c: v("--mist"), w: "800" });
       text(ctx, Mto.toFixed(2) + " M☉", rx, 166, { s: 19, w: "900", c: v("--amber-700") });
       text(ctx, "이탈점의 색과 밝기", rx, 206, { s: 11.5, c: v("--mist"), w: "800" });
@@ -154,7 +155,7 @@ function msAt(mass) {
       if (Mto >= 1.8 && Mto <= 2.3 && !got.b) { got.b = ch = true; }
       if (Mto <= 1.0 && !got.c) { got.c = ch = true; }
       if (ch) { window.sthState("aCmd", got); mission(); }
-      $("a-cmd-info").innerHTML = "이 성단의 나이가 <b>" + (t >= 1000 ? (t / 1000).toFixed(1) + "십억 년" : Math.round(t).toLocaleString() + "백만 년") +
+      $("a-cmd-info").innerHTML = "이 성단의 나이가 <b>" + ageTxt(t) +
         "</b> 이면, 태양 질량의 <b>" + Mto.toFixed(2) + "배</b> 보다 무거운 별은 이미 주계열을 떠났습니다. " +
         (Mto >= 5 ? "이탈점이 아직 파란 쪽 높은 곳에 있습니다 — <b>젊은 성단</b>입니다."
           : (Mto <= 1.0 ? "이탈점이 태양보다 아래까지 내려왔습니다 — <b>아주 늙은 성단</b>이고, 구상 성단이 이렇습니다."
@@ -171,10 +172,10 @@ function msAt(mass) {
     $("a-age").addEventListener("input", function (e) {
       i0 = +e.target.value;
       var t = age(i0);
-      $("a-age-val").textContent = t >= 1000 ? (t / 1000).toFixed(1) + "십억 년" : Math.round(t).toLocaleString() + "백만 년";
+      $("a-age-val").textContent = ageTxt(t);
       draw();
     });
-    (function () { var t = age(i0); $("a-age-val").textContent = Math.round(t).toLocaleString() + "백만 년"; })();
+    (function () { var t = age(i0); $("a-age-val").textContent = ageTxt(t); })();
     draw(); mission();
   })();
 
@@ -280,8 +281,8 @@ function msAt(mass) {
   /* ---- 장면4 세페이드 주기-광도 ---- */
   var CEP = [
     { n: "세페이드 가", P: 3.162, i: 25, m: 8.67, where: "가까운 산개 성단 속" },
-    { n: "세페이드 나", P: 10.000, i: 50, m: 10.28, where: "궁수자리 쪽 구상 성단 속" },
-    { n: "세페이드 다", P: 31.623, i: 75, m: 10.24, where: "궁수자리 쪽 먼 성단 속" }
+    { n: "세페이드 나", P: 10.000, i: 50, m: 10.28, where: "궁수자리 쪽 원반 속" },
+    { n: "세페이드 다", P: 31.623, i: 75, m: 10.24, where: "궁수자리 쪽 먼 원반 속" }
   ];
   (function () {
     var canvas = $("a-c-cep"), ctx = window.setupCanvas(canvas), W = canvas._w, H = canvas._h;
@@ -1337,7 +1338,7 @@ function msAt(mass) {
     function mission() {
       if (got.a) done("m4-3a"); if (got.b) done("m4-3b");
       if (got.a && got.b) {
-        window.sthMission("m4-3", true, "<span class='m-tag'>미션 완료</span>은하의 공간 분포는 <b>분광 자료의 양</b>이 정합니다. 몇십 개로는 아무것도 보이지 않지만, 천 개가 넘으면 <b>장성과 보이드</b>가 드러납니다.");
+        window.sthMission("m4-3", true, "<span class='m-tag'>미션 완료</span>은하의 공간 분포는 <b>분광 자료의 양</b>이 정합니다. 몇십 개로는 아무것도 보이지 않지만, 수백 개를 넘으면 <b>장성과 보이드</b>가 드러납니다.");
         ep.clear(2);
       }
     }
@@ -1360,8 +1361,8 @@ function msAt(mass) {
 
     var INFO = [
       { n: "국부 은하군", d: "우리은하와 안드로메다은하를 비롯한 <b>수십 개</b>의 은하가 중력으로 묶인 작은 집단입니다. 지름은 약 3 Mpc(1천만 광년)입니다." },
-      { n: "처녀자리 은하단", d: "은하 <b>1,000개가 넘게</b> 중력으로 뭉친 큰 집단입니다. 우리에게서 약 16.5 Mpc 떨어져 있고, 국부 은하군도 이 은하단 쪽으로 끌려가고 있습니다." },
-      { n: "라니아케아 초은하단", d: "은하군과 은하단 수십 개가 모인 <b>초은하단</b>입니다. 지름이 약 160 Mpc(5억 광년)에 이르지만 중력으로 단단히 묶여 있지는 않아, 우주 팽창에 따라 흩어질 수 있습니다." },
+      { n: "처녀자리 은하단", d: "은하 <b>1,000개가 넘게</b> 중력으로 뭉친 큰 집단입니다. 지름은 약 3 Mpc이고 우리에게서 약 16.5 Mpc 떨어져 있으며, 국부 은하군도 이 은하단 쪽으로 끌려가고 있습니다." },
+      { n: "라니아케아 초은하단", d: "은하군과 은하단 수백 개가 모인 <b>초은하단</b>입니다. 지름이 약 160 Mpc(5억 광년)에 이르지만 중력으로 단단히 묶여 있지는 않아, 우주 팽창에 따라 흩어질 수 있습니다." },
       { n: "우주의 거대 구조", d: "은하가 실처럼 이어진 <b>필라멘트</b>, 벽처럼 펼쳐진 <b>은하 장성</b>, 은하가 거의 없는 <b>보이드</b>가 그물처럼 얽혀 있습니다. 이보다 더 큰 눈으로 보면 우주는 다시 어디나 비슷해집니다." }
     ];
     function modeOf(L) { return L < 6 ? 0 : (L < 40 ? 1 : (L < 300 ? 2 : 3)); }
@@ -1443,7 +1444,7 @@ function msAt(mass) {
       text(ctx, I.n, rx, 110, { s: 23, w: "900", c: v("--brand-700") });
       ctx.strokeStyle = v("--line"); ctx.lineWidth = 1.5;
       ctx.beginPath(); ctx.moveTo(rx, 130); ctx.lineTo(880, 130); ctx.stroke();
-      var steps = [["은하군", 3, 0], ["은하단", 16, 1], ["초은하단", 160, 2], ["거대 구조", 600, 3]];
+      var steps = [["은하군", "1~3", 0], ["은하단", "2~10", 1], ["초은하단", "50~160", 2], ["거대 구조", "수백", 3]];
       steps.forEach(function (st, k2) {
         var yy = 166 + k2 * 44, on = mode === st[2];
         ctx.fillStyle = v(on ? "--brand" : "--card-2");

@@ -95,7 +95,7 @@ function axes(ctx, x0, y0, x1, y1) {
       LOG.slice(-7).forEach(function (r, i) {
         var yy = 100 + i * 30;
         text(ctx, r.lat + "°", x0 + 4, yy, { s: 13, w: "800" });
-        ctx.fillStyle = r.lat <= 15 ? v("--teal") : (r.lat >= 55 ? v("--violet") : v("--brand"));
+        ctx.fillStyle = r.lat <= 15 ? v("--teal") : (r.lat >= 35 ? v("--violet") : v("--brand"));
         ctx.fillRect(x0 + 110, yy - 11, (r.p - 24) * 28, 13);
         text(ctx, r.p.toFixed(1) + "일", x0 + 118 + (r.p - 24) * 28, yy, { s: 12.5, w: "800" });
       });
@@ -105,13 +105,14 @@ function axes(ctx, x0, y0, x1, y1) {
 
     function say() {
       $("a-spot-info").innerHTML = "위도 <b>" + lat + "°</b> 의 흑점은 태양을 한 바퀴 도는 데 <b>" + period(lat).toFixed(1) + "일</b>이 걸립니다. " +
-        (LOG.length >= 2 ? "기록을 견주어 보세요. 위도에 따라 날수가 <b>다릅니다</b>." : "위도를 바꿔 여러 번 기록해 보세요.");
+        (LOG.length >= 2 ? "기록을 견주어 보세요. 위도에 따라 날수가 <b>다릅니다</b>." : "위도를 바꿔 여러 번 기록해 보세요.") +
+        (lat > 40 ? "<br>※ 실제 흑점은 대개 위도 40° 안쪽에서만 나타납니다. 이보다 높은 위도의 자전은 코로나 구조나 도플러 관측으로 잽니다." : "");
     }
     function mission() {
-      var lo = LOG.some(function (r) { return r.lat <= 15; }), hi = LOG.some(function (r) { return r.lat >= 55; });
+      var lo = LOG.some(function (r) { return r.lat <= 15; }), hi = LOG.some(function (r) { return r.lat >= 35; });
       if (lo) done("m1-2a"); if (hi) done("m1-2b");
       if (lo && hi) {
-        window.sthMission("m1-2", true, "<span class='m-tag'>미션 완료</span>적도는 약 <b>25일</b>, 고위도는 약 <b>31일</b>. 위도마다 도는 속도가 다릅니다. 단단한 공이라면 있을 수 없는 일이고, 태양이 <b>기체</b>라는 뜻입니다. 이것을 <b>차등 자전</b>이라고 합니다.");
+        window.sthMission("m1-2", true, "<span class='m-tag'>미션 완료</span>적도는 약 <b>25일</b>, 위도 35~40°는 약 <b>27~28일</b>(흑점이 거의 없는 극 가까이는 30일이 넘습니다). 위도마다 도는 속도가 다릅니다. 단단한 공이라면 있을 수 없는 일이고, 태양이 <b>기체</b>라는 뜻입니다. 이것을 <b>차등 자전</b>이라고 합니다.");
         ep.clear(1);
       }
     }
@@ -184,7 +185,7 @@ function axes(ctx, x0, y0, x1, y1) {
     function mission() {
       if (got.a) done("m1-3a"); if (got.b) done("m1-3b"); if (got.c) done("m1-3c");
       if (got.a && got.b && got.c) {
-        window.sthMission("m1-3", true, "<span class='m-tag'>미션 완료</span>광구(5,800 K)는 <b>가시광</b>, 채층(1만 K)은 <b>자외선</b>, 코로나(100만 K)는 <b>X선</b>. 층마다 온도가 다르니 <b>봐야 할 파장도 다릅니다.</b>");
+        window.sthMission("m1-3", true, "<span class='m-tag'>미션 완료</span>광구(5,800 K)는 <b>가시광</b>, 채층(1만 K)은 <b>자외선</b>, 코로나(100만 K)는 <b>X선</b>. 층마다 온도가 다르니 <b>봐야 할 파장도 다릅니다.</b> (채층을 보는 Hα는 이와 달리, 채층의 수소가 내는 특정한 선을 좁은 필터로 골라 보는 것입니다.)");
         ep.clear(2);
       }
     }
@@ -281,8 +282,8 @@ function axes(ctx, x0, y0, x1, y1) {
   })();
 
   function finish() {
-    var hi = LOG.filter(function (r) { return r.lat >= 55; })[0];
-    window.sthState("r1", "해결 · 적도 25.0일, 고위도 " + (hi ? hi.p.toFixed(1) : "31.0") + "일 — 차등 자전");
+    var hi = LOG.filter(function (r) { return r.lat >= 35; })[0];
+    window.sthState("r1", "해결 · 적도 25.0일, 위도 35° 이상 " + (hi ? hi.p.toFixed(1) : "27.2") + "일 — 차등 자전");
   }
   function vsA() {
     var p = window.sthState("a-p") || "";
@@ -644,7 +645,7 @@ function axes(ctx, x0, y0, x1, y1) {
 
     function pos(k) {
       var s = D[k], yr = t * 1000;
-      return { x: s.x + s.ma * yr / 3.6e6, y: s.y + s.md * yr / 3.6e6 };
+      return { x: s.x - s.ma * yr / 3.6e6, y: s.y + s.md * yr / 3.6e6 };
     }
     function draw() {
       paper(ctx, W, H);
