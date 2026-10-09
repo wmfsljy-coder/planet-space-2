@@ -1,6 +1,7 @@
 /* 행성우주과학2 Ⅱ-1 태양과 별의 관측 — 실제 자료
    r1 아크투루스까지의 거리와 절대 등급 — 히파르코스 위성이 잰 연주 시차로
    r2 태양은 H-R도의 어디에 있을까 — 실제 별 5,000여 개 위에 태양 찍기
+   r3 관측 계획 — 창원에 비 오는 날이 가장 적은 달
    자료: data/hr-stars.js (ESA 히파르코스 목록, CDS VizieR I/239) */
 (function () {
 "use strict";
@@ -9,6 +10,11 @@ var ARC = HR.named.filter(function (n) { return n[0] === "69673"; })[0] || ["696
 var ARC_D = 1000 / ARC[3], ARC_M = ARC[2] + 5 + 5 * Math.log(ARC[3] / 1000) / Math.LN10;
 var SUN = [0.65, 4.83];
 var SRC = "<small>출처: 유럽 우주국(ESA) 히파르코스 위성 목록(1997, CDS VizieR I/239) — 연주 시차를 정밀하게 잰 별 " + HR.rows.length.toLocaleString() + "개. 절대 등급 Mv = V + 5 + 5 log p (p는 초 단위 시차), 성간 소광은 무시했습니다. 사본은 data/hr-stars.js.</small>";
+var ZRD = (window.REAL_CW155 || {}).rainDayPct || [];
+var Z_MIN = 0; ZRD.forEach(function (v, i) { if (v < ZRD[Z_MIN]) Z_MIN = i; });
+var Z_MAX = 0; ZRD.forEach(function (v, i) { if (v > ZRD[Z_MAX]) Z_MAX = i; });
+var Z_RAT = ZRD.length ? ZRD[Z_MAX] / ZRD[Z_MIN] : 3;
+var SRC_Z = "<small>출처: 기상청 날씨누리 과거 관측 일별 자료, 창원(155) 1991 ~ 2020년 달마다 비가 0.1 mm 이상 온 날의 비율. 공개 일별 자료에는 구름의 양이 없어, 비 온 날로 ‘흐린 밤’을 어림했습니다. 사본은 data/cw155.js.</small>";
 
 function hrd(H, ctx, W, CH, mark, col) {
   H.paper(ctx, W, CH);
@@ -98,6 +104,48 @@ window.sthLab({
     solution: "B−V <b>0.65</b>, 절대 등급 <b>4.83</b> — 주계열의 가운데.",
     why: "H-R도에서 별은 아무 데나 흩어져 있지 않고 주계열·거성·백색 왜성의 무리로 모입니다. 주계열은 중심에서 수소를 태우는 별들로, 왼쪽 위로 갈수록 무겁고 뜨겁고 밝으며 수명이 짧습니다. 태양은 그 한가운데쯤의 평범한 별입니다.<br>"
       + "이 그림에는 밝아서 멀리서도 보이는 거성이 실제보다 많이 들어 있습니다(밝은 별을 골라 넣었기 때문). 태양 둘레 25 pc 안의 별을 빠짐없이 세면 대부분이 히파르코스로는 너무 어두워 빠진 붉은 왜성입니다. 이 그림에서 태양보다 밝은 별이 86%로 나오는 것도 그 때문입니다. 어떤 별을 골라 그렸는지에 따라 그림이 달라지는 관측 치우침의 예입니다."
+  },
+  {
+    id: "r3", tag: "실제 자료 · 관측 계획", title: "별 보기 관측회는 몇 월에 열까", short: "관측회 날 잡기",
+    who: "🔭", name: "천문 동아리",
+    say: "“우리 학교 천문 동아리가 별 관측회를 엽니다. 별은 맑은 밤에만 보이니, 날씨가 나쁜 날이 적은 달을 골라야 해요. 아래는 진해와 가까운 <b>창원기상대</b>에서 30년(1991 ~ 2020) 동안 달마다 <b>비가 온 날의 비율</b>입니다. 가장 많은 달은 가장 적은 달의 몇 배인지 구해, 관측회 달을 정해 주세요.”",
+    predict: {
+      q: "우리 동네에서 비 오는 날이 가장 잦은 달은 언제일까요?",
+      options: ["㉠ 1월 — 겨울", "㉡ 4월 — 봄비", "㉢ 7월 — 장마"],
+      answer: 2
+    },
+    task: "<b>비 온 날 비율이 가장 높은 달 ÷ 가장 낮은 달</b>을 슬라이더로 맞추세요(± 0.2 배).",
+    build: function (stage, api) {
+      var H = api.h, cv = api.canvas(270), ctx = cv.ctx, W = cv.W, k = 1;
+      var x0 = 50, x1 = 640, y0 = 24, y1 = 230, bw = (x1 - x0) / 12;
+      function Y(v) { return y1 - v / 55 * (y1 - y0); }
+      function draw() {
+        H.paper(ctx, W, cv.H); H.axes(ctx, x0, y0, x1, y1);
+        [0, 20, 40].forEach(function (v) { H.text(ctx, v + "%", x0 - 8, Y(v) + 4, { s: 10, a: "right", c: H.v("--mist") }); if (v) H.dash(ctx, x0, Y(v), x1, Y(v), H.v("--line"), 0.5); });
+        ZRD.forEach(function (v, i) {
+          var cx = x0 + i * bw, col = i === Z_MAX ? H.v("--coral-700") : i === Z_MIN ? H.v("--green-700") : H.v("--brand");
+          H.box(ctx, cx + 6, Y(v), bw - 12, y1 - Y(v), col, 0.85);
+          H.text(ctx, v.toFixed(0), cx + bw / 2, Y(v) - 5, { s: 11, w: "800", a: "center" });
+          H.text(ctx, (i + 1) + "월", cx + bw / 2, y1 + 15, { s: 10, a: "center", c: H.v("--mist") });
+        });
+        H.rows(ctx, 680, 34, [["가장 잦은 달", (Z_MAX + 1) + "월 " + ZRD[Z_MAX].toFixed(1) + " %", "--coral-700"], ["가장 드문 달", (Z_MIN + 1) + "월 " + ZRD[Z_MIN].toFixed(1) + " %", "--green-700"], ["내 답", k.toFixed(1) + " 배", null, true]], 56);
+      }
+      cv.canvas._redraw = draw;
+      api.slider({ label: "가장 잦은 달 ÷ 가장 드문 달", min: 1, max: 6, step: 0.1, value: 1, fmt: function (x) { return x.toFixed(1) + " 배"; }, onInput: function (x) { k = x; api.changed(); draw(); } });
+      api.info("비율 = 그달에 비가 온 날 ÷ 그달의 날 수. " + SRC_Z
+        + "<div data-link='{\"id\":\"kma-cw155-wx\",\"title\":\"창원 일별 날씨(기상 현상)\",\"src\":\"기상청 날씨누리\",\"url\":\"https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=155&obs=9\",\"ask\":\"지난달을 골라 ‘박무 · 연무 · 비’ 같은 기상 현상이 하나도 없는 날이 며칠인지 세어 오세요. 별 보기 좋은 날로 쓸 수 있을까요?\"}'></div>");
+      draw();
+      return {
+        judge: function () {
+          if (Math.abs(k - Z_RAT) <= 0.2) return { ok: true, msg: ZRD[Z_MAX].toFixed(1) + " ÷ " + ZRD[Z_MIN].toFixed(1) + " ≈ " + Z_RAT.toFixed(1) + " 배. " + (Z_MAX + 1) + "월은 거의 이틀에 한 번 비가 오고, " + (Z_MIN + 1) + "월은 일주일에 한 번꼴입니다." };
+          return { ok: false, msg: k.toFixed(1) + " 배는 " + (k < Z_RAT ? "작습니다" : "큽니다") + ". 오른쪽 두 비율을 나누세요." };
+        }
+      };
+    },
+    hints: ["오른쪽 두 값을 보세요.", ZRD[Z_MAX].toFixed(1) + " ÷ " + ZRD[Z_MIN].toFixed(1) + " = ?"],
+    solution: ZRD[Z_MAX].toFixed(1) + " ÷ " + ZRD[Z_MIN].toFixed(1) + " ≈ <b>" + Z_RAT.toFixed(1) + " 배</b>.",
+    why: "우리 동네는 장마와 태풍이 오는 7 ~ 8월에 비가 가장 잦고, 10월 · 12월 · 1월에 가장 드뭅니다. 게다가 가을 · 겨울 밤은 공기가 건조하고 맑아 별빛이 덜 흐려지고, 밤이 길어 관측 시간도 넉넉합니다. 그래서 관측회는 10 ~ 1월이 알맞습니다(겨울은 추위 대비를 단단히).<br>"
+      + "※ 비가 오지 않아도 구름이 끼거나 박무 · 연무로 하늘이 뿌옇게 흐린 날이 있습니다. 실제 관측소에서는 구름의 양(운량)까지 함께 보고 계획을 세웁니다. 그리고 날씨 말고도 <b>달</b>을 챙기세요. 보름달이 뜨는 밤은 하늘이 밝아 어두운 별이 잘 보이지 않습니다."
   }
   ]
 });
