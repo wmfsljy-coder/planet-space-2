@@ -55,7 +55,7 @@
         <section class="scene" data-title="두 무리의 색등급도">
           <div class="story"><div class="who">🧑‍🔬</div><div class="say"><span class="name">섀플리</span>“성단의 별들을 <b>색(가로)과 밝기(세로)</b>로 찍은 그림을 C-M도라고 합니다. 한 성단의 별들은 같은 때에 함께 태어났으니, 이 그림이 곧 성단의 <b>나이표</b>입니다. 무거운 별부터 먼저 주계열을 떠나거든요. 나이를 바꿔 가며 <b>주계열 이탈점</b>이 어디로 가는지 보십시오.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="a-c-cmd" width="900" height="400"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="a-c-cmd" width="900" height="400"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">성단의 나이<span class="val" id="a-age-val">537백만 년</span></div>
@@ -70,8 +70,10 @@
         <section class="scene" data-title="주계열을 겹쳐 거리를 재다">
           <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“성단의 별들은 모두 같은 거리에 있습니다. 그러니 표준 주계열을 <b>통째로 위아래로 옮겨</b> 관측점과 겹쳐 보면, 얼마나 내려야 맞는지가 곧 <b>거리 지수 m − M</b>이에요. 이것을 주계열 맞추기라고 합니다. 세 성단의 거리를 구해 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="a-c-fit" width="900" height="400"></canvas></div>
-            <div class="controls">
+            <div class="canvas-wrap stage"><canvas id="a-c-fit" width="900" height="400"></canvas></div>
+            <div class="sim-side">
+              <div class="readout" id="a-fit-read"></div>
+              <div style="display:grid;gap:14px">
               <div class="ctrl-group">
                 <div class="ctrl-label">관측 대상<span class="val" id="a-cl-val">히아데스</span></div>
                 <div class="seg" id="a-cl"><button type="button" class="on" data-s="0">히아데스</button><button type="button" data-s="1">플레이아데스</button><button type="button" data-s="2">M13</button></div>
@@ -79,6 +81,7 @@
               <div class="ctrl-group">
                 <div class="ctrl-label">내가 놓아 본 거리<span class="val" id="a-d-val">10 pc</span></div>
                 <input type="range" id="a-d" min="0" max="100" step="1" value="0">
+              </div>
               </div>
             </div>
             <div class="info-card" id="a-fit-info"></div>
@@ -89,7 +92,7 @@
         <section class="scene" data-title="심장 박동으로 거리를 재다">
           <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“주계열 맞추기는 별을 하나하나 찍어야 해서 아주 먼 성단에는 쓰기 어렵습니다. 그때 쓰는 것이 <b>맥동변광성</b>이에요. 세페이드는 <b>주기가 길수록 실제로 더 밝다</b>는 관계가 있어서, 밝기가 오르내리는 <b>주기만 재면 절대 등급을 알 수 있습니다.</b> 관측된 광도곡선에 내 모형 곡선을 포개 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="a-c-cep" width="900" height="400"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="a-c-cep" width="900" height="400"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">관측 대상<span class="val" id="a-cep-val">세페이드 가</span></div>
@@ -100,6 +103,7 @@
                 <input type="range" id="a-per" min="0" max="100" step="1" value="10">
               </div>
             </div>
+            <div class="toggle-row" style="margin:0 20px 14px;"><button type="button" class="btn sm" id="a-play">⏸ 맥동 멈추기</button></div>
             <div class="info-card" id="a-cep-info"></div>
           </div>
           <div class="mission" id="m1-4"><span class="m-tag">미션</span>세 세페이드의 주기를 모두 맞혀 거리를 알아내세요.<ul><li id="m1-4a">세페이드 가</li><li id="m1-4b">세페이드 나</li><li id="m1-4c">세페이드 다</li></ul></div>
@@ -108,7 +112,7 @@
         <section class="scene" data-title="공들의 중심을 찾아서">
           <div class="story"><div class="who">🧑‍🔬</div><div class="say"><span class="name">섀플리</span>“이제 구상 성단들의 거리를 모두 구했습니다. 이것을 지도 위에 찍고, <b>이 공들이 둘러싸고 있는 한 점</b>을 찾으면 됩니다. 성단들이 그 점을 중심으로 고르게 퍼져 있다면, 그곳이 바로 우리은하의 중심일 겁니다. 태양에서 궁수자리 쪽으로 중심을 밀어 보십시오.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="a-c-cen" width="900" height="420"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="a-c-cen" width="900" height="420"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">내가 놓아 본 은하 중심 (태양에서 궁수자리 방향)<span class="val" id="a-cen-val">0.0 kpc</span></div>
@@ -162,7 +166,7 @@
         <section class="scene" data-title="빛이 조금씩 갉아먹히고 있었다">
           <div class="story"><div class="who">🧔‍♂️</div><div class="say"><span class="name">트럼플러</span>“만약 별빛이 오는 길에 <b>조금씩 깎여</b> 어두워진다면, 우리는 그 별을 실제보다 <b>멀다</b>고 잘못 계산하게 됩니다. 멀수록 더 많이 깎일 테니 오차도 멀수록 커지겠지요. 1 kpc를 지날 때마다 몇 등급씩 깎이는지 넣어 보면서, 네 성단의 지름이 같아지는 값을 찾아 주십시오.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="b-c-tru" width="900" height="400"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="b-c-tru" width="900" height="400"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">1 kpc를 지날 때 깎이는 밝기(소광량)<span class="val" id="b-ext-val">0.00 등급/kpc</span></div>
@@ -178,7 +182,7 @@
         <section class="scene" data-title="파란빛이 먼저 사라진다">
           <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">분광 관측 담당</span>“깎이는 정도가 <b>파장마다 다르다</b>는 것이 결정적인 증거였어요. 짧은 파란빛이 긴 붉은빛보다 훨씬 많이 깎입니다. 그래서 별빛은 어두워질 뿐 아니라 <b>붉어집니다</b>. 스펙트럼형으로 알아낸 <b>원래 색</b>과 실제 <b>관측된 색</b>의 차이가 바로 <b>색초과 E(B−V)</b>예요. 관측된 색과 맞을 때까지 색초과를 넣어 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="b-c-red" width="900" height="400"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="b-c-red" width="900" height="400"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">관측 대상<span class="val" id="b-star-val">별 가 (B0형)</span></div>
@@ -197,7 +201,7 @@
         <section class="scene" data-title="티끌과 가스가 만드는 세 얼굴">
           <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">분광 관측 담당</span>“빛을 깎는 티끌은 눈에 보이기도 합니다. 성운이 바로 그것이에요. 그런데 같은 성간 물질인데도 <b>곁에 있는 별이 얼마나 뜨거운가</b>에 따라 전혀 다르게 보입니다. 별의 온도를 올려 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="b-c-neb" width="900" height="400"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="b-c-neb" width="900" height="400"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">성운 곁에 있는 별의 표면 온도<span class="val" id="b-t-val">15,000 K</span></div>
@@ -247,7 +251,7 @@
         <section class="scene" data-title="태양계에서 규칙을 확인하다">
           <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“먼저 규칙을 눈으로 확인합시다. 태양계는 질량이 거의 전부 한가운데(태양)에 있는 계예요. 이때 공전 속도는 <b>v = 29.8 ÷ √(거리/1 AU) km/s</b>가 됩니다. 세 행성의 공전 속도를 직접 계산해서 넣어 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="c-c-kep" width="900" height="380"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="c-c-kep" width="900" height="380"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">관측 대상<span class="val" id="c-pl-val">지구</span></div>
@@ -258,6 +262,7 @@
                 <input type="range" id="c-v" min="0" max="40" step="0.1" value="0">
               </div>
             </div>
+            <div class="toggle-row" style="margin:0 20px 14px;"><button type="button" class="btn sm" id="c-kplay">⏸ 공전 멈추기</button></div>
             <div class="info-card" id="c-kep-info"></div>
           </div>
           <div class="mission" id="m3-2"><span class="m-tag">미션</span>세 행성의 공전 속도를 모두 맞히세요.<ul><li id="m3-2a">지구 (1.00 AU)</li><li id="m3-2b">목성 (5.20 AU)</li><li id="m3-2c">해왕성 (30.07 AU)</li></ul></div>
@@ -266,7 +271,7 @@
         <section class="scene" data-title="관측 곡선을 맞춰라">
           <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">루빈</span>“이것이 우리가 얻은 관측점입니다. 중심에서 20 kpc나 떨어진 곳에서도 속도가 줄지 않아요. 보이는 별과 가스만 넣은 곡선은 한참 아래를 지납니다. 눈에 보이지 않는 물질이 은하를 <b>공처럼 둘러싸고</b> 있다고 가정하고, 그 세기를 조절해 관측점과 맞춰 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="c-c-rot" width="900" height="400"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="c-c-rot" width="900" height="400"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">암흑 물질 헤일로의 세기<span class="val" id="c-h-val">0 km/s</span></div>
@@ -282,7 +287,7 @@
         <section class="scene" data-title="질량은 어디에 있나">
           <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“속도를 알면 질량을 알 수 있습니다. 반지름 r 안쪽의 질량은 <b>M = v²r / G</b>예요. 관측 속도로 구한 질량에서 보이는 물질의 질량을 빼면 남는 것이 <b><span data-view="law:암흑물질">암흑 물질</span></b>입니다. 거리를 바꿔 가며 둘의 양을 견주어 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="c-c-mass" width="900" height="400"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="c-c-mass" width="900" height="400"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">은하 중심에서의 거리<span class="val" id="c-rr-val">3.0 kpc</span></div>
@@ -331,8 +336,10 @@
         <section class="scene" data-title="선이 붉은 쪽으로 밀려 있다">
           <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">CfA 탐사팀</span>“은하 스펙트럼에는 칼슘이 만든 어두운 선이 있습니다. 실험실에서 이 선의 파장은 <b>393.4 nm</b>예요. 관측된 스펙트럼에서 같은 선이 어디에 있는지 눈금을 맞춰 보세요. 밀려난 만큼이 <b>적색 편이 z</b>이고, <b>v = c z</b>, <b>d = v / H₀</b>로 거리가 나옵니다.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="d-c-spec" width="900" height="400"></canvas></div>
-            <div class="controls">
+            <div class="canvas-wrap stage"><canvas id="d-c-spec" width="900" height="400"></canvas></div>
+            <div class="sim-side">
+              <div class="readout" id="d-spec-read"></div>
+              <div style="display:grid;gap:14px">
               <div class="ctrl-group">
                 <div class="ctrl-label">관측 대상<span class="val" id="d-gal-val">은하 가</span></div>
                 <div class="seg" id="d-gal"><button type="button" class="on" data-s="0">은하 가</button><button type="button" data-s="1">은하 나</button><button type="button" data-s="2">은하 다</button></div>
@@ -340,6 +347,7 @@
               <div class="ctrl-group">
                 <div class="ctrl-label">내가 읽은 칼슘 선의 파장<span class="val" id="d-lam-val">393.4 nm</span></div>
                 <input type="range" id="d-lam" min="393.4" max="410" step="0.2" value="393.4">
+              </div>
               </div>
             </div>
             <div class="info-card" id="d-spec-info"></div>
@@ -350,7 +358,7 @@
         <section class="scene" data-title="깊이를 넣자 나타난 것">
           <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">CfA 탐사팀</span>“이제 같은 하늘 띠를 두 가지로 봅니다. 왼쪽은 <b>사진</b>, 오른쪽은 적색 편이로 깊이를 넣은 <b>쐐기 지도</b>예요. 얼마나 어두운 은하까지 스펙트럼을 찍을지를 정해 보세요. 어디까지 내려가야 구조가 드러날까요?”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="d-c-wedge" width="900" height="420"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="d-c-wedge" width="900" height="420"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">분광 관측을 하는 한계 등급<span class="val" id="d-lim-val">14.0 등급</span></div>
@@ -365,7 +373,7 @@
         <section class="scene" data-title="규모의 사다리">
           <div class="story"><div class="who">👨‍🏫</div><div class="say"><span class="name">우주론 선생님</span>“이제 한 걸음 물러나 봅시다. 들여다보는 상자의 크기를 키우면, 은하가 만드는 <b>집단의 계단</b>이 차례로 보입니다. 은하군에서 시작해 거대 구조까지 올라가 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="d-c-scale" width="900" height="420"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="d-c-scale" width="900" height="420"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">들여다보는 상자의 한 변<span class="val" id="d-sc-val">6.5 Mpc</span></div>
@@ -449,6 +457,7 @@
 <script src="../assets/account.js"></script>
 <script src="episodes.js"></script>
 <script src="worked.js"></script>
+<script src="handoff.js"></script>
 <script src="quiz-items.js"></script>
 <script src="../assets/review.js"></script>
 <script src="../assets/peer.js"></script>

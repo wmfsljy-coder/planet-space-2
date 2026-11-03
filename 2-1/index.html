@@ -56,7 +56,7 @@
         <section class="scene" data-title="흑점을 쫓아 — 태양은 몇 날에 한 바퀴 도나">
           <div class="story"><div class="who">👨‍🔬</div><div class="say"><span class="name">갈릴레이</span>“얼룩 하나를 골라 사라질 때까지 쫓은 뒤, 반대쪽에 다시 나타날 때까지 기다리게. 그러면 태양이 한 바퀴 도는 데 걸리는 날수가 나오지. <b>위도를 바꿔 가며</b> 여러 개를 재 보게.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="a-c-spot" width="900" height="380"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="a-c-spot" width="900" height="380"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">흑점이 있는 위도<span class="val" id="a-lat-val">0°</span></div>
@@ -67,7 +67,7 @@
                 <input type="range" id="a-day" min="0" max="40" step="1" value="0">
               </div>
             </div>
-            <div class="toggle-row" style="margin:0 20px 14px;"><button class="btn primary" id="a-log" type="button">📋 이 위도의 자전 주기를 기록하기</button></div>
+            <div class="toggle-row" style="margin:0 20px 14px;"><button class="btn primary" id="a-log" type="button">📋 이 위도의 자전 주기를 기록하기</button> <button class="btn sm" id="a-play" type="button">▶ 날짜 흘려보내기</button></div>
             <div class="info-card" id="a-spot-info"></div>
           </div>
           <div class="mission" id="m1-2"><span class="m-tag">미션</span>서로 다른 위도에서 흑점을 쫓아 주기를 기록하세요.<ul><li id="m1-2a">적도 근처(위도 15° 이하)의 자전 주기</li><li id="m1-2b">중위도(위도 35° 이상 — 흑점은 대개 위도 40° 안쪽에서만 생깁니다)의 자전 주기</li></ul></div>
@@ -76,7 +76,7 @@
         <section class="scene" data-title="온도가 파장을 정한다">
           <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">현대의 태양 관측자</span>“400년이 지나 우리는 태양을 여러 파장으로 봅니다. 그런데 <b>왜 층마다 다른 파장으로 봐야</b> 할까요? 온도가 답입니다. 뜨거울수록 가장 세게 내는 빛의 파장이 짧아집니다. 온도를 넣어 확인해 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="a-c-wien" width="900" height="360"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="a-c-wien" width="900" height="360"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">기체의 온도<span class="val" id="a-temp-val">3,000 K</span></div>
@@ -91,7 +91,7 @@
         <section class="scene" data-title="층마다 다른 얼굴">
           <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">현대의 태양 관측자</span>“파장을 바꾸면 보이는 층이 바뀌고, 층이 바뀌면 보이는 현상도 바뀝니다. 관측 목록에 있는 현상들을 어느 층의 것인지 나눠 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="a-c-layer" width="900" height="330"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="a-c-layer" width="900" height="330"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">망원경에 끼운 필터<span class="val" id="a-band-val">가시광</span></div>
@@ -218,8 +218,10 @@
         <section class="scene" data-title="두 번째 자 — 밝기로 재는 거리">
           <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“시차로는 가까운 별밖에 못 잽니다. 그래서 두 번째 자를 씁니다. 별이 <b>10 pc에 있다면 얼마나 밝을지(절대 등급 M)</b>를 알아낼 수 있다면, <b>실제로 보이는 밝기(겉보기 등급 m)</b>와 견주어 거리를 알 수 있어요. 거리를 옮겨 가며 관측값과 맞춰 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="b-c-mod" width="900" height="360"></canvas></div>
-            <div class="controls">
+            <div class="canvas-wrap stage"><canvas id="b-c-mod" width="900" height="360"></canvas></div>
+            <div class="sim-side">
+              <div class="readout" id="b-mod-read"></div>
+              <div style="display:grid;gap:14px">
               <div class="ctrl-group">
                 <div class="ctrl-label">관측 대상<span class="val" id="b-star-val">별 A</span></div>
                 <div class="seg" id="b-star"><button type="button" class="on" data-s="0">별 A</button><button type="button" data-s="1">별 B</button><button type="button" data-s="2">별 C</button></div>
@@ -227,6 +229,7 @@
               <div class="ctrl-group">
                 <div class="ctrl-label">내가 놓아 본 거리<span class="val" id="b-dm-val">1 pc</span></div>
                 <input type="range" id="b-dm" min="0" max="100" step="1" value="0">
+              </div>
               </div>
             </div>
             <div class="info-card" id="b-mod-info"></div>
@@ -237,7 +240,7 @@
         <section class="scene" data-title="자에는 저마다 한계가 있다">
           <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“두 자 모두 한계가 있습니다. 시차는 <b>장비의 정밀도</b>가 정하지요. 별 다섯 개를 놓고, 장비를 바꿔 가며 몇 개까지 믿을 만하게 잴 수 있는지 보세요. 시차가 오차의 세 배는 되어야 쓸 만하다고 봅니다.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="b-c-lim" width="900" height="360"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="b-c-lim" width="900" height="360"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">측정 오차<span class="val" id="b-err-val">±0.0166초각</span></div>
@@ -287,8 +290,10 @@
         <section class="scene" data-title="단서 ① — 별은 어느 쪽으로 얼마나 빨리 가나">
           <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“별의 운동은 두 조각입니다. 우리 쪽으로 오거나 멀어지는 <b>시선속도</b>는 스펙트럼선의 치우침(<span data-view="law:도플러 효과">도플러</span>)으로 잽니다. 하늘을 가로지르는 <b>접선속도</b>는 고유 운동과 거리로 구합니다. <b>v<sub>t</sub> = 4.74 × 고유 운동(″/년) × 거리(pc)</b>예요. 접선속도를 맞혀 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="c-c-motion" width="900" height="380"></canvas></div>
-            <div class="controls">
+            <div class="canvas-wrap stage"><canvas id="c-c-motion" width="900" height="380"></canvas></div>
+            <div class="sim-side">
+              <div class="readout" id="c-motion-read"></div>
+              <div style="display:grid;gap:14px">
               <div class="ctrl-group">
                 <div class="ctrl-label">관측 대상<span class="val" id="c-star-val">바너드별</span></div>
                 <div class="seg" id="c-star"><button type="button" class="on" data-s="0">바너드별</button><button type="button" data-s="1">시리우스</button><button type="button" data-s="2">알데바란</button></div>
@@ -296,6 +301,8 @@
               <div class="ctrl-group">
                 <div class="ctrl-label">내가 계산한 접선속도<span class="val" id="c-vt-val">0.0 km/s</span></div>
                 <input type="range" id="c-vt" min="0" max="150" step="0.5" value="0">
+              </div>
+              <button type="button" class="btn sm" id="c-play" style="justify-self:start">⏸ 별 멈추기</button>
               </div>
             </div>
             <div class="info-card" id="c-motion-info"></div>
@@ -306,7 +313,7 @@
         <section class="scene" data-title="단서 ② — 10만 년 뒤의 북두칠성">
           <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“별들이 저마다 다른 방향으로 간다면, <b>별자리 모양도 영원하지 않겠지요.</b> 시간을 앞뒤로 돌려 <span data-view="star:Dubhe" data-ask="북두칠성은 오늘 밤 북극성의 어느 쪽에 있을까?">북두칠성</span>을 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="c-c-dipper" width="900" height="360"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="c-c-dipper" width="900" height="360"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">지금으로부터<span class="val" id="c-yr-val">0년</span></div>
@@ -322,7 +329,7 @@
         <section class="scene" data-title="보이지 않던 동반성의 무게를 달다">
           <div class="story"><div class="who">🧑‍🔬</div><div class="say"><span class="name">베셀</span>“이제 본론입니다. 두 별이 서로 도는 <b>쌍성</b>이라면, 궤도의 크기와 주기만으로 <b>두 별의 질량 합</b>을 구할 수 있습니다. <span data-view="law:케플러의 행성운동법칙">케플러 제3법칙</span>을 태양계 밖으로 넓히면 <b>M₁ + M₂ = a³ / P²</b> 이지요. 그리고 두 별이 도는 중심(질량 중심)이 어디냐가 <b>질량의 비</b>를 알려 줍니다.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="c-c-binary" width="900" height="400"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="c-c-binary" width="900" height="400"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">내가 구한 두 별의 질량 합<span class="val" id="c-msum-val">1.0 M☉</span></div>
@@ -333,6 +340,7 @@
                 <input type="range" id="c-cm" min="5" max="95" step="1" value="50">
               </div>
             </div>
+            <div class="toggle-row" style="margin:0 20px 14px;"><button type="button" class="btn sm" id="c-bplay">⏸ 공전 멈추기</button></div>
             <div class="info-card" id="c-binary-info"></div>
           </div>
           <div class="mission" id="m3-4"><span class="m-tag">미션</span>관측 자료로 시리우스 두 별의 질량을 구하세요.<ul><li id="m3-4a">질량 합 (a = 19.8 AU, P = 50.1년)</li><li id="m3-4b">질량 중심의 자리 (A가 B보다 훨씬 덜 흔들립니다 — 질량 중심에서 A까지 약 6.6 AU, B까지 약 13.2 AU)</li></ul></div>
@@ -341,7 +349,7 @@
         <section class="scene" data-title="쌍성이 아닌 별은 어떻게 다나">
           <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“질량을 직접 잴 수 있는 별은 <b>쌍성뿐</b>입니다. 그렇게 모은 쌍성 자료에서 규칙 하나가 나왔어요. 주계열성은 <b>무거울수록 훨씬 밝다</b>는 것. 대략 <b>L ∝ M<sup>3.5</sup></b>입니다. 이 다리를 놓으면 혼자 있는 별의 질량도 어림할 수 있지요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="c-c-ml" width="900" height="380"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="c-c-ml" width="900" height="380"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">주계열성의 질량<span class="val" id="c-m-val">1.0 M☉</span></div>
@@ -390,13 +398,14 @@
         <section class="scene" data-title="스스로 부풀었다 줄어드는 별">
           <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">동아리장</span>“첫 번째 무리는 <b>맥동변광성</b>이에요. 별이 실제로 부풀었다 줄어들기를 되풀이합니다. 규칙적으로요. 주기를 바꿔 가며 어떤 무리가 나오는지 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="d-c-puls" width="900" height="380"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="d-c-puls" width="900" height="380"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">변광 주기<span class="val" id="d-p-val">1.68일</span></div>
                 <input type="range" id="d-p" min="0" max="100" step="1" value="25">
               </div>
             </div>
+            <div class="toggle-row" style="margin:0 20px 14px;"><button type="button" class="btn sm" id="d-play">⏸ 맥동 멈추기</button></div>
             <div class="info-card" id="d-puls-info"></div>
           </div>
           <div class="mission" id="m4-2"><span class="m-tag">미션</span>맥동변광성 세 무리를 모두 만들어 보세요.<ul><li id="m4-2a">거문고자리 RR형 (하루가 안 되는 주기)</li><li id="m4-2b">세페이드 (며칠에서 몇십 일)</li><li id="m4-2c">미라형 (백 일이 넘는 긴 주기)</li></ul></div>
@@ -405,13 +414,14 @@
         <section class="scene" data-title="한 번에 터지는 별">
           <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">동아리장</span>“두 번째 무리는 <b>폭발 변광성</b>이에요. 갑자기 확 밝아졌다가 천천히 어두워지고, 되풀이하지 않거나 아주 드물게만 되풀이합니다. 등급이 5만큼 차이 나면 밝기는 100배 차이예요. 밝아진 정도를 조절해 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="d-c-burst" width="900" height="380"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="d-c-burst" width="900" height="380"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">최대일 때 밝아진 등급 차<span class="val" id="d-dm-val">0.0등급</span></div>
                 <input type="range" id="d-dm" min="0" max="25" step="0.5" value="0">
               </div>
             </div>
+            <div class="toggle-row" style="margin:0 20px 14px;"><button type="button" class="btn sm" id="d-bplay">⏸ 시간 멈추기</button></div>
             <div class="info-card" id="d-burst-info"></div>
           </div>
           <div class="mission" id="m4-3"><span class="m-tag">미션</span><ul><li id="m4-3a">밝기가 약 1만 배가 되는 등급 차를 찾으세요 (신성 수준).</li><li id="m4-3b">밝기가 약 1억 배가 되는 등급 차를 찾으세요 (초신성 수준).</li><li id="m4-3c">아래 관측 기록 6개를 맥동변광성과 폭발 변광성으로 나누세요.</li></ul></div>
@@ -421,7 +431,7 @@
         <section class="scene" data-title="터지는 밝기가 늘 같다면">
           <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">동아리장</span>“Ia형 초신성은 특별해요. 백색왜성이 한계 질량을 넘는 순간 터지기 때문에 <b>최대 밝기가 거의 늘 같습니다.</b> 절대 등급 약 −19.3이에요. 밝기가 정해진 등불이니, 어둡게 보이면 그만큼 멀다는 뜻이지요. 이걸 <b>표준 촛불</b>이라고 합니다.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="d-c-candle" width="900" height="360"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="d-c-candle" width="900" height="360"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">관측한 은하<span class="val" id="d-gal-val">은하 가</span></div>
