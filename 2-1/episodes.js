@@ -314,81 +314,447 @@ function axes(ctx, x0, y0, x1, y1) {
     onPick: function () { ep.clear(0); }
   });
 
-  /* ---- 장면2 연주 시차 ---- */
+
+  var K = window.sthKit, KC = K.C, REDUCE = K.REDUCE;
+
+  /* ---- 장면: 첫 번째 자 — 연주 시차 (우주에서 본 모습 + 망원경으로 본 하늘) ---- */
   (function () {
     var canvas = $("b-c-para"), ctx = window.setupCanvas(canvas), W = canvas._w, H = canvas._h;
-    var d = 5, got = window.sthState("bPara") || { a: false, b: false, c: false };
+    var d = 5, preset = -1, th = Math.PI * 1.25, playing = !REDUCE;
+    var got = window.sthState("bPara") || { a: false, b: false, c: false };
+    var PRE = [
+      { n: "백조자리 61", d: 3.50, em: "1838 베셀이 처음 잰 별" },
+      { n: "프록시마 센타우리", d: 1.30 }, { n: "시리우스", d: 2.64 },
+      { n: "알타이르(견우성)", d: 5.13 }, { n: "베가(직녀성)", d: 7.68 }
+    ];
+    var ERR = 0.005;
 
     function draw() {
-      paper(ctx, W, H);
       var p = 1 / d;
-      /* 왼쪽: 기하 그림 */
-      var sx = 60, sy = 200;
-      text(ctx, "여섯 달 간격으로 같은 별을 본다", 60, 40, { s: 13, w: "800" });
-      ctx.fillStyle = v("--amber"); ctx.beginPath(); ctx.arc(sx + 90, sy, 14, 0, Math.PI * 2); ctx.fill();
-      text(ctx, "태양", sx + 90, sy + 32, { s: 11, a: "center", c: v("--mist") });
-      ctx.strokeStyle = v("--line"); ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.ellipse(sx + 90, sy, 58, 22, 0, 0, Math.PI * 2); ctx.stroke();
-      var e1 = { x: sx + 32, y: sy }, e2 = { x: sx + 148, y: sy };
-      ctx.fillStyle = v("--brand"); [e1, e2].forEach(function (e) { ctx.beginPath(); ctx.arc(e.x, e.y, 7, 0, Math.PI * 2); ctx.fill(); });
-      text(ctx, "1월", e1.x, sy + 30, { s: 11, a: "center", c: v("--brand-700") });
-      text(ctx, "7월", e2.x, sy + 30, { s: 11, a: "center", c: v("--brand-700") });
-      var st = { x: 380, y: 120 };
-      ctx.fillStyle = v("--violet"); ctx.beginPath(); ctx.arc(st.x, st.y, 9, 0, Math.PI * 2); ctx.fill();
-      text(ctx, "별", st.x + 14, st.y + 4, { s: 12, w: "800", c: v("--violet-700") });
-      ctx.strokeStyle = v("--violet"); ctx.globalAlpha = .7; ctx.lineWidth = 1.5;
-      [e1, e2].forEach(function (e) { ctx.beginPath(); ctx.moveTo(e.x, e.y); ctx.lineTo(st.x, st.y); ctx.stroke(); });
-      ctx.globalAlpha = 1;
-      text(ctx, "그림은 실제 비율이 아닙니다", 60, H - 14, { s: 10.5, c: v("--mist") });
+      ctx.clearRect(0, 0, W, H);
+      /* ── 왼쪽: 우주에서 본 모습 ── */
+      var LW = 448;
+      K.stage(ctx, 0, 0, LW, H, "space", { seed: 11 });
+      K.pill(ctx, "우주에서 본 모습", 16, 28, { s: 13, c: KC.blue });
+      var sun = { x: LW / 2, y: H - 78 }, rx = 128, ry = 30, skyY = 70;
+      var yS = clamp(sun.y - 118 - 150 * Math.log(d) / Math.log(200), skyY + 50, sun.y - 110);
+      var star = { x: sun.x, y: yS };
+      var e1 = { x: sun.x - rx, y: sun.y }, e2 = { x: sun.x + rx, y: sun.y };
+      var ea = { x: sun.x + rx * Math.cos(th), y: sun.y + ry * Math.sin(th) };
+      /* 천구(먼 배경별) */
+      ctx.strokeStyle = "rgba(160,170,255,.35)"; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.ellipse(LW / 2, skyY + 260, 330, 260, 0, Math.PI * 1.18, Math.PI * 1.82); ctx.stroke();
+      var a1 = K.extend(e1, star, skyY + 4), a2 = K.extend(e2, star, skyY + 4);
+      /* 궤도 */
+      ctx.strokeStyle = "rgba(200,210,255,.45)"; ctx.lineWidth = 1.4; ctx.setLineDash([5, 5]);
+      ctx.beginPath(); ctx.ellipse(sun.x, sun.y, rx, ry, 0, 0, 6.2832); ctx.stroke(); ctx.setLineDash([]);
+      for (var m = 0; m < 12; m++) { var ang = Math.PI + m * Math.PI / 6; ctx.fillStyle = "rgba(200,210,255,.5)"; ctx.beginPath(); ctx.arc(sun.x + rx * Math.cos(ang), sun.y + ry * Math.sin(ang), 1.6, 0, 6.2832); ctx.fill(); }
+      /* 방향선과 각 */
+      K.line(ctx, e1, a1, KC.yellow, 1.3, [4, 4], .75); K.line(ctx, e2, a2, KC.blue, 1.3, [4, 4], .75);
+      var A1 = Math.atan2(e1.y - star.y, e1.x - star.x), A2 = Math.atan2(e2.y - star.y, e2.x - star.x), AS = Math.atan2(sun.y - star.y, sun.x - star.x);
+      K.wedge(ctx, star.x, star.y, A1, A2, 58, "rgba(255,211,107,.22)", "rgba(255,211,107,.9)");
+      K.wedge(ctx, star.x, star.y, AS, A2, 40, "rgba(127,211,255,.35)", "rgba(127,211,255,1)");
+      K.pill(ctx, "시차 2p", star.x - 66, star.y + 64, { a: "right", c: KC.yellow });
+      K.pill(ctx, "연주 시차 p", star.x + 50, star.y + 50, { c: KC.blue });
+      /* 거리 생략 표시 */
+      K.line(ctx, star, sun, "rgba(255,255,255,.55)", 1.2, [3, 4]);
+      var my = (star.y + sun.y) / 2 + 18;
+      ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 1.5;
+      [-4, 4].forEach(function (o) { ctx.beginPath(); ctx.moveTo(sun.x - 9, my + o + 4); ctx.lineTo(sun.x + 9, my + o - 4); ctx.stroke(); });
+      K.pill(ctx, "실제로는 훨씬 더 멀다 · d = " + fmtD(d) + " pc", sun.x + 16, my + 5, { s: 11, c: KC.ink });
+      /* 지금 지구에서 본 방향 */
+      var aNow = K.extend(ea, star, skyY + 4);
+      K.line(ctx, ea, aNow, "#ffffff", 1.6, null, .9);
+      K.glow(ctx, aNow.x, aNow.y, 2.2, "rgba(255,255,255,.9)", 4);
+      /* 천체 */
+      K.sun(ctx, sun.x, sun.y, 12);
+      K.earth(ctx, ea.x, ea.y, 7);
+      [[e1, KC.yellow], [e2, KC.blue]].forEach(function (q) { ctx.strokeStyle = q[1]; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(q[0].x, q[0].y, 9, 0, 6.2832); ctx.stroke(); });
+      K.glow(ctx, star.x, star.y, 4.5, "rgba(255,236,190,.95)", 5);
+      K.pill(ctx, "별", star.x + 14, star.y - 8, { c: "#fff4d6" });
+      K.pill(ctx, "A₁ · 1월에 보인 자리", a1.x + 10, a1.y - 8, { s: 11, c: KC.yellow, box: [0, LW] });
+      K.pill(ctx, "A₂ · 7월에 보인 자리", a2.x - 10, a2.y - 8, { s: 11, a: "right", c: KC.blue, box: [0, LW] });
+      [[a1, KC.yellow], [a2, KC.blue]].forEach(function (q) { ctx.strokeStyle = q[1]; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(q[0].x, q[0].y, 5, 0, 6.2832); ctx.stroke(); });
+      K.pill(ctx, "태양", sun.x, sun.y + 30, { a: "center", c: KC.yellow });
+      K.pill(ctx, "지구 E₁ · 1월", e1.x - 14, e1.y + 4, { a: "right", s: 11, c: KC.yellow });
+      K.pill(ctx, "지구 E₂ · 7월", e2.x + 14, e2.y + 4, { s: 11, c: KC.blue });
+      K.bracket(ctx, sun.x, e2.x, sun.y + 48, KC.mute, "1 AU", false);
+      K.warn(ctx, LW - 14 - 228, 28, "⚠ 각·거리·크기는 실제 비율이 아님");
 
-      /* 오른쪽: 하늘에서 본 흔들림 */
-      var bx = 560, by = 70, bw = 300, bh = 190;
-      ctx.fillStyle = v("--card-2"); ctx.beginPath(); ctx.roundRect(bx, by, bw, bh, 14); ctx.fill();
-      ctx.strokeStyle = v("--line"); ctx.lineWidth = 1.5; ctx.stroke();
-      text(ctx, "망원경으로 본 하늘 (배경별 기준)", bx, by - 12, { s: 12, w: "800" });
-      ctx.fillStyle = v("--mist"); ctx.globalAlpha = .5;
-      [[40, 40], [250, 30], [220, 150], [70, 160], [150, 60]].forEach(function (q) {
-        ctx.beginPath(); ctx.arc(bx + q[0], by + q[1], 2.5, 0, Math.PI * 2); ctx.fill();
+      /* ── 오른쪽: 망원경으로 본 하늘 ── */
+      var RX = LW + 8, RW = W - RX;
+      K.stage(ctx, RX, 0, RW, H, "space", { seed: 29 });
+      K.pill(ctx, "망원경으로 본 하늘", RX + 16, 28, { s: 13, c: KC.blue });
+      var c = { x: RX + RW / 2, y: 190 }, S = 190;                 /* 1″ = 190 px */
+      var R = K.rng(5);
+      for (var k = 0; k < 7; k++) { var bx = RX + 30 + R() * (RW - 60), by = 60 + R() * 260; if (Math.abs(by - c.y) < 40 && Math.abs(bx - c.x) < 140) continue; K.glow(ctx, bx, by, 1.6 + R() * 1.2, "rgba(220,230,255,.9)", 3.2); }
+      var pr = p * S;
+      ctx.strokeStyle = "rgba(255,211,107,.6)"; ctx.setLineDash([4, 4]); ctx.lineWidth = 1.3;
+      ctx.beginPath(); ctx.ellipse(c.x, c.y, Math.max(pr, .5), Math.max(pr * .36, .3), 0, 0, 6.2832); ctx.stroke(); ctx.setLineDash([]);
+      ctx.strokeStyle = "rgba(255,255,255,.35)"; ctx.beginPath(); ctx.moveTo(c.x - 5, c.y); ctx.lineTo(c.x + 5, c.y); ctx.moveTo(c.x, c.y - 5); ctx.lineTo(c.x, c.y + 5); ctx.stroke();
+      [[c.x + pr, KC.yellow, "A₁ · 1월"], [c.x - pr, KC.blue, "A₂ · 7월"]].forEach(function (q, i) {
+        ctx.strokeStyle = q[1]; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(q[0], c.y, 6, 0, 6.2832); ctx.stroke();
+        if (pr > 34) K.pill(ctx, q[2], q[0] + (i ? -4 : 4), c.y + 30, { s: 11, a: i ? "right" : "left", c: q[1], box: [RX, W] });
       });
-      ctx.globalAlpha = 1;
-      var sep = clamp(p * 100, 0.6, 105);                    /* 0.01″ 당 1 px로 과장 */
-      var mx = bx + bw / 2, my = by + bh / 2;
-      ctx.fillStyle = v("--violet");
-      ctx.beginPath(); ctx.arc(mx - sep / 2, my, 6, 0, Math.PI * 2); ctx.fill();
-      ctx.globalAlpha = .45; ctx.beginPath(); ctx.arc(mx + sep / 2, my, 6, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1;
-      /* 오차 막대 */
-      var errPx = 0.005 * 100;
-      ctx.strokeStyle = v("--rose"); ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.moveTo(mx - sep / 2 - errPx, my + 22); ctx.lineTo(mx - sep / 2 + errPx, my + 22); ctx.stroke();
-      text(ctx, "측정 오차 ±0.005″", mx, my + 44, { s: 10.5, a: "center", c: v("--rose-700") });
-      ctx.strokeStyle = v("--violet"); ctx.setLineDash([4, 4]); ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.moveTo(mx - sep / 2, my - 16); ctx.lineTo(mx + sep / 2, my - 16); ctx.stroke(); ctx.setLineDash([]);
-      text(ctx, "흔들린 폭", mx, my - 24, { s: 10.5, a: "center", c: v("--violet-700") });
+      var sx = c.x - Math.cos(th) * pr, sy = c.y + Math.sin(th) * pr * .36;
+      K.glow(ctx, sx, sy, 4, "rgba(255,236,190,.95)", 5);
+      K.spikes(ctx, sx, sy, 14, .45);
+      K.pill(ctx, "별", sx + 14, sy - (pr > 34 ? 12 : 30), { s: 11, c: "#fff4d6" });
+      if (pr > 8) {
+        K.bracket(ctx, c.x, c.x + pr, c.y - 46, KC.blue, "연주 시차 p", true);
+        K.bracket(ctx, c.x - pr, c.x + pr, c.y + 62, KC.yellow, "시차 2p", false);
+      } else {
+        K.pill(ctx, "흔들림이 너무 작아 거의 한 점으로 보입니다", c.x, c.y + 54, { a: "center", s: 11.5, c: KC.yellow });
+      }
+      /* 오차 견주기 막대 */
+      var gx = RX + 30, gy = H - 74, gw = RW - 60;
+      K.t(ctx, "흔들림 폭(p)과 측정 오차(±0.005″) 견주기", gx, gy - 12, { s: 11.5, c: KC.mute });
+      ctx.fillStyle = "rgba(255,255,255,.08)"; ctx.beginPath(); ctx.roundRect(gx, gy, gw, 12, 6); ctx.fill();
+      var scaleMax = 1, fp = clamp(Math.log10(p / 0.001) / Math.log10(scaleMax / 0.001), 0, 1), fe = Math.log10(ERR / 0.001) / Math.log10(scaleMax / 0.001);
+      ctx.fillStyle = p >= 2 * ERR ? KC.green : KC.red; ctx.beginPath(); ctx.roundRect(gx, gy, Math.max(6, gw * fp), 12, 6); ctx.fill();
+      ctx.strokeStyle = KC.red; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(gx + gw * fe, gy - 4); ctx.lineTo(gx + gw * fe, gy + 16); ctx.stroke();
+      K.t(ctx, "오차", gx + gw * fe, gy + 30, { s: 10.5, a: "center", c: KC.red });
+      K.t(ctx, "0.001″", gx, gy + 30, { s: 10, c: KC.dim }); K.t(ctx, "1″", gx + gw, gy + 30, { s: 10, a: "right", c: KC.dim });
+      K.t(ctx, "(눈금은 10배씩)", gx + gw / 2 + 60, gy + 30, { s: 10, c: KC.dim });
 
-      text(ctx, "거리 " + d + " pc", 470, 310, { s: 16, w: "900" });
-      text(ctx, "연주 시차 " + p.toFixed(3) + "″", 640, 310, { s: 16, w: "900", c: v("--violet-700") });
-      text(ctx, "시차(″) = 1 ÷ 거리(pc)", 470, 336, { s: 11.5, c: v("--mist") });
-      text(ctx, p >= 0.01 ? "오차의 " + (p / 0.005).toFixed(0) + "배 — 잴 수 있습니다" : "오차에 묻힙니다 — 믿을 수 없습니다",
-        640, 336, { s: 11.5, w: "800", c: p >= 0.01 ? v("--teal-700") : v("--rose-700") });
-
+      readout(p);
+    }
+    function fmtD(x) { return x < 10 ? x.toFixed(x % 1 ? 2 : 0).replace(/\.?0+$/, "") : String(Math.round(x)); }
+    function readout(p) {
+      var ly = 3.26 * d, ok = p >= 2 * ERR;
+      $("b-read").innerHTML =
+        "<span class='k'>연주 시차</span><span class='v b'>p = " + (p >= 1 ? p.toFixed(2) : p.toFixed(3)) + "″</span>" +
+        "<span class='k'>거리</span><span class='v y'>d = 1 / p = " + fmtD(d) + " pc</span>" +
+        "<span class='sub'>≈ " + (ly < 100 ? ly.toFixed(1) : Math.round(ly).toLocaleString()) + " 광년</span>" +
+        "<span class='ok " + (ok ? "g" : "r") + "'>" + (ok ? "오차의 " + Math.round(p / ERR) + "배 · 잴 수 있습니다" : "오차에 묻힙니다 · 이 자로는 못 잽니다") + "</span>";
+      $("b-d-val").textContent = fmtD(d) + " pc";
       var ch = false;
       if (d === 1 && !got.a) { got.a = ch = true; }
       if (d === 10 && !got.b) { got.b = ch = true; }
       if (p <= 0.010 && !got.c) { got.c = ch = true; }
       if (ch) { window.sthState("bPara", got); mission(); }
-      $("b-para-info").innerHTML = "거리가 <b>" + d + " pc</b>이면 연주 시차는 <b>" + p.toFixed(3) + "초각</b>입니다. " +
+      $("b-para-info").innerHTML = "거리가 <b>" + fmtD(d) + " pc</b>이면 연주 시차는 <b>" + p.toFixed(3) + "초각</b>입니다. " +
+        (preset >= 0 ? "<b>" + PRE[preset].n + "</b>의 실측값입니다. " : "") +
         (d === 1 ? "시차가 1초각이 되는 거리를 <b>1 파섹(pc)</b>이라 부릅니다. 약 3.26 광년입니다." :
-          (p < 0.01 ? "흔들림이 측정 오차와 비슷해져, 이 자로는 더 이상 잴 수 없습니다." : "거리가 멀어질수록 흔들림이 작아집니다."));
+          (p < 0.01 ? "흔들림이 측정 오차와 비슷해져, 이 자로는 더 이상 잴 수 없습니다." : "지구가 궤도를 도는 동안 별이 하늘에 그리는 작은 타원을 보세요. 멀수록 타원이 작아집니다."));
     }
     function mission() {
       if (got.a) done("m2-2a"); if (got.b) done("m2-2b"); if (got.c) done("m2-2c");
       if (got.a && got.b && got.c) {
         window.sthMission("m2-2", true, "<span class='m-tag'>미션 완료</span>시차는 거리에 <b>반비례</b>합니다. 그래서 멀수록 재기 어렵고, 어느 거리를 넘으면 <b>장비의 오차에 묻혀</b> 버립니다.");
+        ep.clear(2);
+      }
+    }
+    var pre = $("b-pre");
+    PRE.forEach(function (s, i) {
+      var b = document.createElement("button"); b.type = "button";
+      b.innerHTML = "<b>" + s.n + "</b>" + (s.em ? "<em>" + s.em + "</em>" : "") + "<small>" + (1 / s.d).toFixed(3) + "″ · " + s.d.toFixed(2) + " pc</small>";
+      b.addEventListener("click", function () {
+        preset = i; d = s.d; $("b-d").value = Math.round(s.d);
+        Array.prototype.forEach.call(pre.children, function (x, j) { x.classList.toggle("on", j === i); });
+        draw();
+      });
+      pre.appendChild(b);
+    });
+    $("b-d").addEventListener("input", function (ev) {
+      d = +ev.target.value; preset = -1;
+      Array.prototype.forEach.call(pre.children, function (x) { x.classList.remove("on"); });
+      draw();
+    });
+    $("b-play").addEventListener("click", function () { playing = !playing; this.textContent = playing ? "⏸ 지구 멈추기" : "▶ 지구 돌리기"; });
+    if (REDUCE) $("b-play").textContent = "▶ 지구 돌리기";
+    canvas._redraw = draw;
+    K.animate(canvas, function (dt) { if (playing) { th += dt * 2 * Math.PI / 9000; draw(); } });
+    draw(); mission();
+  })();
+
+  /* ---- 장면: 손가락으로 만드는 시차 (비유) ---- */
+  (function () {
+    var canvas = $("b-c-fin"), ctx = window.setupCanvas(canvas), W = canvas._w, H = canvas._h;
+    var f = 40, eye = "L", shown = "L", acc = 0, EYE = 3.25, WALL = 300, TICK = 15;
+    var got = window.sthState("bFin") || { a: false, b: false };
+    function hitX(side) { var xe = side === "L" ? -EYE : EYE; return xe * (1 - WALL / f); }
+    function skin(ctx, x, top, w, bottom, alpha) {
+      ctx.save(); ctx.globalAlpha = alpha;
+      var g = ctx.createLinearGradient(x - w / 2, 0, x + w / 2, 0);
+      g.addColorStop(0, "#d9976f"); g.addColorStop(.35, "#f6cfae"); g.addColorStop(.6, "#f3c4a0"); g.addColorStop(1, "#cf8a62");
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.moveTo(x - w / 2, bottom); ctx.lineTo(x - w / 2, top + w / 2);
+      ctx.arc(x, top + w / 2, w / 2, Math.PI, 0); ctx.lineTo(x + w / 2, bottom); ctx.closePath(); ctx.fill();
+      /* 손톱 */
+      var ng = ctx.createLinearGradient(0, top + 6, 0, top + 44);
+      ng.addColorStop(0, "#fff3ee"); ng.addColorStop(.25, "#f6d4cb"); ng.addColorStop(1, "#eab5a6");
+      ctx.fillStyle = ng; ctx.beginPath(); ctx.roundRect(x - w * .3, top + 7, w * .6, 38, [w * .3, w * .3, 8, 8]); ctx.fill();
+      /* 마디 주름 */
+      ctx.strokeStyle = "rgba(150,80,50,.35)"; ctx.lineWidth = 1.2;
+      [top + 90, top + 96, top + 175, top + 181].forEach(function (yy) { ctx.beginPath(); ctx.moveTo(x - w * .28, yy); ctx.quadraticCurveTo(x, yy + 4, x + w * .28, yy); ctx.stroke(); });
+      ctx.restore();
+    }
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      /* ── 왼쪽: 위에서 본 교실 ── */
+      var LW = 440;
+      var fl = ctx.createLinearGradient(0, 0, 0, H); fl.addColorStop(0, "#efe6d6"); fl.addColorStop(1, "#e2d4bb");
+      ctx.fillStyle = fl; ctx.beginPath(); ctx.roundRect(0, 0, LW, H, 14); ctx.fill();
+      ctx.strokeStyle = "rgba(150,120,80,.12)"; ctx.lineWidth = 1;
+      for (var pl = 30; pl < H; pl += 34) { ctx.beginPath(); ctx.moveTo(0, pl); ctx.lineTo(LW, pl); ctx.stroke(); }
+      K.pill(ctx, "위에서 본 교실", 16, 28, { s: 13, c: "#5a3d1e", bg: "rgba(255,255,255,.75)" });
+      var cx = LW / 2, yE = H - 62, yW = 74, sx = 3, sy = (yE - yW) / WALL;
+      function P(xcm, dcm) { return { x: cx + xcm * sx, y: yE - dcm * sy }; }
+      /* 칠판 */
+      var bg = ctx.createLinearGradient(0, yW - 14, 0, yW); bg.addColorStop(0, "#2a5a45"); bg.addColorStop(1, "#1d4434");
+      ctx.fillStyle = "#8a5a33"; ctx.fillRect(cx - 200, yW - 18, 400, 22);
+      ctx.fillStyle = bg; ctx.fillRect(cx - 196, yW - 15, 392, 15);
+      for (var k = -4; k <= 4; k++) { var tp = P(k * TICK, WALL); K.t(ctx, String(k + 5), tp.x, yW - 3, { s: 11, w: "900", a: "center", c: "#f4f1e6" }); }
+      K.t(ctx, "칠판 (3 m 앞)", cx + 196, yW + 18, { s: 11, a: "right", c: "#6b5a44", w: "700" });
+      var fp = P(0, f), eL = P(-EYE, 0), eR = P(EYE, 0);
+      ["L", "R"].forEach(function (s) {
+        var e0 = s === "L" ? eL : eR, hp = P(hitX(s), WALL), act = (eye === "A" ? shown === s : s === eye);
+        var col = s === "L" ? "#1f9be0" : "#8b5cf6";
+        K.line(ctx, e0, hp, col, act ? 2 : 1.2, act ? null : [4, 4], act ? .9 : .3);
+        if (act) { ctx.fillStyle = col; ctx.beginPath(); ctx.arc(hp.x, yW + 2, 4, 0, 6.2832); ctx.fill(); }
+      });
+      /* 팔과 손가락 */
+      ctx.strokeStyle = "#e8b48f"; ctx.lineCap = "round"; ctx.lineWidth = 12;
+      ctx.beginPath(); ctx.moveTo(cx + 30, yE + 14); ctx.quadraticCurveTo(cx + 26, (yE + fp.y) / 2, cx + 4, fp.y + 12); ctx.stroke(); ctx.lineCap = "butt";
+      ctx.fillStyle = "#f3c4a0"; ctx.beginPath(); ctx.roundRect(fp.x - 4, fp.y - 10, 8, 22, 4); ctx.fill();
+      K.pill(ctx, "손가락 " + f + " cm", fp.x - 12, fp.y + 4, { a: "right", s: 11.5, c: "#5a3d1e", bg: "rgba(255,255,255,.8)" });
+      /* 머리와 두 눈 */
+      ctx.fillStyle = "#3b2a20"; ctx.beginPath(); ctx.ellipse(cx, yE + 22, 26, 22, 0, 0, 6.2832); ctx.fill();
+      ctx.fillStyle = "#f3c4a0"; ctx.beginPath(); ctx.ellipse(cx, yE + 6, 20, 9, 0, Math.PI, 0); ctx.fill();
+      [["L", eL, "#1f9be0"], ["R", eR, "#8b5cf6"]].forEach(function (q) {
+        var open = eye === "A" ? shown === q[0] : eye === q[0];
+        if (open) { ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.ellipse(q[1].x, q[1].y, 5, 3.4, 0, 0, 6.2832); ctx.fill(); ctx.fillStyle = q[2]; ctx.beginPath(); ctx.arc(q[1].x, q[1].y - .5, 2, 0, 6.2832); ctx.fill(); }
+        else { ctx.strokeStyle = "#5a3d1e"; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.moveTo(q[1].x - 5, q[1].y); ctx.quadraticCurveTo(q[1].x, q[1].y + 3, q[1].x + 5, q[1].y); ctx.stroke(); }
+      });
+      K.t(ctx, "왼눈", eL.x - 26, yE + 4, { s: 11, a: "right", c: "#1f7fbf" });
+      K.t(ctx, "오른눈", eR.x + 26, yE + 4, { s: 11, c: "#7b4fe0" });
+
+      /* ── 오른쪽: 내 눈에 보이는 모습 ── */
+      var RX = LW + 10, RW = W - RX;
+      var wall = ctx.createLinearGradient(0, 0, 0, H); wall.addColorStop(0, "#f2ede4"); wall.addColorStop(1, "#ddd3c2");
+      ctx.fillStyle = wall; ctx.beginPath(); ctx.roundRect(RX, 0, RW, H, 14); ctx.fill();
+      ctx.save(); ctx.beginPath(); ctx.roundRect(RX, 0, RW, H, 14); ctx.clip();
+      var bx = RX + 22, by = 46, bw = RW - 44, bh = 220;
+      ctx.fillStyle = "#7a4c2a"; ctx.beginPath(); ctx.roundRect(bx - 8, by - 8, bw + 16, bh + 16, 6); ctx.fill();
+      var bd = ctx.createLinearGradient(bx, by, bx + bw, by + bh); bd.addColorStop(0, "#2d6049"); bd.addColorStop(1, "#1a3f30");
+      ctx.fillStyle = bd; ctx.fillRect(bx, by, bw, bh);
+      var R = K.rng(3);
+      for (var sm = 0; sm < 9; sm++) { var gx = bx + R() * bw, gy = by + R() * bh, rr = 30 + R() * 50, rg = ctx.createRadialGradient(gx, gy, 0, gx, gy, rr); rg.addColorStop(0, "rgba(255,255,255,.06)"); rg.addColorStop(1, "rgba(255,255,255,0)"); ctx.fillStyle = rg; ctx.fillRect(bx, by, bw, bh); }
+      ctx.fillStyle = "#8a5a33"; ctx.fillRect(bx - 8, by + bh + 8, bw + 16, 8);
+      ctx.fillStyle = "#f4f1e6"; ctx.fillRect(bx + bw - 60, by + bh + 3, 18, 5);
+      var mx = bx + bw / 2, s2 = (bw - 40) / (8 * TICK);
+      for (k = -4; k <= 4; k++) {
+        var x = mx + k * TICK * s2;
+        K.t(ctx, String(k + 5), x, by + 44, { s: 24, w: "900", a: "center", c: "rgba(244,241,230,.92)" });
+        ctx.strokeStyle = "rgba(244,241,230,.55)"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x, by + 56); ctx.lineTo(x, by + 70); ctx.stroke();
+      }
+      var xL = mx + hitX("L") * s2, xR = mx + hitX("R") * s2, now = eye === "A" ? shown : eye;
+      var fw = clamp(1400 / f, 26, 70);
+      if (eye === "A") skin(ctx, now === "L" ? xR : xL, by + 82, fw, H + 10, .22);
+      ctx.save(); ctx.filter = "blur(0.6px)"; skin(ctx, now === "L" ? xL : xR, by + 82, fw, H + 10, 1); ctx.restore();
+      if (eye === "A") {
+        var y0 = by + 76;
+        ctx.strokeStyle = KC.yellow; ctx.lineWidth = 2.5; ctx.setLineDash([6, 4]);
+        ctx.beginPath(); ctx.moveTo(Math.min(xL, xR), y0); ctx.lineTo(Math.max(xL, xR), y0); ctx.stroke(); ctx.setLineDash([]);
+      }
+      ctx.restore();
+      var jump = Math.abs(hitX("R") - hitX("L")) / TICK, ang = 2 * Math.atan(EYE / f) * 180 / Math.PI;
+      K.pill(ctx, "내 눈에 보이는 모습", RX + 14, 28, { s: 13, c: "#5a3d1e", bg: "rgba(255,255,255,.8)" });
+      K.pill(ctx, now === "L" ? "👁 왼눈으로 보는 중" : "👁 오른눈으로 보는 중", RX + RW - 14, 28, { s: 12, a: "right", c: now === "L" ? "#1f7fbf" : "#7b4fe0", bg: "rgba(255,255,255,.85)" });
+      K.pill(ctx, "튄 폭 " + jump.toFixed(1) + "칸 · 각 " + ang.toFixed(1) + "° → 그 절반 " + (ang / 2).toFixed(1) + "°가 별의 '연주 시차'", RX + RW / 2, H - 16, { s: 12.5, a: "center", c: KC.yellow });
+
+      if (eye === "A") {
+        var ch = false;
+        if (f <= 25 && !got.a) got.a = ch = true;
+        if (f >= 50 && !got.b) got.b = ch = true;
+        if (ch) { window.sthState("bFin", got); mission(); }
+      }
+      $("b-fin-info").innerHTML = eye === "A"
+        ? "손가락이 " + f + " cm에 있으면 칠판 위에서 약 <b>" + jump.toFixed(1) + "칸</b> 튑니다. " + (f <= 30 ? "가까울수록 크게 튀지요." : "멀리 뻗을수록 덜 튑니다.")
+        : "‘번갈아 보기’를 누르면 두 눈으로 본 모습이 번갈아 나타납니다.";
+    }
+    function mission() {
+      if (got.a) done("m2-fa"); if (got.b) done("m2-fb");
+      if (got.a && got.b) {
+        window.sthMission("m2-f", true, "<span class='m-tag'>미션 완료</span>가까운 손가락은 크게, 먼 손가락은 작게 튑니다. 별도 똑같습니다. <b>가까운 별일수록 시차가 크다</b>. 별에서는 두 눈 대신 <b>1월과 7월의 지구</b>가 관측 자리입니다.");
         ep.clear(1);
       }
     }
+    segWire("b-eye", function (b) { eye = b.getAttribute("data-e"); $("b-eye-val").textContent = b.textContent; shown = "L"; acc = 0; draw(); });
+    $("b-f").addEventListener("input", function (ev) { f = +ev.target.value; $("b-f-val").textContent = f + " cm"; draw(); });
     canvas._redraw = draw;
-    $("b-d").addEventListener("input", function (e) { d = +e.target.value; $("b-d-val").textContent = d + " pc"; draw(); });
+    K.animate(canvas, function (dt) { if (eye === "A") { acc += dt; if (acc > 750) { acc = 0; shown = shown === "L" ? "R" : "L"; draw(); } } });
+    draw(); mission();
+  })();
+
+  /* ---- 장면: 관측 기록 — 두 장의 사진으로 별 찾기 ---- */
+  (function () {
+    var canvas = $("b-c-rec"), ctx = window.setupCanvas(canvas), W = canvas._w, H = canvas._h;
+    var STARS_P = [0.50, 0.40, 0.25, 0.20, 0.30];
+    var pick = 2, P = STARS_P[pick], step = 0, solved = false, blink = false, blinkT = 0, blinkShow = 0;
+    var th = Math.PI * .72, anim = null, flash = [0, 0];
+    var got = window.sthState("bRec") || { a: false, b: false };
+    var LABEL = ["📷 1월(E₁)에서 사진 찍기", "📷 7월(E₂)에서 사진 찍기", "✏️ 두 방향선 긋기", "⭐ 별 위치 찾기"];
+    var MON = ["1월", "2월", "3월", "4월", "5월", "6월", "7월"];
+
+    function geo() {
+      var sun = { x: 262, y: H - 86 }, rx = 120, ry = 28;
+      var star = { x: sun.x, y: sun.y - 70 - (1 / P) * 22 };
+      var e1 = { x: sun.x - rx, y: sun.y }, e2 = { x: sun.x + rx, y: sun.y }, skyY = 70;
+      var ea = { x: sun.x + rx * Math.cos(th), y: sun.y + ry * Math.sin(th) };
+      return { sun: sun, rx: rx, ry: ry, e1: e1, e2: e2, ea: ea, star: star, skyY: skyY, a1: K.extend(e1, star, skyY), a2: K.extend(e2, star, skyY) };
+    }
+    function photo(x, y, w, h, title, stamp, dx, showStar, fl) {
+      ctx.save(); ctx.beginPath(); ctx.roundRect(x, y, w, h, 10); ctx.clip();
+      var g = ctx.createRadialGradient(x + w / 2, y + h / 2, 10, x + w / 2, y + h / 2, w * .7);
+      g.addColorStop(0, "#151a36"); g.addColorStop(1, "#05060f"); ctx.fillStyle = g; ctx.fillRect(x, y, w, h);
+      var R = K.rng(41);
+      for (var i = 0; i < 260; i++) { ctx.globalAlpha = R() * .18; ctx.fillStyle = "#fff"; ctx.fillRect(x + R() * w, y + R() * h, 1, 1); }
+      ctx.globalAlpha = 1;
+      var cx = x + w / 2, cy = y + h / 2 + 6, sc = 220;
+      [[-118, -22, 2.6], [-62, 24, 1.8], [72, -24, 2.2], [120, 18, 3.0], [12, 30, 1.5], [-20, -30, 1.3], [96, 40, 1.4]].forEach(function (q) { K.glow(ctx, cx + q[0], cy + q[1], q[2], "rgba(225,232,255,.9)", 3.4); });
+      K.spikes(ctx, cx + 120, cy + 18, 10, .35);
+      ctx.strokeStyle = "rgba(140,160,220,.45)"; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(cx, y + 24); ctx.lineTo(cx, cy - 12); ctx.moveTo(cx, cy + 12); ctx.lineTo(cx, y + h - 22); ctx.stroke();
+      for (var t = -5; t <= 5; t++) { var tx = cx + t * .1 * sc; ctx.beginPath(); ctx.moveTo(tx, y + h - 12); ctx.lineTo(tx, y + h - (t % 5 === 0 ? 22 : 17)); ctx.stroke(); }
+      ctx.beginPath(); ctx.moveTo(cx - .5 * sc, y + h - 12); ctx.lineTo(cx + .5 * sc, y + h - 12); ctx.stroke();
+      if (showStar) {
+        var px = cx + dx * sc;
+        K.glow(ctx, px, cy, 3.4, "rgba(255,226,150,.98)", 4.5);
+        ctx.strokeStyle = KC.yellow; ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.moveTo(px - 14, cy); ctx.lineTo(px - 8, cy); ctx.moveTo(px, cy - 14); ctx.lineTo(px, cy - 8); ctx.stroke();
+        K.t(ctx, "S", px + 7, cy - 8, { s: 11, w: "900", c: KC.yellow });
+      }
+      K.t(ctx, title, x + 10, y + 18, { s: 11.5, w: "800", c: "#cfd8ff" });
+      K.t(ctx, "1칸 = 0.1″", x + w - 10, y + 18, { s: 10.5, a: "right", c: KC.mute });
+      if (stamp) K.t(ctx, stamp, x + w - 10, y + h - 26, { s: 10, a: "right", c: "#ffb35c", w: "700" });
+      if (fl > 0) { ctx.fillStyle = "rgba(255,255,255," + fl + ")"; ctx.fillRect(x, y, w, h); }
+      ctx.restore();
+      ctx.strokeStyle = "rgba(255,255,255,.12)"; ctx.lineWidth = 1; ctx.beginPath(); ctx.roundRect(x, y, w, h, 10); ctx.stroke();
+    }
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      var g = geo(), LW = 526;
+      K.stage(ctx, 0, 0, LW, H, "space", { seed: 17 });
+      K.pill(ctx, "위에서 본 지구 궤도", 16, 28, { s: 13, c: KC.blue });
+      ctx.strokeStyle = "rgba(160,170,255,.35)"; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.ellipse(LW / 2, g.skyY + 300, 380, 300, 0, Math.PI * 1.2, Math.PI * 1.8); ctx.stroke();
+      K.pill(ctx, "아주 먼 배경별", LW - 16, g.skyY - 22, { s: 11, a: "right", c: KC.mute });
+      ctx.strokeStyle = "rgba(200,210,255,.45)"; ctx.lineWidth = 1.4; ctx.setLineDash([5, 5]);
+      ctx.beginPath(); ctx.ellipse(g.sun.x, g.sun.y, g.rx, g.ry, 0, 0, 6.2832); ctx.stroke(); ctx.setLineDash([]);
+      if (step >= 3) {
+        K.line(ctx, g.e1, g.a1, KC.yellow, 1.8, step >= 4 ? null : [6, 5]);
+        K.line(ctx, g.e2, g.a2, KC.blue, 1.8, step >= 4 ? null : [6, 5]);
+      }
+      if (step >= 4) {
+        var A2 = Math.atan2(g.e2.y - g.star.y, g.e2.x - g.star.x), AS = Math.atan2(g.sun.y - g.star.y, g.sun.x - g.star.x), A1 = Math.atan2(g.e1.y - g.star.y, g.e1.x - g.star.x);
+        K.wedge(ctx, g.star.x, g.star.y, A1, A2, 52, "rgba(255,211,107,.18)", "rgba(255,211,107,.8)");
+        K.wedge(ctx, g.star.x, g.star.y, AS, A2, 36, "rgba(127,211,255,.35)", KC.blue);
+        K.line(ctx, g.star, g.sun, "rgba(255,255,255,.5)", 1.2, [3, 4]);
+        K.pill(ctx, "p", g.star.x + 24, g.star.y + 52, { c: KC.blue, s: 13 });
+        K.glow(ctx, g.star.x, g.star.y, 5, "rgba(255,230,170,.98)", 5);
+        K.pill(ctx, "별 S", g.star.x + 14, g.star.y - 10, { c: "#fff4d6" });
+        K.bracket(ctx, g.sun.x, g.e2.x, g.sun.y + 46, KC.mute, "1 AU", false);
+      }
+      if (step >= 1) { ctx.strokeStyle = KC.yellow; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(g.a1.x, g.a1.y, 6, 0, 6.2832); ctx.stroke(); K.pill(ctx, "A₁", g.a1.x + 10, g.a1.y + 4, { s: 11, c: KC.yellow }); }
+      if (step >= 2) { ctx.strokeStyle = KC.blue; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(g.a2.x, g.a2.y, 6, 0, 6.2832); ctx.stroke(); K.pill(ctx, "A₂", g.a2.x - 10, g.a2.y + 4, { s: 11, a: "right", c: KC.blue }); }
+      K.sun(ctx, g.sun.x, g.sun.y, 12);
+      [[g.e1, "E₁ · 1월", KC.yellow, "right", -14], [g.e2, "E₂ · 7월", KC.blue, "left", 14]].forEach(function (q) {
+        ctx.strokeStyle = q[2]; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(q[0].x, q[0].y, 9, 0, 6.2832); ctx.stroke();
+        K.pill(ctx, q[1], q[0].x + q[4], q[0].y + 4, { s: 11, a: q[3], c: q[2] });
+      });
+      K.earth(ctx, g.ea.x, g.ea.y, 7);
+      var mi = clamp(Math.round((th - Math.PI) / Math.PI * 6), -2, 6), mon = mi < 0 ? (mi === -1 ? "12월" : "11월") : MON[mi];
+      K.pill(ctx, "지구 · " + mon, g.ea.x, g.ea.y + 34, { s: 11.5, a: "center", c: "#bfe6ff" });
+      K.warn(ctx, 14, H - 12, "⚠ 각은 실제보다 수십만 배 과장");
+
+      var px = LW + 12, pw = W - px, ph = 132;
+      photo(px, 0, pw, ph, "1월(E₁)에 찍은 사진", step >= 1 ? "1838. 1. 15  21:40" : "", +P, step >= 1, flash[0]);
+      photo(px, ph + 8, pw, ph, "7월(E₂)에 찍은 사진", step >= 2 ? "1838. 7. 16  02:10" : "", -P, step >= 2, flash[1]);
+      var y3 = ph * 2 + 16, h3 = H - y3;
+      if (step >= 2) {
+        if (blink) photo(px, y3, pw, h3, "깜빡이 비교 · " + (blinkShow ? "7월" : "1월") + " 사진", "", blinkShow ? -P : P, true, 0);
+        else {
+          photo(px, y3, pw, h3, "두 사진 겹치기", "", 0, false, 0);
+          var cx = px + pw / 2, cy = y3 + h3 / 2 + 6, sc = 220;
+          K.glow(ctx, cx + P * sc, cy, 3.4, "rgba(255,226,150,.98)", 4.5);
+          ctx.globalAlpha = .6; K.glow(ctx, cx - P * sc, cy, 3.4, "rgba(127,211,255,.95)", 4.5); ctx.globalAlpha = 1;
+          K.bracket(ctx, cx - P * sc, cx + P * sc, cy - 18, KC.yellow, "반년 동안 옮겨 간 폭 = 눈금 몇 칸?", true);
+        }
+      } else {
+        ctx.fillStyle = "rgba(127,140,200,.12)"; ctx.beginPath(); ctx.roundRect(px, y3, pw, h3, 10); ctx.fill();
+        K.t(ctx, "두 장을 모두 찍으면 여기서 겹쳐 봅니다", px + pw / 2, y3 + h3 / 2 + 4, { s: 11.5, a: "center", c: "#8a94b8" });
+      }
+      paintSteps();
+    }
+    function paintSteps() {
+      var sp = $("b-rec-steps").children;
+      for (var i = 0; i < sp.length; i++) sp[i].className = i < step || (i === 4 && solved) ? "ok" : (i === step ? "now" : "");
+      var go = $("b-rec-go");
+      go.hidden = step >= 4; go.textContent = LABEL[Math.min(step, 3)]; go.disabled = !!anim;
+      $("b-rec-blink").disabled = step < 2;
+      $("b-rec-blink").textContent = blink ? "⏹ 깜빡이 멈추기" : "👁 깜빡이 비교";
+      $("b-rec-ans").hidden = step < 4;
+      var msg = ["지구가 아직 12월 자리에 있습니다. 1월 자리(E₁)에 오면 사진을 찍어 별 S의 방향을 기록하세요.",
+        "1월 사진에서 별 S는 배경별 띠의 A₁ 방향에 보입니다. 이제 반년을 기다려 7월 자리(E₂)에서 찍으세요.",
+        "두 사진을 겹치면 별 S만 옮겨 갔습니다. <b>깜빡이 비교</b>로 두 사진을 번갈아 보면 더 잘 보입니다. E₁→A₁, E₂→A₂로 방향선을 그어 보세요.",
+        "두 방향선이 한 점에서 만납니다. 그곳이 별의 자리입니다.",
+        "겹친 사진에서 옮겨 간 폭(눈금 수 × 0.1″)을 읽고, 그 <b>절반</b>이 연주 시차입니다. 거리 = 1 ÷ 연주 시차."];
+      if (!solved) $("b-rec-info").innerHTML = msg[Math.min(step, 4)];
+    }
+    function mission() {
+      if (got.a) done("m2-ra"); if (got.b) done("m2-rb");
+      if (got.a && got.b) {
+        window.sthMission("m2-r", true, "<span class='m-tag'>미션 완료</span>두 자리에서 본 방향이 만나는 곳에 별이 있고, 그 각의 절반이 연주 시차입니다. 베셀은 이 기록을 몇 년 동안 되풀이해 0.3″를 잡아냈습니다.");
+        ep.clear(3);
+      }
+    }
+    function moveTo(target, then) {
+      if (REDUCE) { th = target; then(); draw(); return; }
+      anim = { from: th, to: target, t: 0, dur: 300 + Math.abs(target - th) / Math.PI * 1500, then: then }; paintSteps();
+    }
+    $("b-rec-go").addEventListener("click", function () {
+      if (anim) return;
+      if (step === 0) moveTo(Math.PI, function () { step = 1; flash[0] = .9; });
+      else if (step === 1) moveTo(Math.PI * 2, function () { step = 2; flash[1] = .9; });
+      else { step = Math.min(step + 1, 4); if (step === 4 && !got.a) { got.a = true; window.sthState("bRec", got); mission(); } draw(); }
+    });
+    $("b-rec-blink").addEventListener("click", function () { blink = !blink; blinkT = 0; draw(); });
+    $("b-rec-new").addEventListener("click", function () {
+      var n; do { n = Math.floor(Math.random() * STARS_P.length); } while (n === pick);
+      pick = n; P = STARS_P[pick]; step = 0; solved = false; blink = false; th = Math.PI * .72;
+      got.p = false; window.sthState("bRec", got); draw();
+    });
+    function pv() { $("b-rec-pv").textContent = (+$("b-rec-p").value).toFixed(2) + "″"; $("b-rec-dv").textContent = (+$("b-rec-d").value).toFixed(1) + " pc"; }
+    $("b-rec-p").addEventListener("input", pv); $("b-rec-d").addEventListener("input", pv); pv();
+    $("b-rec-chk").addEventListener("click", function () {
+      var p = +$("b-rec-p").value, d = +$("b-rec-d").value, info = $("b-rec-info");
+      if (!got.p || got.pv !== P) {
+        if (Math.abs(p - 2 * P) <= 0.011) { info.innerHTML = "❌ 겹친 사진의 폭 " + (2 * P).toFixed(2) + "″ 를 그대로 골랐네요. 연주 시차는 그 <b>절반</b>입니다."; return; }
+        if (Math.abs(p - P) > 0.011) { info.innerHTML = "❌ 연주 시차를 다시 읽어 보세요. 옮겨 간 폭은 눈금 몇 칸인가요? 그 절반입니다."; return; }
+        got.p = true; got.pv = P; window.sthState("bRec", got);
+        info.innerHTML = "✅ 연주 시차 <b>" + P.toFixed(2) + "″</b> 맞았습니다. 이제 ② 거리 = 1 ÷ 연주 시차 를 맞춰 다시 판정받으세요.";
+        if (Math.abs(d - 1 / P) > 0.1) return;
+      }
+      if (Math.abs(d - 1 / P) > 0.1) { info.innerHTML = "연주 시차는 맞았습니다(" + P.toFixed(2) + "″). ❌ 거리 = 1 ÷ 연주 시차(pc)로 다시 셈해 보세요."; return; }
+      solved = true; paintSteps();
+      info.innerHTML = "✅ 연주 시차 <b>" + P.toFixed(2) + "″</b>, 거리 <b>" + (1 / P).toFixed(1) + " pc</b>(약 " + (3.26 / P).toFixed(1) + " 광년). " +
+        "‘다른 별로 다시’를 눌러 더 가깝거나 먼 별도 재 보세요. 📎 두 사진을 번갈아 보는 <b>깜빡이 비교기</b>는 실제 천문학자들이 쓴 방법입니다. 1930년 톰보는 이 방법으로 명왕성을 찾았습니다.";
+      if (!got.b) { got.b = true; window.sthState("bRec", got); mission(); }
+    });
+    canvas._redraw = draw;
+    K.animate(canvas, function (dt) {
+      var dirty = false;
+      if (anim) {
+        anim.t += dt; var u = Math.min(1, anim.t / anim.dur), e = u < .5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
+        th = anim.from + (anim.to - anim.from) * e; dirty = true;
+        if (u >= 1) { var fn = anim.then; anim = null; fn(); }
+      }
+      if (flash[0] > 0 || flash[1] > 0) { flash[0] = Math.max(0, flash[0] - dt / 350); flash[1] = Math.max(0, flash[1] - dt / 350); dirty = true; }
+      if (blink) { blinkT += dt; if (blinkT > 500) { blinkT = 0; blinkShow = 1 - blinkShow; dirty = true; } }
+      if (dirty) draw();
+    });
     draw(); mission();
   })();
 
@@ -444,7 +810,7 @@ function axes(ctx, x0, y0, x1, y1) {
       ["m2-3a", "m2-3b", "m2-3c"].forEach(function (id, k) { if (got[k]) done(id); });
       if (got[0] && got[1] && got[2]) {
         window.sthMission("m2-3", true, "<span class='m-tag'>미션 완료</span>별 A 약 50 pc, 별 B 약 990 pc, 별 C 약 3,270 pc. 시차로는 닿을 수 없는 거리까지 <b>밝기가 자가 되어</b> 데려다줍니다.");
-        ep.clear(2);
+        ep.clear(4);
       }
     }
     canvas._redraw = draw;
@@ -505,7 +871,7 @@ function axes(ctx, x0, y0, x1, y1) {
       if (got.a) done("m2-4a"); if (got.b) done("m2-4b"); if (got.c) done("m2-4c");
       if (got.a && got.b && got.c) {
         window.sthMission("m2-4", true, "<span class='m-tag'>미션 완료</span>시차는 가까운 별에만, 밝기는 그 너머에. 두 자는 <b>서로 다른 구간</b>을 맡습니다.");
-        ep.clear(3); ep.clear(4);
+        ep.clear(5); ep.clear(6);
       }
     }
     canvas._redraw = draw;

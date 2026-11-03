@@ -138,19 +138,81 @@
           <div class="gate loose" id="b-gate"></div>
         </section>
 
+        <section class="scene" data-title="손가락으로 만드는 시차">
+          <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“3억 km 떨어진 두 자리에서 별을 본다는 게 잘 안 와닿지요? 지금 바로 해 볼 수 있습니다. 팔을 뻗어 손가락 하나를 세우고, 왼눈과 오른눈을 번갈아 감아 보세요. 손가락이 뒤쪽 칠판 앞에서 <b>휙휙 옮겨 다니죠</b>. 손가락을 얼굴 쪽으로 당기면 어떻게 될까요?”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap stage"><canvas id="b-c-fin" width="900" height="400"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">어느 눈으로 볼까<span class="val" id="b-eye-val">왼눈</span></div>
+                <div class="seg" id="b-eye"><button type="button" class="on" data-e="L">왼눈만</button><button type="button" data-e="R">오른눈만</button><button type="button" data-e="A">번갈아 보기</button></div>
+              </div>
+              <div class="ctrl-group">
+                <div class="ctrl-label">눈에서 손가락까지<span class="val" id="b-f-val">40 cm</span></div>
+                <input type="range" id="b-f" min="20" max="60" step="1" value="40">
+              </div>
+            </div>
+            <div class="info-card" id="b-fin-info"></div>
+          </div>
+          <div class="mission" id="m2-f"><span class="m-tag">미션</span>번갈아 보기로 손가락이 튀는 폭을 견주세요.<ul><li id="m2-fa">손가락을 25 cm 안쪽으로 당겼을 때</li><li id="m2-fb">손가락을 50 cm 밖으로 뻗었을 때</li></ul></div>
+          <div class="stage-card" style="margin-top:14px;padding:16px 20px">
+            <div class="ctrl-label" style="margin-bottom:4px">비유 대응표 · 손가락 실험 ↔ 별 관측</div>
+            <table class="analog">
+              <tr><td>왼눈 · 오른눈</td><td class="ar">↔</td><td class="sky">1월의 지구 · 7월의 지구</td></tr>
+              <tr><td>두 눈 사이(약 6.5 cm)</td><td class="ar">↔</td><td class="sky">공전 궤도의 지름(약 3억 km)</td></tr>
+              <tr><td>손가락</td><td class="ar">↔</td><td class="sky">가까운 별</td></tr>
+              <tr><td>뒤쪽 칠판의 번호</td><td class="ar">↔</td><td class="sky">아주 먼 배경별</td></tr>
+              <tr class="hl"><td>손가락이 튄 각의 절반</td><td class="ar">↔</td><td class="sky">연주 시차</td></tr>
+            </table>
+            <p class="b-note">📎 비유의 한계: 손가락은 두 눈 사이의 몇 배 거리에 있지만, 가장 가까운 별도 공전 궤도 지름의 약 13만 배 넘게 떨어져 있습니다. 그래서 별의 시차는 손가락처럼 몇 도가 아니라 1초각도 안 됩니다.</p>
+          </div>
+        </section>
+
         <section class="scene" data-title="첫 번째 자 — 연주 시차">
           <div class="story"><div class="who">🧑‍🔬</div><div class="say"><span class="name">베셀</span>“시차는 거리에 반비례합니다. 시차가 <b>1초각</b>인 거리를 <b>1파섹(pc)</b>이라 부르기로 하지요. 별을 이리저리 옮겨 보며, 시차가 어떻게 달라지는지 직접 보십시오.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="b-c-para" width="900" height="380"></canvas></div>
-            <div class="controls">
+            <div class="canvas-wrap stage"><canvas id="b-c-para" width="900" height="430"></canvas></div>
+            <div class="sim-side">
+              <div class="readout" id="b-read"></div>
               <div class="ctrl-group">
-                <div class="ctrl-label">별까지의 거리<span class="val" id="b-d-val">5 pc</span></div>
+                <div class="ctrl-label">별까지의 거리 d<span class="val" id="b-d-val">5 pc</span></div>
                 <input type="range" id="b-d" min="1" max="200" step="1" value="5">
               </div>
+              <div class="presets-h full">실제 별로 해 보기 <span class="tag-ref">참고 · 교과서 밖 실측값</span></div>
+              <div class="presets full" id="b-pre"></div>
+              <button type="button" class="btn sm" id="b-play">⏸ 지구 멈추기</button>
             </div>
             <div class="info-card" id="b-para-info"></div>
           </div>
+          <p class="analog-strip">비유로 다시: <b>두 눈</b> = 1월·7월의 지구 · <b>손가락</b> = 별 · <b>칠판</b> = 먼 배경별 · <b>튄 각의 절반</b> = 연주 시차</p>
           <div class="mission" id="m2-2"><span class="m-tag">미션</span>시차와 거리의 관계를 직접 확인하세요.<ul><li id="m2-2a">시차가 정확히 1.00초각이 되는 거리</li><li id="m2-2b">시차가 0.10초각이 되는 거리</li><li id="m2-2c">시차가 측정 오차(±0.005초각)의 두 배에도 못 미치게 되는 거리</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="관측 기록 — 두 장의 사진으로 별 찾기">
+          <div class="story"><div class="who">🧑‍🔬</div><div class="say"><span class="name">베셀</span>“내가 8년 동안 한 일은 결국 이것입니다. <b>1월에 한 장, 7월에 한 장</b>. 두 사진에서 별이 배경별에 대해 얼마나 옮겨 갔는지 읽고, 두 자리에서 그은 방향선이 만나는 곳에 별이 있습니다. 직접 기록해 보십시오.”</div></div>
+          <div class="stage-card">
+            <div class="step-chips" id="b-rec-steps"><span>① 1월에 찍기</span><span>② 7월에 찍기</span><span>③ 방향선 긋기</span><span>④ 별 위치 찾기</span><span>⑤ 거리 구하기</span></div>
+            <div class="canvas-wrap stage"><canvas id="b-c-rec" width="900" height="440"></canvas></div>
+            <div class="controls">
+              <button type="button" class="btn primary" id="b-rec-go">📷 1월(E₁)에서 사진 찍기</button>
+              <button type="button" class="btn" id="b-rec-blink" disabled>👁 깜빡이 비교</button>
+              <button type="button" class="btn" id="b-rec-new">🔁 다른 별로 다시</button>
+            </div>
+            <div class="controls" id="b-rec-ans" hidden>
+              <div class="ctrl-group">
+                <div class="ctrl-label">① 읽은 연주 시차 p<span class="val" id="b-rec-pv">0.10″</span></div>
+                <input type="range" id="b-rec-p" min="0.05" max="1" step="0.01" value="0.1">
+              </div>
+              <div class="ctrl-group">
+                <div class="ctrl-label">② 거리 d = 1 ÷ p<span class="val" id="b-rec-dv">1.0 pc</span></div>
+                <input type="range" id="b-rec-d" min="0.5" max="10" step="0.1" value="1">
+              </div>
+              <button type="button" class="btn primary" id="b-rec-chk">판정받기</button>
+            </div>
+            <div class="info-card" id="b-rec-info"></div>
+          </div>
+          <p class="analog-strip">비유로 다시: <b>두 눈</b> = 1월·7월의 지구 · <b>손가락</b> = 별 · <b>칠판</b> = 먼 배경별 · <b>튄 각의 절반</b> = 연주 시차</p>
+          <div class="mission" id="m2-r"><span class="m-tag">미션</span>두 장의 사진만으로 별까지의 거리를 정하세요.<ul><li id="m2-ra">두 방향선이 만나는 곳에서 별 찾기</li><li id="m2-rb">연주 시차(± 0.01″)와 거리(± 0.1 pc) 맞히기</li></ul></div>
         </section>
 
         <section class="scene" data-title="두 번째 자 — 밝기로 재는 거리">
@@ -436,6 +498,8 @@
 
 <button class="theme-toggle" id="themeToggle">라이트 모드</button>
 <script src="../assets/theme.js"></script>
+<script src="../assets/scope.js"></script>
+<script src="../assets/kit.js"></script>
 <script src="../assets/story.js"></script>
 <script src="../assets/quiz.js"></script>
 <script src="../assets/lab.js"></script>
@@ -444,6 +508,7 @@
 <script src="../assets/account.js"></script>
 <script src="episodes.js"></script>
 <script src="worked.js"></script>
+<script src="handoff.js"></script>
 <script src="quiz-items.js"></script>
 <script src="../assets/review.js"></script>
 <script src="../assets/peer.js"></script>
