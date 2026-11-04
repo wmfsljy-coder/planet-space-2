@@ -1258,7 +1258,7 @@ function playWire(id, on, label) {
     draw(); mission();
   })();
 
-  /* ---- 장면4 쌍성 질량 ---- */
+  /* ---- 장면4 쌍성 질량 (우주 디오라마: 유리 진열장 안에서 서로 도는 두 별) ---- */
   (function () {
     var canvas = $("c-c-binary"), ctx = window.setupCanvas(canvas), W = canvas._w, H = canvas._h;
     var msum = 1, cm = 50, got = window.sthState("cBin") || { a: false, b: false };
@@ -1266,43 +1266,135 @@ function playWire(id, on, label) {
     var TRUE_SUM = Math.pow(A_AU, 3) / Math.pow(P_YR, 2);          /* 3.09 */
     var TRUE_CM = 33.12;
 
-    var phi = 0.6, bplay = playWire("c-bplay", !SK.REDUCE, ["공전 멈추기", "공전 돌리기"]);
+    var phi = -0.6, bplay = playWire("c-bplay", !SK.REDUCE, ["공전 멈추기", "공전 돌리기"]);
+    /* 진열장: 바닥 L×D, 높이 ZT. 두 별은 높이 HZ 의 수평면(궤도면)에서 돈다 */
+    var DH = 420, I = SK.iso({ ox: 560, oy: 186, s: 0.66, L: 300, D: 300 }), L = I.L, D = I.D, ZT = 220, HZ = 120;
+    var CX = L / 2, CY = D / 2, SPAN = 145, BOX = [0, W];
+    var SKY = (function () { var R = SK.rng(83), a = [], i; for (i = 0; i < 70; i++) a.push([R(), R(), R()]); return a; })();
+    function P(x, y, z) { return I.P(x, y, z); }
+    function poly(pts, fill, stroke, lw) {
+      ctx.beginPath(); pts.forEach(function (p, i) { if (i) ctx.lineTo(p.x, p.y); else ctx.moveTo(p.x, p.y); }); ctx.closePath();
+      if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+      if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = lw || 1; ctx.stroke(); }
+    }
+    function seg(a, b) { ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+    function ring(r, z, col, w, dash) {
+      ctx.save(); if (dash) ctx.setLineDash(dash); ctx.strokeStyle = col; ctx.lineWidth = w || 1.4; ctx.beginPath();
+      for (var t = 0; t <= 64; t++) { var a = t / 64 * 6.2832, p = P(CX + r * Math.cos(a), CY + r * Math.sin(a), z); if (t) ctx.lineTo(p.x, p.y); else ctx.moveTo(p.x, p.y); }
+      ctx.stroke(); ctx.restore();
+    }
+    function cabinet() {
+      SK.studio(ctx, 0, 0, W, DH, { x: P(L, D, 0).x - 160, y: P(L, D, -16).y - 6, rx: 300, ry: 46 });
+      /* 받침대 */
+      I.box(ctx, -8, -8, -16, L + 8, D + 8, 0, "#2b303c", "#1b1f28", "#12151c");
+      /* 뒷벽 두 장: 어두운 우주와 먼 별 */
+      var g1 = ctx.createLinearGradient(0, P(0, 0, ZT).y, 0, P(0, D, 0).y); g1.addColorStop(0, "#070a1c"); g1.addColorStop(1, "#141a3a");
+      poly([P(0, 0, 0), P(0, D, 0), P(0, D, ZT), P(0, 0, ZT)], g1);
+      poly([P(0, 0, 0), P(L, 0, 0), P(L, 0, ZT), P(0, 0, ZT)], g1);
+      SKY.forEach(function (s, i) {
+        var p = i % 2 ? P(0, s[0] * D, s[1] * ZT) : P(s[0] * L, 0, s[1] * ZT), z = s[2] > .8 ? 2 : 1.3;
+        ctx.fillStyle = "rgba(230,236,255," + (0.35 + s[2] * 0.55).toFixed(2) + ")"; ctx.fillRect(p.x, p.y, z, z);
+      });
+      /* 바닥: 궤도면을 내려다본 눈금판 */
+      poly([P(0, 0, 0), P(L, 0, 0), P(L, D, 0), P(0, D, 0)], "#0d1230");
+      ctx.strokeStyle = "rgba(140,160,255,.13)"; ctx.lineWidth = 1;
+      for (var k = 25; k < L; k += 25) { seg(P(k, 0, 0), P(k, D, 0)); seg(P(0, k, 0), P(L, k, 0)); }
+    }
+    function glass() {
+      poly([P(0, D, 0), P(L, D, 0), P(L, D, ZT), P(0, D, ZT)], "rgba(200,225,255,.07)");
+      poly([P(L, 0, 0), P(L, D, 0), P(L, D, ZT), P(L, 0, ZT)], "rgba(190,215,255,.11)");
+      poly([P(0, 0, ZT), P(L, 0, ZT), P(L, D, ZT), P(0, D, ZT)], "rgba(225,238,255,.06)");
+      /* 비스듬한 반사 줄 */
+      ctx.save(); poly([P(0, D, 0), P(L, D, 0), P(L, D, ZT), P(0, D, ZT)]); ctx.clip();
+      var q = P(L * .2, D, ZT), r = P(L * .45, D, 0), gg = ctx.createLinearGradient(q.x, q.y, r.x + 60, r.y);
+      gg.addColorStop(0, "rgba(255,255,255,0)"); gg.addColorStop(.45, "rgba(255,255,255,.10)"); gg.addColorStop(.55, "rgba(255,255,255,0)");
+      ctx.fillStyle = gg; ctx.fillRect(0, 0, W, DH); ctx.restore();
+      /* 모서리: 뒤 기둥은 흐리게, 보이는 모서리는 밝게 */
+      ctx.strokeStyle = "rgba(255,255,255,.12)"; ctx.lineWidth = 1; seg(P(0, 0, 0), P(0, 0, ZT));
+      ctx.strokeStyle = "rgba(255,255,255,.8)"; ctx.lineWidth = 1.3;
+      [[P(0, D, 0), P(0, D, ZT)], [P(L, D, 0), P(L, D, ZT)], [P(L, 0, 0), P(L, 0, ZT)],
+       [P(0, 0, ZT), P(L, 0, ZT)], [P(L, 0, ZT), P(L, D, ZT)], [P(L, D, ZT), P(0, D, ZT)], [P(0, D, ZT), P(0, 0, ZT)],
+       [P(0, D, 0), P(L, D, 0)], [P(L, D, 0), P(L, 0, 0)]].forEach(function (e) { seg(e[0], e[1]); });
+    }
+    function starAt(s) {
+      var fl = P(s.x, s.y, 0), p = P(s.x, s.y, HZ), col = tRGB(s.T), pool = ctx.createRadialGradient(fl.x, fl.y, 0, fl.x, fl.y, s.r * 3.4);
+      pool.addColorStop(0, rgba(col, .35)); pool.addColorStop(1, rgba(col, 0));
+      ctx.save(); ctx.translate(fl.x, fl.y); ctx.scale(1, .5); ctx.translate(-fl.x, -fl.y);
+      ctx.fillStyle = pool; ctx.beginPath(); ctx.arc(fl.x, fl.y, s.r * 3.4, 0, 6.2832); ctx.fill(); ctx.restore();
+      SK.line(ctx, fl, p, "rgba(220,230,255,.35)", 1, [2, 3]);
+      starT(ctx, p.x, p.y, s.r, s.T, 4.2);
+      return p;
+    }
+    function lever(x0, y0, f, mA, mB) {
+      SK.t(ctx, "지렛대로 보면", x0, y0, { s: 11.5, c: SC.mute, w: "800" });
+      var xa = x0 + 14, xb = x0 + 184, yb = y0 + 66, xf = xa + (xb - xa) * f;
+      SK.line(ctx, { x: xa, y: yb }, { x: xb, y: yb }, "rgba(220,230,255,.75)", 3);
+      ctx.fillStyle = SC.yellow; ctx.beginPath(); ctx.moveTo(xf, yb + 2); ctx.lineTo(xf - 9, yb + 18); ctx.lineTo(xf + 9, yb + 18); ctx.closePath(); ctx.fill();
+      var tot = Math.max(mA + mB, 0.01), ra = 5 + 13 * Math.sqrt(mA / tot), rb = 5 + 13 * Math.sqrt(mB / tot);
+      SK.planet(ctx, xa, yb - ra - 2, ra, "#9ad0ff", "#1d4f8a");
+      SK.planet(ctx, xb, yb - rb - 2, rb, "#d9c8ff", "#4b358f");
+      SK.t(ctx, "A", xa, yb + 34, { s: 12, a: "center", c: SC.blue, w: "900" });
+      SK.t(ctx, "B", xb, yb + 34, { s: 12, a: "center", c: SC.violet, w: "900" });
+      SK.t(ctx, "▲ 받침점 = 질량 중심", x0 + 99, yb + 54, { s: 11, a: "center", c: SC.yellow, w: "800" });
+    }
     function paint() {
       var f = cm / 100, mA = msum * (1 - f), mB = msum * f;
       var okA = Math.abs(msum - TRUE_SUM) <= 0.12, okB = Math.abs(cm - TRUE_CM) <= 1.5;
       ctx.clearRect(0, 0, W, H);
-      SK.stage(ctx, 0, 0, W, H, "space", { seed: 71, title: "시리우스 A·B — 서로 도는 두 별" });
-      /* 관측 자료 */
-      SK.t(ctx, "관측 자료", 22, 70, { s: 12, c: SC.mute, w: "800" });
-      SK.t(ctx, "궤도 장반경 a = 19.8 AU", 22, 94, { s: 13, w: "700" });
-      SK.t(ctx, "공전 주기 P = 50.1 년", 22, 116, { s: 13, w: "700" });
-      SK.pill(ctx, "M₁ + M₂ = a³ / P²", 22, 152, { s: 14, c: SC.blue });
-      SK.t(ctx, "= 19.8³ / 50.1² = " + TRUE_SUM.toFixed(2), 22, 182, { s: 12.5, c: SC.mute, w: "700" });
-      /* 궤도 */
-      var ox = 610, oy = 168, span = 150, c = Math.cos(phi), sn = Math.sin(phi);
-      var A = { x: ox - span * f * c, y: oy - span * f * .55 * sn }, Bp = { x: ox + span * (1 - f) * c, y: oy + span * (1 - f) * .55 * sn };
-      ctx.strokeStyle = "rgba(127,211,255,.4)"; ctx.setLineDash([4, 4]); ctx.lineWidth = 1.4;
-      ctx.beginPath(); ctx.ellipse(ox, oy, Math.max(span * f, 1), Math.max(span * f * .55, 1), 0, 0, 6.2832); ctx.stroke();
-      ctx.strokeStyle = "rgba(182,156,255,.45)";
-      ctx.beginPath(); ctx.ellipse(ox, oy, span * (1 - f), span * (1 - f) * .55, 0, 0, 6.2832); ctx.stroke(); ctx.setLineDash([]);
-      SK.line(ctx, A, Bp, "rgba(220,230,255,.35)", 1.2);
+      /* ── 위: 우주 진열장 ── */
+      cabinet();
+      var c = Math.cos(phi), sn = Math.sin(phi), rA = Math.max(SPAN * f, 1), rB = Math.max(SPAN * (1 - f), 1);
+      var sA = { x: CX - rA * c, y: CY - rA * sn, r: 9, T: 9900 }, sB = { x: CX + rB * c, y: CY + rB * sn, r: 3.4, T: 25000 };
+      /* 궤도 그림자(바닥)와 궤도(궤도면) */
+      ring(rA, 0, "rgba(127,211,255,.2)", 1, [3, 4]); ring(rB, 0, "rgba(182,156,255,.2)", 1, [3, 4]);
+      ctx.save(); ctx.beginPath();
+      for (var t2 = 0; t2 <= 64; t2++) { var a2 = t2 / 64 * 6.2832, q2 = P(CX + Math.max(rA, rB) * Math.cos(a2), CY + Math.max(rA, rB) * Math.sin(a2), HZ); if (t2) ctx.lineTo(q2.x, q2.y); else ctx.moveTo(q2.x, q2.y); }
+      ctx.fillStyle = "rgba(140,160,255,.07)"; ctx.fill(); ctx.restore();
+      ring(rA, HZ, "rgba(127,211,255,.65)", 1.5, [5, 4]); ring(rB, HZ, "rgba(182,156,255,.65)", 1.5, [5, 4]);
+      /* 질량 중심: 바닥 고리 + 기둥 */
+      var cmF = P(CX, CY, 0), cmP = P(CX, CY, HZ);
+      SK.line(ctx, cmF, cmP, "rgba(255,211,107,.55)", 1.2, [2, 3]);
+      ctx.save(); ctx.translate(cmF.x, cmF.y); ctx.scale(1, .5); ctx.strokeStyle = "rgba(255,211,107,.75)"; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(0, 0, 7, 0, 6.2832); ctx.stroke(); ctx.restore();
+      /* 먼 별부터 그린다 */
+      var pA, pB, aNear = (sA.x + sA.y) > (sB.x + sB.y);
+      if (aNear) pB = starAt(sB); else pA = starAt(sA);
+      SK.line(ctx, P(aNear ? sB.x : sA.x, aNear ? sB.y : sA.y, HZ), cmP, "rgba(220,230,255,.3)", 1.1);
       ctx.strokeStyle = SC.yellow; ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.moveTo(ox - 7, oy); ctx.lineTo(ox + 7, oy); ctx.moveTo(ox, oy - 7); ctx.lineTo(ox, oy + 7); ctx.stroke();
-      SK.line(ctx, { x: ox, y: oy + 9 }, { x: ox, y: oy + 94 }, "rgba(255,211,107,.45)", 1, [2, 3]);
-      SK.pill(ctx, "✚ 질량 중심", ox, oy + 112, { s: 11, a: "center", c: SC.yellow });
-      starT(ctx, A.x, A.y, 9, 9900, 4.2);
-      starT(ctx, Bp.x, Bp.y, 3.2, 25000, 4);
-      SK.pill(ctx, "A", A.x, A.y - 18, { s: 12, a: "center", c: SC.blue });
-      SK.pill(ctx, "B", Bp.x, Bp.y - 14, { s: 11, a: "center", c: SC.violet });
-      SK.pill(ctx, "질량 중심에 가까운 쪽이 더 무겁고 덜 흔들립니다", ox, 56, { s: 11.5, a: "center", c: SC.mute });
-      /* 결과 */
-      var r1 = SK.pill(ctx, "질량 합 " + msum.toFixed(1) + " M☉", 22, 304, { s: 14, c: okA ? SC.green : SC.ink });
-      SK.t(ctx, okA ? "✅ 관측과 맞습니다" : "아직 맞지 않습니다", r1.x + r1.w + 10, 302, { s: 12.5, w: "800", c: okA ? SC.green : SC.red });
-      var r2 = SK.pill(ctx, "질량 중심 " + cm + "%", 22, 334, { s: 14, c: okB ? SC.green : SC.ink });
-      SK.t(ctx, okB ? "✅ A가 B의 약 2배 무겁습니다" : "관측된 흔들림 폭과 맞춰 보세요", r2.x + r2.w + 10, 332, { s: 12.5, w: "800", c: okB ? SC.green : SC.red });
-      if (okA && okB) SK.pill(ctx, "시리우스 A = " + mA.toFixed(2) + " M☉   ·   시리우스 B = " + mB.toFixed(2) + " M☉", 22, 370, { s: 15, c: SC.violet });
-      else SK.t(ctx, "두 조건을 모두 맞추면 각 별의 질량이 나옵니다", 22, 368, { s: 12, c: SC.mute, w: "600" });
-      SK.t(ctx, "질량 × 질량 중심까지의 거리는 양쪽이 같습니다 (지렛대 원리)", W - 16, H - 10, { s: 11, a: "right", c: SC.mute, w: "600" });
+      ctx.beginPath(); ctx.moveTo(cmP.x - 7, cmP.y); ctx.lineTo(cmP.x + 7, cmP.y); ctx.moveTo(cmP.x, cmP.y - 7); ctx.lineTo(cmP.x, cmP.y + 7); ctx.stroke();
+      SK.line(ctx, cmP, P(aNear ? sA.x : sB.x, aNear ? sA.y : sB.y, HZ), "rgba(220,230,255,.3)", 1.1);
+      if (aNear) pA = starAt(sA); else pB = starAt(sB);
+      glass();
+      SK.pill(ctx, "A", pA.x, pA.y - 18, { s: 12, a: "center", c: SC.blue, box: BOX });
+      SK.pill(ctx, "B", pB.x, pB.y - 13, { s: 11, a: "center", c: SC.violet, box: BOX });
+      I.label(ctx, CX, CY, 0, "✚ 질량 중심 (두 별이 함께 도는 점)", -205, 70, "#ffd36b", BOX);
+      I.label(ctx, L, 40, HZ, "궤도면 — 두 별은 같은 주기로 돕니다", 64, -62, "#e8ecff", BOX);
+      I.label(ctx, L - 30, D, -8, "바닥 = 궤도를 내려다본 그림자", 40, 22, "#c9d2f0", BOX);
+      /* 큰 제목 */
+      var h1, h2;
+      if (okA && okB) { h1 = "시리우스를 저울에 달았다"; h2 = "A " + mA.toFixed(2) + " M☉ · B " + mB.toFixed(2) + " M☉"; }
+      else if (okA) { h1 = "합은 맞췄다"; h2 = "이제 질량 중심의 자리를 찾을 차례"; }
+      else if (okB) { h1 = "비율은 맞췄다"; h2 = "이제 궤도 크기와 주기로 합을"; }
+      else { h1 = "보이지 않는 저울"; h2 = "두 별은 한 점을 함께 돈다"; }
+      SK.bigText(ctx, h1, 22, 50, 28, "#ffffff"); SK.bigText(ctx, h2, 22, 84, 17, "#ffd36b");
+      SK.warn(ctx, W - 14, 28, "⚠ 별 크기는 과장 · 궤도는 원으로 단순화 (실제는 찌그러진 타원)", "right");
+      SK.pill(ctx, "질량 중심에 가까운 쪽이 더 무겁고 덜 흔들립니다", 210, 400, { s: 11.5, a: "center", c: "#e8ecff", box: BOX });
+      /* ── 아래: 관측 자료와 결과 ── */
+      var y0 = DH + 8;
+      SK.stage(ctx, 0, y0, W, H - y0, "space", { seed: 71 });
+      SK.t(ctx, "관측 자료 · 시리우스 A·B", 22, y0 + 28, { s: 12, c: SC.mute, w: "800" });
+      SK.t(ctx, "궤도 장반경 a = 19.8 AU", 22, y0 + 54, { s: 13, w: "700" });
+      SK.t(ctx, "공전 주기 P = 50.1 년", 22, y0 + 78, { s: 13, w: "700" });
+      SK.pill(ctx, "M₁ + M₂ = a³ / P²", 22, y0 + 116, { s: 14, c: SC.blue });
+      SK.t(ctx, "= 19.8³ / 50.1² = " + TRUE_SUM.toFixed(2), 22, y0 + 146, { s: 12.5, c: SC.mute, w: "700" });
+      var rx = 280;
+      var r1 = SK.pill(ctx, "질량 합 " + msum.toFixed(1) + " M☉", rx, y0 + 44, { s: 14, c: okA ? SC.green : SC.ink });
+      SK.t(ctx, okA ? "✅ 관측과 맞습니다" : "아직 맞지 않습니다", r1.x + r1.w + 10, y0 + 42, { s: 12.5, w: "800", c: okA ? SC.green : SC.red });
+      var r2 = SK.pill(ctx, "질량 중심 " + cm + "%", rx, y0 + 80, { s: 14, c: okB ? SC.green : SC.ink });
+      SK.t(ctx, okB ? "✅ A가 B의 약 2배 무겁습니다" : "관측된 흔들림 폭과 맞춰 보세요", r2.x + r2.w + 10, y0 + 78, { s: 12.5, w: "800", c: okB ? SC.green : SC.red });
+      if (okA && okB) SK.pill(ctx, "A = " + mA.toFixed(2) + " M☉  ·  B = " + mB.toFixed(2) + " M☉", rx, y0 + 120, { s: 14, c: SC.violet });
+      else SK.t(ctx, "두 조건을 모두 맞추면 각 별의 질량이 나옵니다", rx, y0 + 118, { s: 12, c: SC.mute, w: "600" });
+      lever(676, y0 + 26, f, mA, mB);
+      SK.t(ctx, "질량 × 질량 중심까지의 거리는 양쪽이 같습니다 (지렛대 원리)", 280, H - 14, { s: 11, c: SC.mute, w: "600" });
     }
     function draw() {
       paint();

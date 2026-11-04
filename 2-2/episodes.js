@@ -424,71 +424,154 @@ function msAt(mass) {
       return m;
     })();
 
-    function draw() {
+    /* ---- 우주 진열장(아이소메트릭 유리 상자) — 은하 원반은 상자 가운데 높이(z = 0)에 눕힌다 ---- */
+    /* 구상 성단의 높이(원반 위·아래)는 그림에만 쓰는 값이다. 헤일로 반지름 안에서 공 모양이 되게 정한다. */
+    var CZ = (function () {
+      var rnd = lcg(7301), out = [];
+      CLU.forEach(function (o) {
+        var dx = o.x - TRUE_C, dy = o.y, rr = Math.sqrt(dx * dx + dy * dy), zz = Math.sqrt(Math.max(0, 15.5 * 15.5 - rr * rr));
+        out.push((rnd() < 0.5 ? -1 : 1) * Math.max(1.2, zz * (0.2 + 0.75 * rnd())));
+      });
+      return out;
+    })();
+    var phase = 0, gplay = playWire("a-cen-play", !SK.REDUCE, ["은하 회전 멈추기", "은하 돌려 보기"]);
+    var CS = 0.866, IS = 0.42, OX = 470, OY = 125, BL = 640, ZT = 160, MH = 478;
+    var I = SK.iso({ ox: OX, oy: OY, s: IS, L: BL, D: BL });
+    function WX(kx) { return (kx + 8) * 20; }            /* 1 kpc = 20 그림 단위(가로) */
+    function WY(ky) { return (ky + 16) * 20; }
+    function P(kx, ky, kz) { return I.P(WX(kx), WY(ky), kz * 10); }   /* 높이는 1 kpc = 10 (반으로 줄임) */
+    function plane(z) { ctx.transform(CS * IS, .5 * IS, -CS * IS, .5 * IS, OX, OY - z * IS); }
+    function quad(a, b, c, d) { ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.lineTo(c.x, c.y); ctx.lineTo(d.x, d.y); ctx.closePath(); }
+    var BGS = (function () { var r = lcg(99), a = []; for (var i = 0; i < 170; i++) a.push([230 + r() * 480, 50 + r() * 420, r()]); return a; })();
+    var ORD = CLU.map(function (o, k) { return k; }).sort(function (a, b) { return (CLU[a].x + CLU[a].y) - (CLU[b].x + CLU[b].y); });
+
+    function paint() {
       ctx.clearRect(0, 0, W, H);
-      var SUN = { x: 130, y: 230 }, S = 10, LW = 452;
-      function PX(x) { return SUN.x + x * S; }
-      function PY(y) { return SUN.y - y * S; }
-      SK.stage(ctx, 0, 0, LW, H, "space", { seed: 45, title: "위에서 내려다본 우리은하 (1칸 = 5 kpc)" });
-      ctx.save(); ctx.beginPath(); ctx.roundRect(0, 0, LW, H, 14); ctx.clip();
-      ctx.strokeStyle = "rgba(160,175,255,.10)"; ctx.lineWidth = 1;
-      for (var gx = -5; gx <= 30; gx += 5) { ctx.beginPath(); ctx.moveTo(PX(gx), 50); ctx.lineTo(PX(gx), H); ctx.stroke(); }
-      for (var gy = -15; gy <= 20; gy += 5) { ctx.beginPath(); ctx.moveTo(0, PY(gy)); ctx.lineTo(LW, PY(gy)); ctx.stroke(); }
-      /* 내가 놓은 중심을 둘레로 한 원반과 나선팔 */
-      var ccx = PX(c0), ccy = PY(0);
-      var dg = ctx.createRadialGradient(ccx, ccy, 4, ccx, ccy, 140);
-      dg.addColorStop(0, "rgba(255,225,170,.55)"); dg.addColorStop(.25, "rgba(200,190,255,.18)"); dg.addColorStop(1, "rgba(150,150,255,0)");
-      ctx.fillStyle = dg; ctx.beginPath(); ctx.arc(ccx, ccy, 140, 0, 6.2832); ctx.fill();
+      var skew = TRUE_C - c0, okc = Math.abs(skew) <= 0.5;
+      var A = I.P(0, 0, -ZT), B = I.P(BL, 0, -ZT), Cc = I.P(BL, BL, -ZT), Dd = I.P(0, BL, -ZT);
+      var A2 = I.P(0, 0, ZT), B2 = I.P(BL, 0, ZT), C2 = I.P(BL, BL, ZT), D2 = I.P(0, BL, ZT);
+      SK.studio(ctx, 0, 0, W, MH, { x: Cc.x, y: Cc.y - 34, rx: 300, ry: 54 });
+      ctx.save(); ctx.beginPath(); ctx.roundRect(0, 0, W, MH, 14); ctx.clip();
+      /* 진열장 안쪽: 뒤쪽 세 면을 어두운 우주로 */
+      var bg = ctx.createLinearGradient(0, A2.y, 0, Cc.y); bg.addColorStop(0, "#0d1236"); bg.addColorStop(1, "#04061a");
+      ctx.fillStyle = bg; quad(A, B, B2, A2); ctx.fill(); quad(A, Dd, D2, A2); ctx.fill(); quad(A, B, Cc, Dd); ctx.fill();
+      ctx.save(); ctx.beginPath(); ctx.moveTo(A2.x, A2.y); ctx.lineTo(B2.x, B2.y); ctx.lineTo(B.x, B.y); ctx.lineTo(Cc.x, Cc.y); ctx.lineTo(Dd.x, Dd.y); ctx.lineTo(D2.x, D2.y); ctx.closePath(); ctx.clip();
+      BGS.forEach(function (s) { ctx.fillStyle = "rgba(220,230,255," + (0.18 + 0.5 * s[2]).toFixed(2) + ")"; ctx.fillRect(s[0], s[1], s[2] > .85 ? 1.8 : 1.1, s[2] > .85 ? 1.8 : 1.1); });
+      ctx.restore();
+      ctx.strokeStyle = "rgba(255,255,255,.16)"; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(A.x, A.y); ctx.lineTo(B.x, B.y); ctx.moveTo(A.x, A.y); ctx.lineTo(Dd.x, Dd.y); ctx.moveTo(A.x, A.y); ctx.lineTo(A2.x, A2.y); ctx.stroke();
+      /* 구상 성단 하나: 원반까지 내린 점선 기둥과 빛나는 공 */
+      function cluster(k) {
+        var o = CLU[k], z = CZ[k], p = P(o.x, o.y, z), q = P(o.x, o.y, 0), up = z > 0;
+        ctx.strokeStyle = up ? "rgba(255,226,170,.42)" : "rgba(255,226,170,.22)"; ctx.lineWidth = 1; ctx.setLineDash([2, 3]);
+        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke(); ctx.setLineDash([]);
+        SK.glow(ctx, p.x, p.y, up ? 2.8 : 2.2, up ? "rgba(255,226,170,.95)" : "rgba(230,200,150,.7)", 3);
+      }
+      /* 원반 아래의 구상 성단(원반 너머로 비쳐 보임) */
+      ORD.forEach(function (k) { if (CZ[k] < 0) cluster(k); });
+      /* 은하 원반(z = 0): 내가 놓은 중심을 둘레로 그린다 */
+      var cx = WX(c0), cy = WY(0);
+      ctx.save(); plane(0);
+      ctx.beginPath(); ctx.rect(0, 0, BL, BL); ctx.clip();
+      ctx.fillStyle = "rgba(120,140,255,.06)"; ctx.fillRect(0, 0, BL, BL);
+      ctx.strokeStyle = "rgba(170,190,255,.18)"; ctx.lineWidth = 2.6;
+      for (var g = 0; g <= BL + 1; g += 80) { ctx.beginPath(); ctx.moveTo(g, 0); ctx.lineTo(g, BL); ctx.moveTo(0, g); ctx.lineTo(BL, g); ctx.stroke(); }
+      var dg = ctx.createRadialGradient(cx, cy, 6, cx, cy, 290);
+      dg.addColorStop(0, "rgba(255,225,170,.6)"); dg.addColorStop(.2, "rgba(200,190,255,.22)"); dg.addColorStop(1, "rgba(150,150,255,0)");
+      ctx.fillStyle = dg; ctx.beginPath(); ctx.arc(cx, cy, 290, 0, 6.2832); ctx.fill();
       var b = Math.tan(pit * Math.PI / 180);
       for (var arm = 0; arm < 2; arm++) {
-        for (var th2 = 0; th2 < 5.2; th2 += 0.05) {
-          var r = 0.9 * Math.exp(b * th2);
-          if (r > 13) break;
-          var ang = th2 + arm * Math.PI, ax = PX(c0 + r * Math.cos(ang)), ay = PY(r * Math.sin(ang));
-          var ag = ctx.createRadialGradient(ax, ay, 0, ax, ay, 9);
-          ag.addColorStop(0, "rgba(150,210,255,.30)"); ag.addColorStop(1, "rgba(150,210,255,0)");
-          ctx.fillStyle = ag; ctx.beginPath(); ctx.arc(ax, ay, 9, 0, 6.2832); ctx.fill();
+        for (var th2 = 0, r = 0.9; th2 < 30 && r <= 12.5; th2 += Math.min(0.1, 0.55 / r)) {            /* 원반 끝(약 12 kpc)까지 */
+          r = 0.9 * Math.exp(b * th2);
+          var ang = th2 + arm * Math.PI + phase, ax = cx + r * 20 * Math.cos(ang), ay = cy + r * 20 * Math.sin(ang);
+          var ag = ctx.createRadialGradient(ax, ay, 0, ax, ay, 24);
+          ag.addColorStop(0, "rgba(150,210,255,.34)"); ag.addColorStop(1, "rgba(150,210,255,0)");
+          ctx.fillStyle = ag; ctx.beginPath(); ctx.arc(ax, ay, 24, 0, 6.2832); ctx.fill();
         }
       }
-      SK.glow(ctx, ccx, ccy, 6, "rgba(255,230,190,.9)", 3.4);
+      CLU.forEach(function (o) { ctx.fillStyle = "rgba(255,226,170,.30)"; ctx.beginPath(); ctx.arc(WX(o.x), WY(o.y), 5, 0, 6.2832); ctx.fill(); });
+      ctx.strokeStyle = SC.violet; ctx.lineWidth = 6; ctx.beginPath(); ctx.arc(cx, cy, 22, 0, 6.2832); ctx.stroke();
+      /* 궁수자리 방향 화살표 */
+      ctx.strokeStyle = "rgba(200,210,255,.7)"; ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(BL - 110, WY(0)); ctx.lineTo(BL - 14, WY(0)); ctx.stroke();
+      ctx.fillStyle = "rgba(200,210,255,.85)"; ctx.beginPath(); ctx.moveTo(BL - 2, WY(0)); ctx.lineTo(BL - 26, WY(0) - 13); ctx.lineTo(BL - 26, WY(0) + 13); ctx.closePath(); ctx.fill();
+      /* 쏠림 화살표: 내가 놓은 중심 → 성단들이 몰린 쪽 */
+      if (!okc) {
+        var tx = WX(TRUE_C), dir = skew > 0 ? 1 : -1;
+        ctx.strokeStyle = SC.yellow; ctx.lineWidth = 7; ctx.beginPath(); ctx.moveTo(cx + dir * 26, cy); ctx.lineTo(tx - dir * 24, cy); ctx.stroke();
+        ctx.fillStyle = SC.yellow; ctx.beginPath(); ctx.moveTo(tx - dir * 4, cy); ctx.lineTo(tx - dir * 30, cy - 15); ctx.lineTo(tx - dir * 30, cy + 15); ctx.closePath(); ctx.fill();
+      }
       ctx.restore();
-      /* 구상 성단 */
-      CLU.forEach(function (o) { SK.glow(ctx, PX(o.x), PY(o.y), 2.6, "rgba(255,226,170,.95)", 3); });
-      /* 태양 */
-      SK.sun(ctx, SUN.x, SUN.y, 4);
-      SK.pill(ctx, "태양", SUN.x, SUN.y + 26, { s: 11, a: "center", c: SC.yellow });
-      /* 내가 놓은 중심 */
-      ctx.strokeStyle = SC.violet; ctx.lineWidth = 2.5;
-      ctx.beginPath(); ctx.arc(ccx, ccy, 11, 0, 6.2832); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(ccx - 16, ccy); ctx.lineTo(ccx + 16, ccy); ctx.moveTo(ccx, ccy - 16); ctx.lineTo(ccx, ccy + 16); ctx.stroke();
-      SK.pill(ctx, "내가 놓은 중심", clamp(ccx, 90, 380), ccy - 22, { s: 11, a: "center", c: SC.violet, box: [0, LW] });
-      SK.pill(ctx, "● 구상 성단", 16, H - 14, { s: 11, c: "#ffe2aa" });
-      SK.pill(ctx, "→ 궁수자리 방향", LW - 16, H - 14, { s: 11, a: "right", c: SC.mute });
+      /* 원반 한가운데 불룩한 부분(팽대부)과 태양 */
+      var cp = P(c0, 0, 0); SK.glow(ctx, cp.x, cp.y, 5, "rgba(255,230,190,.9)", 3.6);
+      var sp = P(0, 0, 0); SK.sun(ctx, sp.x, sp.y, 4.5);
+      /* 원반 위의 구상 성단 */
+      ORD.forEach(function (k) { if (CZ[k] >= 0) cluster(k); });
+      /* 내가 놓은 중심: 상자를 세로로 꿰뚫는 기둥 */
+      var cb = P(c0, 0, -16), ct = P(c0, 0, 16);
+      ctx.strokeStyle = SC.violet; ctx.lineWidth = 2; ctx.setLineDash([6, 4]);
+      ctx.beginPath(); ctx.moveTo(cb.x, cb.y); ctx.lineTo(ct.x, ct.y); ctx.stroke(); ctx.setLineDash([]);
+      /* 앞쪽 유리 면과 모서리 */
+      ctx.fillStyle = "rgba(210,230,255,.07)"; quad(Dd, Cc, C2, D2); ctx.fill();
+      ctx.fillStyle = "rgba(210,230,255,.04)"; quad(B, Cc, C2, B2); ctx.fill();
+      ctx.fillStyle = "rgba(255,255,255,.035)"; quad(A2, B2, C2, D2); ctx.fill();
+      var gl = ctx.createLinearGradient(D2.x, D2.y, C2.x, Cc.y); gl.addColorStop(0, "rgba(255,255,255,.10)"); gl.addColorStop(.35, "rgba(255,255,255,0)");
+      ctx.fillStyle = gl; quad(Dd, Cc, C2, D2); ctx.fill();
+      ctx.strokeStyle = "rgba(255,255,255,.8)"; ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(A2.x, A2.y); ctx.lineTo(B2.x, B2.y); ctx.lineTo(C2.x, C2.y); ctx.lineTo(D2.x, D2.y); ctx.closePath();
+      ctx.moveTo(D2.x, D2.y); ctx.lineTo(Dd.x, Dd.y); ctx.lineTo(Cc.x, Cc.y); ctx.lineTo(B.x, B.y); ctx.lineTo(B2.x, B2.y);
+      ctx.moveTo(C2.x, C2.y); ctx.lineTo(Cc.x, Cc.y);
+      ctx.stroke();
+      ctx.restore();
+      /* 이름표 */
+      var box = [0, W];
+      I.label(ctx, WX(0), WY(0), 0, "태양", -54, 40, "#ffd36b", box);
+      I.label(ctx, WX(c0), WY(0), 160, "내가 놓은 중심 " + c0.toFixed(1) + " kpc", 36, -24, "#d9c8ff", box);
+      var dk = Math.min(c0 + 9, 22);
+      I.label(ctx, WX(dk), WY(9), 0, "원반의 나선팔", -60, 42, "#bfe2ff", box);
+      I.label(ctx, WX(24), WY(0), 0, "궁수자리 방향", 46, 34, "#e8ecff", box);
+      var rk = 0, rx0 = -1;
+      CLU.forEach(function (o, k) { var p = P(o.x, o.y, CZ[k]); if (CZ[k] > 0 && p.x > rx0) { rx0 = p.x; rk = k; } });
+      var rp = P(CLU[rk].x, CLU[rk].y, CZ[rk]);
+      I.label(ctx, WX(CLU[rk].x), WY(CLU[rk].y), CZ[rk] * 10, "구상 성단 (헤일로)", 744 - rp.x, 262 - rp.y, "#ffe2aa", box);
+      if (!okc) { var mp = P((c0 + TRUE_C) / 2, 0, 0); SK.pill(ctx, "성단들이 몰린 쪽", mp.x, mp.y + 26, { s: 11, a: "center", c: SC.yellow, box: box }); }
+      /* 큰 제목 */
+      if (c0 < 0.25) { SK.bigText(ctx, "태양을 중심에 두면", 22, 52, 28, "#ffffff"); SK.bigText(ctx, "공들이 한쪽으로 몰려 있다", 22, 86, 19, "#ffd35a"); }
+      else if (okc) { SK.bigText(ctx, "공들이 고르게 둘러쌌다", 22, 52, 28, "#ffd35a"); SK.bigText(ctx, "은하 중심은 태양에서 약 " + c0.toFixed(1) + " kpc", 22, 86, 19, "#ffffff"); }
+      else if (skew > 0) { SK.bigText(ctx, "아직 한쪽으로 쏠려 있다", 22, 52, 28, "#ffffff"); SK.bigText(ctx, "중심 후보 " + c0.toFixed(1) + " kpc · 쏠림 " + skew.toFixed(1) + " kpc", 22, 86, 19, "#ffd35a"); }
+      else { SK.bigText(ctx, "중심을 너무 멀리 밀었다", 22, 52, 28, "#ffffff"); SK.bigText(ctx, "중심 후보 " + c0.toFixed(1) + " kpc · 반대로 " + (-skew).toFixed(1) + " kpc", 22, 86, 19, "#ff9aac"); }
+      SK.warn(ctx, W - 14, 30, "⚠ 별·성단 크기 과장 · 위아래 두께는 반으로 줄임", "right");
+      SK.pill(ctx, "● 구상 성단 (원반 위·아래)", 16, MH - 58, { s: 11, c: "#ffe2aa" });
+      SK.pill(ctx, "▦ 은하 원반 · 1칸 = 4 kpc", 16, MH - 30, { s: 11, c: "#bfe2ff" });
 
-      /* 오른쪽 — 치우침 */
-      var RX = LW + 8, rx = RX + 18, skew = 8.0 - c0;
-      SK.stage(ctx, RX, 0, W - RX, H, "night", { seed: 49, title: "내가 놓은 중심에서 본 성단들의 치우침" });
-      var bx = rx, bw = W - 18 - rx, by = 70, mid = bx + bw / 2;
+      /* 아래 — 치우침 읽음판 */
+      var y0 = MH + 8, rx = 18;
+      SK.stage(ctx, 0, y0, W, H - y0, "night", { seed: 49, title: "내가 놓은 중심에서 본 성단들의 치우침" });
+      var bx = rx, bw = 420, by = y0 + 60, mid = bx + bw / 2;
       ctx.fillStyle = "rgba(255,255,255,.06)"; ctx.beginPath(); ctx.roundRect(bx, by, bw, 30, 10); ctx.fill();
       SK.line(ctx, { x: mid, y: by - 6 }, { x: mid, y: by + 36 }, SC.mute, 1.2, [3, 3]);
-      var wpx = clamp(skew * 17, -bw / 2 + 4, bw / 2 - 4), okc = Math.abs(skew) <= 0.5, bc = okc ? SC.green : SC.red;
+      var wpx = clamp(skew * 17, -bw / 2 + 4, bw / 2 - 4), bc = okc ? SC.green : SC.red;
       ctx.save(); ctx.shadowColor = bc; ctx.shadowBlur = 10; ctx.fillStyle = bc;
       ctx.beginPath(); ctx.roundRect(wpx < 0 ? mid + wpx : mid, by + 6, Math.max(Math.abs(wpx), 2), 18, 6); ctx.fill(); ctx.restore();
       SK.t(ctx, "0", mid, by + 50, { s: 10.5, c: SC.mute, a: "center", w: "600" });
       SK.t(ctx, Math.abs(skew).toFixed(1) + " kpc " + (okc ? "— 고르게 퍼졌습니다" : (skew > 0 ? "— 성단들이 아직 앞쪽에 쏠려 있습니다" : "— 중심을 너무 멀리 밀었습니다")),
-        rx, by + 78, { s: 14, w: "900", c: bc });
-      SK.line(ctx, { x: rx, y: 178 }, { x: W - 18, y: 178 }, SC.line, 1);
-      SK.t(ctx, "구상 성단 " + CLU.length + "개 · 헤일로 반지름 약 " + RMAX.toFixed(0) + " kpc", rx, 206, { s: 13, w: "800" });
-      SK.t(ctx, "→ 헤일로 지름 약 " + (RMAX * 2).toFixed(0) + " kpc ≈ " + Math.round(RMAX * 2 * 0.3262) + "만 광년", rx, 230, { s: 13, w: "800", c: SC.blue });
-      SK.t(ctx, "나선팔 피치각 " + pit + "°", rx, 266, { s: 13, w: "800", c: SC.ink });
-      SK.t(ctx, pit < 12 ? "촘촘하게 감긴 나선" : (pit > 20 ? "느슨하게 열린 나선" : "우리은하와 비슷하게 감긴 나선(약 12°)"), rx, 288, { s: 12, c: SC.mute, w: "700" });
-      SK.t(ctx, "산개 성단과 성간 물질은 이 얇은 원반에,", rx, 330, { s: 12, c: SC.mute, w: "600" });
-      SK.t(ctx, "구상 성단은 원반을 감싼 공 모양 헤일로에 있습니다.", rx, 352, { s: 12, c: SC.mute, w: "600" });
+        rx, by + 80, { s: 14, w: "900", c: bc });
+      var qx = 470;
+      SK.t(ctx, "구상 성단 " + CLU.length + "개 · 헤일로 반지름 약 " + RMAX.toFixed(0) + " kpc", qx, y0 + 62, { s: 13, w: "800" });
+      SK.t(ctx, "→ 헤일로 지름 약 " + (RMAX * 2).toFixed(0) + " kpc ≈ " + Math.round(RMAX * 2 * 0.3262) + "만 광년", qx, y0 + 86, { s: 13, w: "800", c: SC.blue });
+      SK.t(ctx, "나선팔 피치각 " + pit + "° · " + (pit < 12 ? "촘촘하게 감긴 나선" : (pit > 20 ? "느슨하게 열린 나선" : "우리은하와 비슷하게 감긴 나선(약 12°)")), qx, y0 + 116, { s: 12.5, w: "800", c: SC.ink });
+      SK.t(ctx, "산개 성단과 성간 물질은 이 얇은 원반에,", qx, y0 + 148, { s: 12, c: SC.mute, w: "600" });
+      SK.t(ctx, "구상 성단은 원반을 감싼 공 모양 헤일로에 있습니다.", qx, y0 + 170, { s: 12, c: SC.mute, w: "600" });
+    }
 
+    function draw() {
+      paint();
+      var skew = TRUE_C - c0;
       if (Math.abs(skew) <= 0.5 && !got.a) { got.a = true; window.sthState("aCen", got); mission(); }
       $("a-cen-info").innerHTML = "성단들이 <b>어느 한 점을 중심으로 고르게</b> 퍼져 있다면, 그 점이 은하의 중심입니다. 태양을 중심에 두면 성단이 한쪽으로 쏠려 보이지만, 중심을 궁수자리 쪽으로 밀수록 쏠림이 줄어듭니다." +
         (got.a ? " <b>태양은 은하 중심에서 약 8 kpc(2만 6천 광년) 떨어진 변두리에 있습니다.</b>" : "");
     }
+    SK.animate(canvas, function (dt) { if (gplay.on) { phase -= dt / 1000 * 0.16; paint(); } }, 24);
     function mission() {
       if (got.a) done("m1-5a"); if (got.b) done("m1-5b");
       if (got.a && got.b) {
