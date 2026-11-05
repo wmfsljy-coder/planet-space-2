@@ -16,20 +16,35 @@ var Z_MAX = 0; ZRD.forEach(function (v, i) { if (v > ZRD[Z_MAX]) Z_MAX = i; });
 var Z_RAT = ZRD.length ? ZRD[Z_MAX] / ZRD[Z_MIN] : 3;
 var SRC_Z = "<small>출처: 기상청 날씨누리 과거 관측 일별 자료, 창원(155) 1991 ~ 2020년 달마다 비가 0.1 mm 이상 온 날의 비율. 공개 일별 자료에는 구름의 양이 없어, 비 온 날로 ‘흐린 밤’을 어림했습니다. 사본은 data/cw155.js.</small>";
 
+/* 스튜디오 말투 그림 도구(../assets/kit.js) */
+var K = window.sthKit, LT = K.LT;
+function bigT(ctx, a, b) { K.bigText(ctx, a, 22, 42, 24, "#ffffff"); if (b) K.bigText(ctx, b, 22, 70, 15, "#ffd35a"); }
+function jcard(ctx, x, y, w, h, title, rows, tip) {
+  K.card(ctx, x, y, w, h, title);
+  var yy = y + 62;
+  rows.forEach(function (r) {
+    if (r[3]) { K.t(ctx, r[0], x + 18, yy, { s: 12, w: "700", c: LT.mute }); K.t(ctx, r[1], x + 18, yy + 28, { s: 24, w: "900", c: r[2] || LT.ink }); yy += 50; }
+    else { K.row(ctx, r[0], r[1], x + 18, x + w - 18, yy, r[2]); yy += 28; }
+  });
+  if (tip) K.tip(ctx, tip, x + 12, y + h - 46, w - 24, null);
+}
+function ball(ctx, x, y, r, c) {
+  var g = ctx.createRadialGradient(x - r * .35, y - r * .4, r * .06, x, y, r); g.addColorStop(0, "#ffffff"); g.addColorStop(.32, c); g.addColorStop(1, "rgba(20,25,40,.85)");
+  ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.fill();
+}
 function hrd(H, ctx, W, CH, mark, col) {
   H.paper(ctx, W, CH);
-  var x0 = 60, x1 = 600, y0 = 20, y1 = CH - 36;
-  function X(bv) { return x0 + (bv + 0.4) / 2.4 * (x1 - x0); }
-  function Y(m) { return y0 + (m + 6) / 22 * (y1 - y0); }                 /* 위가 밝음 */
-  H.axes(ctx, x0, y0, x1, y1);
-  [-5, 0, 5, 10, 15].forEach(function (m) { H.text(ctx, m, x0 - 6, Y(m) + 4, { s: 10, a: "right", c: H.v("--mist") }); });
-  [0, 0.5, 1, 1.5].forEach(function (b) { H.text(ctx, b.toFixed(1), X(b), y1 + 15, { s: 10, a: "center", c: H.v("--mist") }); });
-  H.text(ctx, "← 파랗고 뜨거움    색지수 B−V    붉고 차가움 →", (x0 + x1) / 2, y1 + 30, { s: 10.5, w: "700", a: "center", c: H.v("--mist") });
-  H.text(ctx, "절대 등급(위로 갈수록 밝음)", x0 + 6, y1 - 8, { s: 10.5, w: "700", c: H.v("--mist") });
-  ctx.save(); ctx.globalAlpha = 0.5;
-  HR.rows.forEach(function (r) { if (r[0] < -0.4 || r[0] > 2 || r[1] < -6 || r[1] > 16) return; ctx.fillStyle = r[0] < 0.3 ? "#5b8fd9" : (r[0] < 0.8 ? "#e0b030" : "#d9653b"); ctx.fillRect(X(r[0]) - 1, Y(r[1]) - 1, 2.2, 2.2); });
+  var g = K.chart(ctx, { x: 8, y: 84, w: 604, h: CH - 92, x0: -0.4, x1: 2.0, y0: 16, y1: -6, xt: 6, yt: 11, light: true,
+    xf: function (b) { return b.toFixed(1); }, yf: function (m) { return Math.round(m) % 4 === 0 ? String(Math.round(m)) : ""; },
+    xl: "← 파랗고 뜨거움 · 색지수 B−V · 붉고 차가움 →", yl: "절대 등급 (위가 밝음)" });
+  function X(bv) { return g.X(bv); }
+  function Y(m) { return g.Y(m); }
+  ctx.save(); ctx.globalAlpha = 0.55;
+  HR.rows.forEach(function (r) { if (r[0] < -0.4 || r[0] > 2 || r[1] < -6 || r[1] > 16) return; ctx.fillStyle = r[0] < 0.3 ? "#3b7fd9" : (r[0] < 0.8 ? "#d9a020" : "#d0552b"); ctx.fillRect(X(r[0]) - 1, Y(r[1]) - 1, 2.2, 2.2); });
   ctx.restore();
-  if (mark) { H.dot(ctx, X(mark[0]), Y(mark[1]), 7, H.v(col || "--ink")); }
+  K.pill(ctx, "주계열", X(1.25), Y(9.5), { s: 11, a: "center", c: K.C.ink, box: [g.L, g.R] });
+  K.pill(ctx, "거성", X(1.55), Y(-1.2), { s: 11, a: "center", c: K.C.orange, box: [g.L, g.R] });
+  if (mark) { ball(ctx, X(mark[0]), Y(mark[1]), 8, col || "rgb(18,32,58)"); ctx.strokeStyle = col || LT.ink; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(X(mark[0]), Y(mark[1]), 13, 0, 6.2832); ctx.stroke(); }
   return { X: X, Y: Y };
 }
 
@@ -48,10 +63,11 @@ window.sthLab({
     },
     task: "거리 = 1 ÷ p(″), 절대 등급 = V + 5 + 5 log p(″). 두 값을 슬라이더로 맞추세요(거리 ± 0.5 pc, 등급 ± 0.2).",
     build: function (stage, api) {
-      var H = api.h, cv = api.canvas(320), ctx = cv.ctx, W = cv.W, d = 5, m = 5;
+      var H = api.h, cv = api.canvas(360), ctx = cv.ctx, W = cv.W, d = 5, m = 5;
       function draw() {
-        hrd(H, ctx, W, cv.H, [ARC[4], m], "--ink");
-        H.rows(ctx, 640, 40, [["겉보기 등급 V", ARC[2]], ["연주 시차", ARC[3] + " mas"], ["내 답 거리", d.toFixed(1) + " pc", null, true], ["내 답 절대 등급", m.toFixed(2), null, true]], 56);
+        hrd(H, ctx, W, cv.H, [ARC[4], m], "rgb(232,89,12)");
+        bigT(ctx, "거리 " + d.toFixed(1) + " pc · 절대 등급 " + m.toFixed(2), "아크투루스 · V = " + ARC[2] + " · 연주 시차 " + ARC[3] + " mas");
+        jcard(ctx, 622, 14, 264, cv.H - 28, "판정 · 히파르코스 실측값", [["겉보기 등급 V", String(ARC[2])], ["연주 시차", ARC[3] + " mas"], ["내 답 거리", d.toFixed(1) + " pc", LT.blue, true], ["내 답 절대 등급", m.toFixed(2), LT.orange, true]], "1 mas = 0.001″ · 거리 = 1 ÷ p(″)");
       }
       cv.canvas._redraw = draw;
       api.slider({ label: "거리", min: 1, max: 30, step: 0.1, value: 5, fmt: function (x) { return x.toFixed(1) + " pc"; }, onInput: function (x) { d = x; api.changed(); draw(); } });
@@ -82,11 +98,12 @@ window.sthLab({
     },
     task: "색지수와 절대 등급 슬라이더로 점을 태양의 자리에 놓으세요(색 ± 0.08, 등급 ± 0.5).",
     build: function (stage, api) {
-      var H = api.h, cv = api.canvas(320), ctx = cv.ctx, W = cv.W, b = 1.5, m = -3;
+      var H = api.h, cv = api.canvas(360), ctx = cv.ctx, W = cv.W, b = 1.5, m = -3;
       function draw() {
-        hrd(H, ctx, W, cv.H, [b, m], "--green-700");
+        hrd(H, ctx, W, cv.H, [b, m], "rgb(15,159,118)");
         var brighter = HR.rows.filter(function (r) { return r[1] < m; }).length;
-        H.rows(ctx, 640, 50, [["점의 색지수", b.toFixed(2), null, true], ["점의 절대 등급", m.toFixed(1), null, true], ["이 점보다 밝은 별", (brighter / HR.rows.length * 100).toFixed(0) + " %"]], 60);
+        bigT(ctx, "점의 자리 · B−V " + b.toFixed(2) + " · M " + m.toFixed(1), "태양: B−V 0.65 · 절대 등급 4.83");
+        jcard(ctx, 622, 14, 264, cv.H - 28, "판정 · 실제 별 " + HR.rows.length.toLocaleString() + "개", [["점의 색지수", b.toFixed(2), LT.green, true], ["점의 절대 등급", m.toFixed(1), LT.green, true], ["이 점보다 밝은 별", (brighter / HR.rows.length * 100).toFixed(0) + " %"]], "가로는 색(온도), 세로는 밝기");
       }
       cv.canvas._redraw = draw;
       api.slider({ label: "색지수 B−V", min: -0.3, max: 2, step: 0.01, value: 1.5, fmt: function (x) { return x.toFixed(2); }, onInput: function (x) { b = x; api.changed(); draw(); } });
@@ -116,19 +133,26 @@ window.sthLab({
     },
     task: "<b>비 온 날 비율이 가장 높은 달 ÷ 가장 낮은 달</b>을 슬라이더로 맞추세요(± 0.2 배).",
     build: function (stage, api) {
-      var H = api.h, cv = api.canvas(270), ctx = cv.ctx, W = cv.W, k = 1;
-      var x0 = 50, x1 = 640, y0 = 24, y1 = 230, bw = (x1 - x0) / 12;
-      function Y(v) { return y1 - v / 55 * (y1 - y0); }
+      var H = api.h, cv = api.canvas(320), ctx = cv.ctx, W = cv.W, k = 1;
       function draw() {
-        H.paper(ctx, W, cv.H); H.axes(ctx, x0, y0, x1, y1);
-        [0, 20, 40].forEach(function (v) { H.text(ctx, v + "%", x0 - 8, Y(v) + 4, { s: 10, a: "right", c: H.v("--mist") }); if (v) H.dash(ctx, x0, Y(v), x1, Y(v), H.v("--line"), 0.5); });
-        ZRD.forEach(function (v, i) {
-          var cx = x0 + i * bw, col = i === Z_MAX ? H.v("--coral-700") : i === Z_MIN ? H.v("--green-700") : H.v("--brand");
-          H.box(ctx, cx + 6, Y(v), bw - 12, y1 - Y(v), col, 0.85);
-          H.text(ctx, v.toFixed(0), cx + bw / 2, Y(v) - 5, { s: 11, w: "800", a: "center" });
-          H.text(ctx, (i + 1) + "월", cx + bw / 2, y1 + 15, { s: 10, a: "center", c: H.v("--mist") });
+        H.paper(ctx, W, cv.H);
+        bigT(ctx, "가장 잦은 달 ÷ 가장 드문 달 = " + k.toFixed(1) + " 배", "창원 1991~2020년 · 달마다 비 온 날의 비율");
+        var g = K.chart(ctx, { x: 8, y: 84, w: 620, h: cv.H - 92, x0: 0, x1: 12, y0: 0, y1: 55, xt: 12, yt: 0, light: true,
+          xf: function () { return ""; }, yf: function () { return ""; } });
+        [20, 40].forEach(function (v2) { K.line(ctx, { x: g.L, y: g.Y(v2) }, { x: g.R, y: g.Y(v2) }, "rgba(20,40,90,.12)", 1, [4, 4]); K.t(ctx, v2 + "%", g.L - 6, g.Y(v2) + 4, { s: 10, a: "right", c: LT.mute, w: "700" }); });
+        var bw = (g.R - g.L) / 12;
+        ZRD.forEach(function (v2, i) {
+          var x = g.L + i * bw + 7, w = bw - 18, top = g.Y(v2), dep = 6;
+          var col = i === Z_MAX ? ["#ff8a7a", "#e03131", "#a51d1d"] : (i === Z_MIN ? ["#7fe0c0", "#0f9f76", "#0b7356"] : ["#9cc9f5", "#1c7ed6", "#135ea3"]);
+          /* 입체 막대: 앞면 + 옆면 + 윗면 */
+          ctx.fillStyle = col[2]; ctx.beginPath(); ctx.moveTo(x + w, top); ctx.lineTo(x + w + dep, top - dep); ctx.lineTo(x + w + dep, g.B - dep); ctx.lineTo(x + w, g.B); ctx.closePath(); ctx.fill();
+          ctx.fillStyle = col[0]; ctx.beginPath(); ctx.moveTo(x, top); ctx.lineTo(x + dep, top - dep); ctx.lineTo(x + w + dep, top - dep); ctx.lineTo(x + w, top); ctx.closePath(); ctx.fill();
+          var fg = ctx.createLinearGradient(x, 0, x + w, 0); fg.addColorStop(0, col[1]); fg.addColorStop(1, col[2]);
+          ctx.fillStyle = fg; ctx.fillRect(x, top, w, g.B - top);
+          K.t(ctx, v2.toFixed(0), x + w / 2, top - 10, { s: 11, w: "900", a: "center", c: LT.ink });
+          K.t(ctx, (i + 1) + "월", x + w / 2, g.B + 15, { s: 10, a: "center", c: LT.mute, w: "700" });
         });
-        H.rows(ctx, 680, 34, [["가장 잦은 달", (Z_MAX + 1) + "월 " + ZRD[Z_MAX].toFixed(1) + " %", "--coral-700"], ["가장 드문 달", (Z_MIN + 1) + "월 " + ZRD[Z_MIN].toFixed(1) + " %", "--green-700"], ["내 답", k.toFixed(1) + " 배", null, true]], 56);
+        jcard(ctx, 640, 14, 246, cv.H - 28, "판정 · 관측회 달 고르기", [["가장 잦은 달", (Z_MAX + 1) + "월 " + ZRD[Z_MAX].toFixed(1) + " %", LT.red], ["가장 드문 달", (Z_MIN + 1) + "월 " + ZRD[Z_MIN].toFixed(1) + " %", LT.green], ["내 답", k.toFixed(1) + " 배", LT.blue, true]], "비 온 날 비율 = 비 온 날 ÷ 날 수");
       }
       cv.canvas._redraw = draw;
       api.slider({ label: "가장 잦은 달 ÷ 가장 드문 달", min: 1, max: 6, step: 0.1, value: 1, fmt: function (x) { return x.toFixed(1) + " 배"; }, onInput: function (x) { k = x; api.changed(); draw(); } });

@@ -50,13 +50,14 @@
           <div class="story"><div class="who">🧔</div><div class="say"><span class="name"><span data-view="who:크리스토프 샤이너">샤이너 신부</span></span>“태양은 하늘의 천체요. 흠이 있을 리 없습니다. 저 얼룩은 태양 앞을 지나가는 <b>작은 천체들의 그림자</b>일 겁니다. 태양에서 멀찍이 떨어진 곳에 있는 것이지요.”</div></div>
           <div class="story"><div class="who">👨‍🔬</div><div class="say"><span class="name">갈릴레이</span>“그렇다면 얼룩이 왜 가장자리에서만 납작해집니까? 관측 조수, 자네가 직접 재어 보게. 얼룩이 <b>태양 표면에 붙어 있는지</b> 아닌지.”</div></div>
           <div class="case-file"><b class="k">관측 기록</b> 얼룩은 약 2주에 걸쳐 원반을 가로지른다 &nbsp;|&nbsp; 가운데에서는 둥글고, 가장자리에서는 가늘고 길쭉하다 &nbsp;|&nbsp; 사라졌던 얼룩이 약 2주 뒤 반대쪽 가장자리에서 다시 나타나기도 한다</div>
+          <figure class="hero-art"><img src="img/sunspot-projection.webp" alt="나무 책상 위 놋쇠 망원경이 창밖의 태양을 향하고, 접안렌즈 뒤 이젤의 흰 종이에 둥근 태양 상이 비친다. 상의 가운데에는 작고 둥근 흑점 두세 개가, 가장자리 가까이에는 가늘게 찌그러진 흑점이 하나 있다. 책상 위에는 태양 원을 여러 개 그린 기록지와 깃펜, 잉크병이 놓여 있다." width="900" height="900" loading="lazy"><figcaption><b>태양을 직접 보지 않고, 종이에 비춰 날마다 그렸습니다</b> 망원경으로 태양을 맨눈으로 보면 눈을 다칩니다. 갈릴레이 무렵의 관측자들은 망원경 뒤에 흰 종이를 두고 비친 태양 상을 날마다 옮겨 그렸습니다. 가운데에서 둥글던 흑점이 가장자리에서 가늘어지는 모습이 이 그림들에 남아 있습니다. <span class="art-note">⚠ 망원경·종이의 크기와 거리는 실제 비율이 아닙니다.</span></figcaption></figure>
           <div class="gate loose" id="a-gate"></div>
         </section>
 
         <section class="scene" data-title="흑점을 쫓아 — 태양은 몇 날에 한 바퀴 도나">
           <div class="story"><div class="who">👨‍🔬</div><div class="say"><span class="name">갈릴레이</span>“얼룩 하나를 골라 사라질 때까지 쫓은 뒤, 반대쪽에 다시 나타날 때까지 기다리게. 그러면 태양이 한 바퀴 도는 데 걸리는 날수가 나오지. <b>위도를 바꿔 가며</b> 여러 개를 재 보게.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="a-c-spot" width="900" height="380"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="a-c-spot" width="900" height="400"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">흑점이 있는 위도<span class="val" id="a-lat-val">0°</span></div>
@@ -76,7 +77,7 @@
         <section class="scene" data-title="온도가 파장을 정한다">
           <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">현대의 태양 관측자</span>“400년이 지나 우리는 태양을 여러 파장으로 봅니다. 그런데 <b>왜 층마다 다른 파장으로 봐야</b> 할까요? 온도가 답입니다. 뜨거울수록 가장 세게 내는 빛의 파장이 짧아집니다. 온도를 넣어 확인해 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="a-c-wien" width="900" height="360"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="a-c-wien" width="900" height="400"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">기체의 온도<span class="val" id="a-temp-val">3,000 K</span></div>
@@ -91,7 +92,7 @@
         <section class="scene" data-title="층마다 다른 얼굴">
           <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">현대의 태양 관측자</span>“파장을 바꾸면 보이는 층이 바뀌고, 층이 바뀌면 보이는 현상도 바뀝니다. 관측 목록에 있는 현상들을 어느 층의 것인지 나눠 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="a-c-layer" width="900" height="330"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="a-c-layer" width="900" height="380"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">망원경에 끼운 필터<span class="val" id="a-band-val">가시광</span></div>
@@ -135,6 +136,7 @@
           <div class="story narr"><div class="who">🌍</div><div class="say"><span class="name">이야기</span>지구가 태양 둘레를 돈다면, 반년 뒤 우리는 3억 km 떨어진 자리에서 같은 별을 보게 됩니다. 그러면 가까운 별은 먼 별들에 견주어 조금 옮겨 보여야 합니다. 그런데 300년 동안 아무도 그 움직임을 잡지 못했습니다.</div></div>
           <div class="story"><div class="who">🧑‍🔬</div><div class="say"><span class="name">베셀</span>“못 잡은 게 아니라 <b>너무 작아서</b> 못 잰 겁니다. 나는 하늘에서 가장 빨리 움직이는 별 하나를 골랐습니다. 빨리 움직인다는 건 가깝다는 뜻일 테니까요. <span data-view="sky:61 Cyg|0.3" data-ask="맨눈으로 겨우 보이는 이 가까운 별은 사진에서 특별히 밝아 보일까?">백조자리 61번 별</span>입니다. 8년을 쟀습니다.”</div></div>
           <div class="case-file"><b class="k">베셀의 결과(1838)</b> 백조자리 61의 <span data-view="law:연주 시차">연주 시차</span> <b>0.314초각</b> &nbsp;|&nbsp; 1초각은 1도의 3600분의 1 &nbsp;|&nbsp; 5 km 밖에 세운 100원짜리 동전이 이루는 각도쯤 됩니다</div>
+          <figure class="hero-art"><img src="img/parallax-orbit.webp" alt="검은 원형 받침대 위 한가운데에 노란 태양이 빛나고, 둘레의 가는 공전 궤도 양 끝에 지구 모형 두 개가 서로 반대편에 놓여 있다. 두 지구에서 뻗은 빛줄기가 궤도 바로 뒤 기둥 위의 작은 흰 별 하나에서 만나고, 그 뒤 검은 판에는 먼 배경별이 가득하다." width="900" height="900" loading="lazy"><figcaption><b>반년 사이 지구는 태양 반대편으로 옮겨 갑니다</b> 1월과 7월의 지구는 태양을 사이에 두고 약 3억 km 떨어져 있습니다. 두 자리에서 같은 가까운 별을 보면, 먼 배경별에 견주어 별의 방향이 조금 달라집니다. 그 각의 절반이 연주 시차입니다. <span class="art-note">⚠ 실제 연주 시차는 1초각도 안 됩니다. 그림에서는 각과 거리를 아주 크게 과장했습니다.</span></figcaption></figure>
           <div class="gate loose" id="b-gate"></div>
         </section>
 
@@ -218,7 +220,7 @@
         <section class="scene" data-title="두 번째 자 — 밝기로 재는 거리">
           <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“시차로는 가까운 별밖에 못 잽니다. 그래서 두 번째 자를 씁니다. 별이 <b>10 pc에 있다면 얼마나 밝을지(절대 등급 M)</b>를 알아낼 수 있다면, <b>실제로 보이는 밝기(겉보기 등급 m)</b>와 견주어 거리를 알 수 있어요. 거리를 옮겨 가며 관측값과 맞춰 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="b-c-mod" width="900" height="360"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="b-c-mod" width="900" height="420"></canvas></div>
             <div class="sim-side">
               <div class="readout" id="b-mod-read"></div>
               <div style="display:grid;gap:14px">
@@ -240,7 +242,7 @@
         <section class="scene" data-title="자에는 저마다 한계가 있다">
           <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“두 자 모두 한계가 있습니다. 시차는 <b>장비의 정밀도</b>가 정하지요. 별 다섯 개를 놓고, 장비를 바꿔 가며 몇 개까지 믿을 만하게 잴 수 있는지 보세요. 시차가 오차의 세 배는 되어야 쓸 만하다고 봅니다.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="b-c-lim" width="900" height="360"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="b-c-lim" width="900" height="420"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">측정 오차<span class="val" id="b-err-val">±0.0166초각</span></div>
@@ -290,7 +292,7 @@
         <section class="scene" data-title="단서 ① — 별은 어느 쪽으로 얼마나 빨리 가나">
           <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“별의 운동은 두 조각입니다. 우리 쪽으로 오거나 멀어지는 <b>시선속도</b>는 스펙트럼선의 치우침(<span data-view="law:도플러 효과">도플러</span>)으로 잽니다. 하늘을 가로지르는 <b>접선속도</b>는 고유 운동과 거리로 구합니다. <b>v<sub>t</sub> = 4.74 × 고유 운동(″/년) × 거리(pc)</b>예요. 접선속도를 맞혀 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="c-c-motion" width="900" height="380"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="c-c-motion" width="900" height="420"></canvas></div>
             <div class="sim-side">
               <div class="readout" id="c-motion-read"></div>
               <div style="display:grid;gap:14px">
@@ -313,7 +315,7 @@
         <section class="scene" data-title="단서 ② — 10만 년 뒤의 북두칠성">
           <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“별들이 저마다 다른 방향으로 간다면, <b>별자리 모양도 영원하지 않겠지요.</b> 시간을 앞뒤로 돌려 <span data-view="star:Dubhe" data-ask="북두칠성은 오늘 밤 북극성의 어느 쪽에 있을까?">북두칠성</span>을 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="c-c-dipper" width="900" height="360"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="c-c-dipper" width="900" height="400"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">지금으로부터<span class="val" id="c-yr-val">0년</span></div>
@@ -330,7 +332,7 @@
           <div class="story"><div class="who">🧑‍🔬</div><div class="say"><span class="name">베셀</span>“이제 본론입니다. 두 별이 서로 도는 <b>쌍성</b>이라면, 궤도의 크기와 주기만으로 <b>두 별의 질량 합</b>을 구할 수 있습니다. <span data-view="law:케플러의 행성운동법칙">케플러 제3법칙</span>을 태양계 밖으로 넓히면 <b>M₁ + M₂ = a³ / P²</b> 이지요. 그리고 두 별이 도는 중심(질량 중심)이 어디냐가 <b>질량의 비</b>를 알려 줍니다.”</div></div>
           <figure class="hero-art"><img src="img/binary-sirius.webp" alt="검은 받침대 위 투명한 유리 상자 안에 작은 우주를 담은 모형. 크고 밝은 푸른빛 별과 아주 작은 흰 별이 둘 사이의 한 점을 중심으로 점선 궤도를 따라 돌고, 그 점에서 바닥까지 노란 점선이 내려와 있다. 큰 별은 그 점 가까이 작은 궤도를, 작은 별은 멀리 큰 궤도를 돈다." width="900" height="900" loading="lazy"><figcaption><b>밤하늘에서 가장 밝은 별은 혼자 도는 것이 아닙니다</b> 시리우스 곁에는 맨눈으로는 보이지 않는 작은 짝별이 있고, 두 별은 둘 사이의 한 점을 중심으로 함께 돕니다. 19세기에 베셀은 시리우스가 하늘에서 곧게 나아가지 않고 물결치듯 흔들리는 것을 보고, 보이지 않는 짝이 끌어당기고 있다고 짐작했습니다. 두 별이 그리는 궤도의 크기와 주기만 재면, 저울에 올려 보지 않고도 별의 무게를 달 수 있습니다. <span class="art-note">⚠ 두 별의 크기와 궤도 크기는 실제 비율이 아닙니다.</span></figcaption></figure>
           <div class="stage-card">
-            <div class="canvas-wrap" style="background:#e4eaf1"><canvas id="c-c-binary" width="900" height="620"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="c-c-binary" width="900" height="620"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">내가 구한 두 별의 질량 합<span class="val" id="c-msum-val">1.0 M☉</span></div>
@@ -350,7 +352,7 @@
         <section class="scene" data-title="쌍성이 아닌 별은 어떻게 다나">
           <div class="story"><div class="who">👩‍🏫</div><div class="say"><span class="name">천문대 선생님</span>“질량을 직접 잴 수 있는 별은 <b>쌍성뿐</b>입니다. 그렇게 모은 쌍성 자료에서 규칙 하나가 나왔어요. 주계열성은 <b>무거울수록 훨씬 밝다</b>는 것. 대략 <b>L ∝ M<sup>3.5</sup></b>입니다. 이 다리를 놓으면 혼자 있는 별의 질량도 어림할 수 있지요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="c-c-ml" width="900" height="380"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="c-c-ml" width="900" height="420"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">주계열성의 질량<span class="val" id="c-m-val">1.0 M☉</span></div>
@@ -393,13 +395,14 @@
         <section class="scene" data-title="놀라운 별">
           <div class="story narr"><div class="who">🌟</div><div class="say"><span class="name">이야기</span>1596년, <span data-view="who:다비트 파브리치우스">파브리치우스</span>는 고래자리에서 밝은 별 하나를 기록했습니다. 몇 달 뒤 그 별은 <b>사라져 있었습니다</b>. 다시 몇 달이 지나자 같은 자리에 또 나타났습니다. 사람들은 그 별을 라틴어로 ‘놀라운 것’, <b><span data-view="star:Mira" data-ask="미라는 지금 맨눈으로 보일 만큼 밝을까?">미라</span></b>라고 불렀습니다.</div></div>
           <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">변광성 관측 동아리장</span>“밝기가 변하는 별을 변광성이라고 해요. 그런데 <b>변하는 까닭이 다 다릅니다.</b> 우리가 가진 건 시간에 따른 밝기 기록, 즉 <b>광도곡선</b>뿐이에요. 이 곡선의 모양만으로 무슨 일이 일어났는지 알아낼 수 있을까요?”</div></div>
+          <figure class="hero-art"><img src="img/mira-pulse.webp" alt="검은 받침대 위 유리 진열장 안에 크고 붉은 주황색 별 공이 떠 있고, 그 둘레에 별보다 조금 큰 점선 고리 두 개가 그려져 있다. 진열장 옆에는 오르내림을 되풀이하는 물결 모양의 주황색 띠 조형물이 서 있다." width="900" height="900" loading="lazy"><figcaption><b>어떤 별은 스스로 부풀었다 줄어들며 밝기가 바뀝니다</b> 미라 같은 맥동변광성은 별 자체가 커졌다 작아지기를 되풀이합니다. 그래서 밝기를 날마다 재어 이으면 오르내림이 되풀이되는 광도곡선이 그려집니다. 점선은 별이 부풀었을 때의 크기를 나타냅니다. <span class="art-note">⚠ 별의 크기 변화와 곡선 모양은 보기 쉽게 단순화했습니다.</span></figcaption></figure>
           <div class="gate loose" id="d-gate"></div>
         </section>
 
         <section class="scene" data-title="스스로 부풀었다 줄어드는 별">
           <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">동아리장</span>“첫 번째 무리는 <b>맥동변광성</b>이에요. 별이 실제로 부풀었다 줄어들기를 되풀이합니다. 규칙적으로요. 주기를 바꿔 가며 어떤 무리가 나오는지 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="d-c-puls" width="900" height="380"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="d-c-puls" width="900" height="420"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">변광 주기<span class="val" id="d-p-val">1.68일</span></div>
@@ -415,7 +418,7 @@
         <section class="scene" data-title="한 번에 터지는 별">
           <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">동아리장</span>“두 번째 무리는 <b>폭발 변광성</b>이에요. 갑자기 확 밝아졌다가 천천히 어두워지고, 되풀이하지 않거나 아주 드물게만 되풀이합니다. 등급이 5만큼 차이 나면 밝기는 100배 차이예요. 밝아진 정도를 조절해 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="d-c-burst" width="900" height="380"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="d-c-burst" width="900" height="420"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">최대일 때 밝아진 등급 차<span class="val" id="d-dm-val">0.0등급</span></div>
@@ -432,7 +435,7 @@
         <section class="scene" data-title="터지는 밝기가 늘 같다면">
           <div class="story"><div class="who">👩‍🔬</div><div class="say"><span class="name">동아리장</span>“Ia형 초신성은 특별해요. 백색왜성이 한계 질량을 넘는 순간 터지기 때문에 <b>최대 밝기가 거의 늘 같습니다.</b> 절대 등급 약 −19.3이에요. 밝기가 정해진 등불이니, 어둡게 보이면 그만큼 멀다는 뜻이지요. 이걸 <b>표준 촛불</b>이라고 합니다.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="d-c-candle" width="900" height="360"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="d-c-candle" width="900" height="420"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">관측한 은하<span class="val" id="d-gal-val">은하 가</span></div>

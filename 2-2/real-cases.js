@@ -9,17 +9,29 @@ var H0 = (function () { var a = 0, b = 0; P.forEach(function (r) { a += r[0] * r
 var AGE = 977.8 / H0;                                              /* 1/H₀ (십억 년), 1 km/s/Mpc → 977.8 Gyr */
 var SRC = "<small>출처: Pantheon+ Ia형 초신성 자료(Scolnic et al. 2022, ApJ 938, 113; Brout et al. 2022) — 적색 편이 0.01~0.08의 초신성 " + P.length + "개. 거리는 거리 지수(세페이드로 보정한 값)에서, 속도는 적색 편이 × 빛의 속력으로 구했습니다. 사본은 data/hubble-sn.js.</small>";
 
+/* 스튜디오 말투 그림 도구(../assets/kit.js) */
+var K = window.sthKit, LT = K.LT;
+function bigT(ctx, a, b) { K.bigText(ctx, a, 22, 42, 24, "#ffffff"); if (b) K.bigText(ctx, b, 22, 70, 15, "#ffd35a"); }
+function jcard(ctx, x, y, w, h, title, rows, tip) {
+  K.card(ctx, x, y, w, h, title);
+  var yy = y + 62;
+  rows.forEach(function (r) {
+    if (r[3]) { K.t(ctx, r[0], x + 18, yy, { s: 12, w: "700", c: LT.mute }); K.t(ctx, r[1], x + 18, yy + 28, { s: 24, w: "900", c: r[2] || LT.ink }); yy += 50; }
+    else { K.row(ctx, r[0], r[1], x + 18, x + w - 18, yy, r[2]); yy += 28; }
+  });
+  if (tip) K.tip(ctx, tip, x + 12, y + h - 46, w - 24, null);
+}
 function chart(H, ctx, W, CH, k) {
   H.paper(ctx, W, CH);
-  var x0 = 70, x1 = 620, y0 = 24, y1 = CH - 36;
-  function X(d) { return x0 + d / 420 * (x1 - x0); }
-  function Y(v) { return y1 - v / 25000 * (y1 - y0); }
-  H.axes(ctx, x0, y0, x1, y1);
-  [0, 5000, 10000, 15000, 20000, 25000].forEach(function (v) { H.text(ctx, v.toLocaleString(), x0 - 6, Y(v) + 4, { s: 10, a: "right", c: H.v("--mist") }); });
-  [0, 100, 200, 300, 400].forEach(function (d) { H.text(ctx, d + " Mpc", X(d), y1 + 15, { s: 10, a: "center", c: H.v("--mist") }); });
-  H.text(ctx, "후퇴 속도 (km/s)", x0 + 6, y0 - 8, { s: 11, w: "700", c: H.v("--mist") });
-  P.forEach(function (r) { H.dot(ctx, X(r[0]), Y(r[1]), 2.4, H.v("--brand")); });
-  if (k != null) H.line(ctx, [[X(0), Y(0)], [X(Math.min(420, 25000 / k)), Y(Math.min(25000, k * 420))]], H.v("--amber-700"), 2.5);
+  var g = K.chart(ctx, { x: 8, y: 84, w: 620, h: CH - 92, x0: 0, x1: 400, y0: 0, y1: 25000, xt: 4, yt: 5, light: true,
+    xf: function (d) { return Math.round(d) + " Mpc"; }, yf: function (v) { return Math.round(v).toLocaleString(); }, yl: "후퇴 속도 (km/s)" });
+  function X(d) { return g.X(d); }
+  function Y(v) { return g.Y(v); }
+  ctx.save(); ctx.beginPath(); ctx.rect(g.L, g.T, g.R - g.L, g.B - g.T); ctx.clip();
+  P.forEach(function (r) { ctx.fillStyle = "rgba(28,126,214,.75)"; ctx.beginPath(); ctx.arc(X(r[0]), Y(r[1]), 2.4, 0, 6.2832); ctx.fill(); });
+  if (k != null) K.plot(ctx, g, [[0, 0], [Math.min(400, 25000 / k), Math.min(25000, k * 400)]], LT.orange, { w: 3, light: true });
+  ctx.restore();
+  K.pill(ctx, "● 초신성이 있는 은하 " + P.length + "개", g.L + 10, g.T + 18, { s: 11, c: K.C.blue, box: [g.L, g.R] });
   return { X: X, Y: Y };
 }
 
@@ -38,11 +50,12 @@ window.sthLab({
     },
     task: "직선의 기울기(H₀, km/s/Mpc)를 바꿔 점들에 가장 잘 맞추세요(± 3).",
     build: function (stage, api) {
-      var H = api.h, cv = api.canvas(290), ctx = cv.ctx, W = cv.W, k = 40;
+      var H = api.h, cv = api.canvas(340), ctx = cv.ctx, W = cv.W, k = 40;
       function err(kk) { var s = 0; P.forEach(function (r) { var e = r[1] - kk * r[0]; s += e * e; }); return Math.sqrt(s / (P.length || 1)); }
       function draw() {
         chart(H, ctx, W, cv.H, k);
-        H.rows(ctx, 660, 50, [["내 H₀", k + " km/s/Mpc", null, true], ["점과 선의 평균 어긋남", Math.round(err(k)).toLocaleString() + " km/s"], ["초신성", P.length + " 개"]], 60);
+        bigT(ctx, "내 허블 상수 H₀ = " + k + " km/s/Mpc", "v = H₀ d · 원점을 지나는 직선을 점들에 맞추기");
+        jcard(ctx, 640, 14, 246, cv.H - 28, "판정 · Pantheon+ 실측값", [["내 H₀", k + " km/s/Mpc", LT.orange, true], ["점과 선의 평균 어긋남", Math.round(err(k)).toLocaleString() + " km/s"], ["초신성", P.length + " 개"]], "어긋남이 가장 작은 기울기");
       }
       cv.canvas._redraw = draw;
       api.slider({ label: "허블 상수 H₀", min: 30, max: 120, step: 1, value: 40, fmt: function (x) { return x + " km/s/Mpc"; }, onInput: function (x) { k = x; api.changed(); draw(); } });
@@ -72,10 +85,11 @@ window.sthLab({
     },
     task: "1 ÷ H₀를 초로 계산한 뒤 년으로 바꿔, 우주의 나이를 슬라이더로 맞추세요(± 0.7 십억 년).",
     build: function (stage, api) {
-      var H = api.h, cv = api.canvas(290), ctx = cv.ctx, W = cv.W, g = 5;
+      var H = api.h, cv = api.canvas(340), ctx = cv.ctx, W = cv.W, g = 5;
       function draw() {
         var p = chart(H, ctx, W, cv.H, H0);
-        H.rows(ctx, 660, 50, [["H₀", H0.toFixed(1) + " km/s/Mpc"], ["내 답", g.toFixed(1) + " 십억 년", null, true]], 60);
+        bigT(ctx, "우주의 나이 ≈ 1 ÷ H₀ = " + g.toFixed(1) + " 십억 년?", "H₀ = " + H0.toFixed(1) + " km/s/Mpc · 1 Mpc = 3.086 × 10¹⁹ km");
+        jcard(ctx, 640, 14, 246, cv.H - 28, "판정 · 허블 시간", [["H₀", H0.toFixed(1) + " km/s/Mpc"], ["내 답", g.toFixed(1) + " 십억 년", LT.blue, true]], "1년 = 3.156 × 10⁷ 초");
       }
       cv.canvas._redraw = draw;
       api.slider({ label: "우주의 나이", min: 1, max: 30, step: 0.1, value: 5, fmt: function (x) { return x.toFixed(1) + " 십억 년"; }, onInput: function (x) { g = x; api.changed(); draw(); } });
