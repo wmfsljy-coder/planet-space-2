@@ -57,7 +57,7 @@ window.sthLab({
         K.pill(ctx, "1월", cx - sh, cy - 16, { s: 11, a: "center", c: K.C.blue }); K.pill(ctx, "7월", cx + sh, cy - 16, { s: 11, a: "center", c: K.C.orange });
         K.t(ctx, "눈금 한 칸 = 0.1″ (각초) · 배경별은 그대로", x0, y0 + g * 6 + 18, { s: 11, w: "800", c: LT.mute });
         jcard(ctx, 500, 14, 386, cv.H - 28, "판정 · 거리(pc) = 1 ÷ 연주 시차(″)", [
-          ["내가 읽은 연주 시차", p.toFixed(2) + " ″", Math.abs(p - P) <= 0.01 ? LT.green : null],
+          ["내가 읽은 연주 시차", p.toFixed(2) + " ″", Math.abs(p - P) <= 0.01 + 1e-9 ? LT.green : null],
           ["거리 = 1 ÷ 연주 시차", (1 / p).toFixed(2) + " pc (계산)"],
           ["내가 정한 거리", d.toFixed(1) + " pc", LT.blue, true]
         ], "두 점 사이 = 반년 동안 옮겨 간 각 = 시차의 2배");
@@ -69,7 +69,7 @@ window.sthLab({
       draw();
       return {
         judge: function () {
-          if (Math.abs(p - P) > 0.01) return { ok: false, msg: "연주 시차 " + p.toFixed(2) + "″ — 사진의 두 점 사이 각의 절반을 다시 읽어 보세요." };
+          if (Math.abs(p - P) > 0.01 + 1e-9) return { ok: false, msg: "연주 시차 " + p.toFixed(2) + "″ — 사진의 두 점 사이 각의 절반을 다시 읽어 보세요." };
           if (Math.abs(d - 1 / P) > 0.25) return { ok: false, msg: "연주 시차는 맞았습니다. 거리 = 1 ÷ 연주 시차(pc)." };
           return { ok: true, msg: "연주 시차 0.25″ → 4 pc(약 13광년). 가장 가까운 별도 1″ 가 안 되는 아주 작은 각입니다." };
         }
